@@ -1,0 +1,153 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+		 
+	<ui:define name="content">		
+
+					
+		  			<h:form id="frm">								  		
+						
+						<p:panel id="panelDataTableGluoHistorialIndicador" header="GluoHistorialIndicadorData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{gluoHistorialIndicadorView.data}" var="gluoHistorialIndicador"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{gluoHistorialIndicador.hiinId}" sortBy="#{gluoHistorialIndicador.hiinId}" >
+										 <f:facet name="header">
+										<h:outputText value="hiinId"/>
+										</f:facet>
+										 <h:outputText value="#{gluoHistorialIndicador.hiinId}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{gluoHistorialIndicador.activo}" sortBy="#{gluoHistorialIndicador.activo}" >
+										 <f:facet name="header">
+										<h:outputText value="Activo"/>
+										</f:facet>
+										 <h:outputText value="#{gluoHistorialIndicador.activo}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoHistorialIndicador.fecha}" sortBy="#{gluoHistorialIndicador.fecha}" >
+										 <f:facet name="header">
+										<h:outputText value="Fecha"/>
+										</f:facet>
+										 <h:outputText value="#{gluoHistorialIndicador.fecha}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoHistorialIndicador.fechaCreacion}" sortBy="#{gluoHistorialIndicador.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{gluoHistorialIndicador.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoHistorialIndicador.fechaModificacion}" sortBy="#{gluoHistorialIndicador.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{gluoHistorialIndicador.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoHistorialIndicador.usuCreador}" sortBy="#{gluoHistorialIndicador.usuCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="UsuCreador"/>
+										</f:facet>
+										 <h:outputText value="#{gluoHistorialIndicador.usuCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoHistorialIndicador.usuModificador}" sortBy="#{gluoHistorialIndicador.usuModificador}" >
+										 <f:facet name="header">
+										<h:outputText value="UsuModificador"/>
+										</f:facet>
+										 <h:outputText value="#{gluoHistorialIndicador.usuModificador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoHistorialIndicador.valorReal}" sortBy="#{gluoHistorialIndicador.valorReal}" >
+										 <f:facet name="header">
+										<h:outputText value="ValorReal"/>
+										</f:facet>
+										 <h:outputText value="#{gluoHistorialIndicador.valorReal}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoHistorialIndicador.indiId_GluoIndicador}" sortBy="#{gluoHistorialIndicador.indiId_GluoIndicador}" >
+										 <f:facet name="header">
+										<h:outputText value="IndiId_GluoIndicador"/>
+										</f:facet>
+										 <h:outputText value="#{gluoHistorialIndicador.indiId_GluoIndicador}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogGluoHistorialIndicador"
+										actionListener="#{gluoHistorialIndicadorView.action_edit}">
+										<f:attribute name="selectedGluoHistorialIndicador" value="#{gluoHistorialIndicador}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{gluoHistorialIndicadorView.action_delete_datatable}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedGluoHistorialIndicador" value="#{gluoHistorialIndicador}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{gluoHistorialIndicadorView.action_new()}" update=":dialogGluoHistorialIndicador" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogGluoHistorialIndicador" appendTo="@(body)" draggable="true"
+						closable="false" visible="#{gluoHistorialIndicadorView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" />
+							<p:panel id="panelGluoHistorialIndicador" header="GluoHistorialIndicador">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgHiinId" value="HiinId"/>
+									 <p:inputText id="txtHiinId" binding="#{gluoHistorialIndicadorView.txtHiinId}">
+									 <p:ajax update=":dialogGluoHistorialIndicador" listener="#{gluoHistorialIndicadorView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgActivo" value=" Activo"/>
+									<p:inputText id="txtActivo" disabled="true" binding="#{gluoHistorialIndicadorView.txtActivo}"/>
+																		<h:outputText id="msgUsuCreador" value=" UsuCreador"/>
+									<p:inputText id="txtUsuCreador" disabled="true" binding="#{gluoHistorialIndicadorView.txtUsuCreador}"/>
+																		<h:outputText id="msgUsuModificador" value=" UsuModificador"/>
+									<p:inputText id="txtUsuModificador" disabled="true" binding="#{gluoHistorialIndicadorView.txtUsuModificador}"/>
+																		<h:outputText id="msgValorReal" value=" ValorReal"/>
+									<p:inputText id="txtValorReal" disabled="true" binding="#{gluoHistorialIndicadorView.txtValorReal}"/>
+																		<h:outputText id="msgIndiId_GluoIndicador" value=" IndiId_GluoIndicador"/>
+									<p:inputText id="txtIndiId_GluoIndicador" disabled="true" binding="#{gluoHistorialIndicadorView.txtIndiId_GluoIndicador}"/>
+																		
+																													<h:outputText id="msgFecha" value=" Fecha"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{gluoHistorialIndicadorView.txtFecha}" >
+										<p:ajax event="dateSelect" listener="#{gluoHistorialIndicadorView.listener_txtFecha}" />
+										</p:calendar>
+																				<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{gluoHistorialIndicadorView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{gluoHistorialIndicadorView.listener_txtFechaCreacion}" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{gluoHistorialIndicadorView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{gluoHistorialIndicadorView.listener_txtFechaModificacion}" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{gluoHistorialIndicadorView.btnSave}" value="Save" action="#{gluoHistorialIndicadorView.action_save()}" update=":dialogGluoHistorialIndicador :frm:panelDataTableGluoHistorialIndicador" />
+									<p:commandButton id="btnClear" value="Clear" action="#{gluoHistorialIndicadorView.action_clear()}" update=":dialogGluoHistorialIndicador" />
+									<p:commandButton id="btnExit" value="Exit" action="#{gluoHistorialIndicadorView.action_closeDialog()}" update=":dialogGluoHistorialIndicador" />
+								</div>
+				</p:panel>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
+

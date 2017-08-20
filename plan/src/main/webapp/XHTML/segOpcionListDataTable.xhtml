@@ -1,0 +1,132 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+		 
+	<ui:define name="content">		
+
+					
+		  			<h:form id="frm">								  		
+						
+						<p:panel id="panelDataTableSegOpcion" header="SegOpcionData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{segOpcionView.data}" var="segOpcion"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{segOpcion.opcnId}" sortBy="#{segOpcion.opcnId}" >
+										 <f:facet name="header">
+										<h:outputText value="opcnId"/>
+										</f:facet>
+										 <h:outputText value="#{segOpcion.opcnId}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{segOpcion.activo}" sortBy="#{segOpcion.activo}" >
+										 <f:facet name="header">
+										<h:outputText value="Activo"/>
+										</f:facet>
+										 <h:outputText value="#{segOpcion.activo}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{segOpcion.fechaCreacion}" sortBy="#{segOpcion.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{segOpcion.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{segOpcion.fechaModificacion}" sortBy="#{segOpcion.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{segOpcion.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{segOpcion.nombre}" sortBy="#{segOpcion.nombre}" >
+										 <f:facet name="header">
+										<h:outputText value="Nombre"/>
+										</f:facet>
+										 <h:outputText value="#{segOpcion.nombre}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{segOpcion.usuCreador}" sortBy="#{segOpcion.usuCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="UsuCreador"/>
+										</f:facet>
+										 <h:outputText value="#{segOpcion.usuCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{segOpcion.usuModificador}" sortBy="#{segOpcion.usuModificador}" >
+										 <f:facet name="header">
+										<h:outputText value="UsuModificador"/>
+										</f:facet>
+										 <h:outputText value="#{segOpcion.usuModificador}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogSegOpcion"
+										actionListener="#{segOpcionView.action_edit}">
+										<f:attribute name="selectedSegOpcion" value="#{segOpcion}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{segOpcionView.action_delete_datatable}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedSegOpcion" value="#{segOpcion}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{segOpcionView.action_new()}" update=":dialogSegOpcion" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogSegOpcion" appendTo="@(body)" draggable="true"
+						closable="false" visible="#{segOpcionView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" />
+							<p:panel id="panelSegOpcion" header="SegOpcion">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgOpcnId" value="OpcnId"/>
+									 <p:inputText id="txtOpcnId" binding="#{segOpcionView.txtOpcnId}">
+									 <p:ajax update=":dialogSegOpcion" listener="#{segOpcionView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgActivo" value=" Activo"/>
+									<p:inputText id="txtActivo" disabled="true" binding="#{segOpcionView.txtActivo}"/>
+																		<h:outputText id="msgNombre" value=" Nombre"/>
+									<p:inputText id="txtNombre" disabled="true" binding="#{segOpcionView.txtNombre}"/>
+																		<h:outputText id="msgUsuCreador" value=" UsuCreador"/>
+									<p:inputText id="txtUsuCreador" disabled="true" binding="#{segOpcionView.txtUsuCreador}"/>
+																		<h:outputText id="msgUsuModificador" value=" UsuModificador"/>
+									<p:inputText id="txtUsuModificador" disabled="true" binding="#{segOpcionView.txtUsuModificador}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{segOpcionView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{segOpcionView.listener_txtFechaCreacion}" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{segOpcionView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{segOpcionView.listener_txtFechaModificacion}" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{segOpcionView.btnSave}" value="Save" action="#{segOpcionView.action_save()}" update=":dialogSegOpcion :frm:panelDataTableSegOpcion" />
+									<p:commandButton id="btnClear" value="Clear" action="#{segOpcionView.action_clear()}" update=":dialogSegOpcion" />
+									<p:commandButton id="btnExit" value="Exit" action="#{segOpcionView.action_closeDialog()}" update=":dialogSegOpcion" />
+								</div>
+				</p:panel>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
+

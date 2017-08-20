@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 14, 2017 7:26:53 PM by Hibernate Tools 5.1.0.Final -->
+<hibernate-mapping>
+    <class name="com.vortexbird.gluon.plan.modelo.GluoTipoRecurso" table="gluo_tipo_recurso" schema="public" optimistic-lock="version">
+        <id name="tireId" type="java.lang.Integer">
+            <column name="tire_id" />
+            <generator class="identity" />
+        </id>
+        <property name="codigo" type="java.lang.String">
+            <column name="codigo" not-null="true" />
+        </property>
+        <property name="descripcion" type="java.lang.String">
+            <column name="descripcion" />
+        </property>
+        <property name="usuCreador" type="java.lang.Integer">
+            <column name="usu_creador" not-null="true" />
+        </property>
+        <property name="usuModificador" type="java.lang.Integer">
+            <column name="usu_modificador" />
+        </property>
+        <property name="fechaCreacion" type="java.util.Date">
+            <column name="fecha_creacion" length="29" not-null="true" />
+        </property>
+        <property name="fechaModificacion" type="java.util.Date">
+            <column name="fecha_modificacion" length="29" />
+        </property>
+        <property name="activo" type="java.lang.String">
+            <column name="activo" length="1" not-null="true" />
+        </property>
+        <set name="gluoDetallePresupuestos" table="gluo_detalle_presupuesto" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="tire_id" />
+            </key>
+            <one-to-many class="com.vortexbird.gluon.plan.modelo.GluoDetallePresupuesto" />
+        </set>
+    </class>
+</hibernate-mapping>

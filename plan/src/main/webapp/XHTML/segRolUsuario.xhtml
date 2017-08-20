@@ -1,0 +1,54 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+		 
+	<ui:define name="content">	
+			
+			
+			<h:form id="formDialog">
+				<p:messages id="msg" />
+				<p:growl id="men"/>
+					<p:panel id="panelSegRolUsuario" header="SegRolUsuario">							
+						<h:panelGrid columns="2" id="panelGrid" >
+												 	<h:outputText id="msgRlusId" value="RlusId"/>
+						 	<p:inputText id="txtRlusId" binding="#{segRolUsuarioView.txtRlusId}">
+						 		<p:ajax update="panelSegRolUsuario,msg,panelBotones" listener="#{segRolUsuarioView.listener_txtId}"/>
+						 	</p:inputText>	
+																		
+													<h:outputText id="msgActivo" value=" Activo"/>
+							<p:inputText id="txtActivo" disabled="true" binding="#{segRolUsuarioView.txtActivo}"/>
+													<h:outputText id="msgUsuCreador" value=" UsuCreador"/>
+							<p:inputText id="txtUsuCreador" disabled="true" binding="#{segRolUsuarioView.txtUsuCreador}"/>
+													<h:outputText id="msgUsuModificador" value=" UsuModificador"/>
+							<p:inputText id="txtUsuModificador" disabled="true" binding="#{segRolUsuarioView.txtUsuModificador}"/>
+													<h:outputText id="msgRolId_SegRol" value=" RolId_SegRol"/>
+							<p:inputText id="txtRolId_SegRol" disabled="true" binding="#{segRolUsuarioView.txtRolId_SegRol}"/>
+													<h:outputText id="msgUsuId_SegUsuario" value=" UsuId_SegUsuario"/>
+							<p:inputText id="txtUsuId_SegUsuario" disabled="true" binding="#{segRolUsuarioView.txtUsuId_SegUsuario}"/>
+												
+																				<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{segRolUsuarioView.txtFechaCreacion}" >
+								<p:ajax event="dateSelect" listener="#{segRolUsuarioView.listener_txtFechaCreacion}"  />
+							</p:calendar>
+														<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{segRolUsuarioView.txtFechaModificacion}" >
+								<p:ajax event="dateSelect" listener="#{segRolUsuarioView.listener_txtFechaModificacion}"  />
+							</p:calendar>
+																	   </h:panelGrid>
+				</p:panel>
+	   			<p:panel id="panelBotones">
+					<div align="center">					
+						<p:commandButton id="btnSave" binding="#{segRolUsuarioView.btnSave}" disabled="true" value="Save" action="#{segRolUsuarioView.action_save()}" update="panelSegRolUsuario, msg, panelBotones, men" />
+						<p:commandButton id="btnDelete" binding="#{segRolUsuarioView.btnDelete}" disabled="true" value="Delete" action="#{segRolUsuarioView.action_delete_master()}" onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}" update="panelSegRolUsuario, msg, panelBotones, men" />
+						<p:commandButton id="btnClear" value="Clear" action="#{segRolUsuarioView.action_clear()}" update="panelSegRolUsuario, msg, panelBotones, men" />
+					</div>
+				</p:panel>			
+			</h:form>
+			
+  </ui:define>
+</ui:composition>

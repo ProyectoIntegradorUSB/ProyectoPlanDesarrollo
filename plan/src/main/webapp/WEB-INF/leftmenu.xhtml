@@ -1,0 +1,125 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ps="http://primefaces.org/sentinel"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+    <div id="layout-menubar" class="Unselectable fontRegular">
+        <div class="layout-menubarinner-box" id="buttonArea">
+            <a href="#" id="layout-menubar-resize" class="BordRad3" title="Menu Resize"><i class="icon-th-list-2"></i></a>
+            <a href="#" id="layout-menubar-resize2" class="BordRad3" title="Open Menu"><i class="icon-menu"></i></a>
+        </div>
+
+        <div class="layout-menubarinner-box" id="searchArea">
+            <i class="icon-search floatLeft gray"></i>
+            <input type="text" class="layout-menubar-search floatLeft Animated05" placeholder="Search Here"/>
+        </div>
+        
+        <h:form id="menuform">
+            <ps:menu id="sm_leftmenu">
+                <p:menuitem id="sm_dashboard" value="Dashboard" icon="icon-home-outline" outcome="dashboard" containerStyleClass="layout-menubar-active"/>
+ 
+                <p:submenu id="sm_dp" label="Default Pages" icon="icon-pin-outline">
+                    <p:menuitem id="sm_empty" value="Empty Page" icon="icon-plus-squared-alt" outcome="empty-page"/>
+                    <p:menuitem id="sm_login" value="Login Page" icon="icon-login" outcome="login"/>
+                    <p:menuitem id="sm_error" value="Error Page" icon="icon-warning-empty" outcome="error" />
+                    <p:menuitem id="sm_404" value="404 Page" icon="icon-warning-empty" outcome="404"/>
+                    <p:menuitem id="sm_access" value="Access Denied Page" icon="icon-warning-empty" outcome="access-denied"/>
+                </p:submenu>
+              
+                <p:menuitem id="sm_fonts" value="Font Icons" icon="icon-book" outcome="font-icons.xhtml" />
+                
+                <p:submenu label="Master" icon="ui-icon-pencil">
+
+				<p:menuitem value="Master GluoAnoFiscal"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/gluoAnoFiscal.xhtml" />
+				<p:menuitem value="Master GluoDetallePresupuesto"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/gluoDetallePresupuesto.xhtml" />
+				<p:menuitem value="Master GluoDetalleProyecto"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/gluoDetalleProyecto.xhtml" />
+				<p:menuitem value="Master GluoDetalleProyectoXRubro"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/gluoDetalleProyectoXRubro.xhtml" />
+				<p:menuitem value="Master GluoHistorialIndicador"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/gluoHistorialIndicador.xhtml" />
+				<p:menuitem value="Master GluoIndicador"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/gluoIndicador.xhtml" />
+				<p:menuitem value="Master GluoObjetivo"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/gluoObjetivo.xhtml" />
+				<p:menuitem value="Master GluoPlanDesarrollo"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/gluoPlanDesarrollo.xhtml" />
+				<p:menuitem value="Master GluoPresupuesto"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/gluoPresupuesto.xhtml" />
+				<p:menuitem value="Master GluoPrograma"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/gluoPrograma.xhtml" />
+				<p:menuitem value="Master GluoProyecto"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/gluoProyecto.xhtml" />
+				<p:menuitem value="Master GluoSectorEjeDimension"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/gluoSectorEjeDimension.xhtml" />
+				<p:menuitem value="Master GluoSubprograma"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/gluoSubprograma.xhtml" />
+				<p:menuitem value="Master GluoTipoRecurso"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/gluoTipoRecurso.xhtml" />
+				<p:menuitem value="Master SegOpcion"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/segOpcion.xhtml" />
+				<p:menuitem value="Master SegPermiso"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/segPermiso.xhtml" />
+				<p:menuitem value="Master SegRol"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/segRol.xhtml" />
+				<p:menuitem value="Master SegRolUsuario"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/segRolUsuario.xhtml" />
+				<p:menuitem value="Master SegUsuario"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/segUsuario.xhtml" />
+				<p:menuitem value="Master MenuStep"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/menuStep.xhtml" />
+			</p:submenu>
+
+
+
+			<p:submenu label="Data Table" icon="ui-icon-document">
+				<p:menuitem value="GluoAnoFiscal"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/gluoAnoFiscalListDataTable.xhtml" />
+				<p:menuitem value="GluoDetallePresupuesto"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/gluoDetallePresupuestoListDataTable.xhtml" />
+				<p:menuitem value="GluoDetalleProyecto"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/gluoDetalleProyectoListDataTable.xhtml" />
+				<p:menuitem value="GluoDetalleProyectoXRubro"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/gluoDetalleProyectoXRubroListDataTable.xhtml" />
+				<p:menuitem value="GluoHistorialIndicador"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/gluoHistorialIndicadorListDataTable.xhtml" />
+				<p:menuitem value="GluoIndicador"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/gluoIndicadorListDataTable.xhtml" />
+				<p:menuitem value="GluoObjetivo"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/gluoObjetivoListDataTable.xhtml" />
+				<p:menuitem value="GluoPlanDesarrollo"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/gluoPlanDesarrolloListDataTable.xhtml" />
+				<p:menuitem value="GluoPresupuesto"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/gluoPresupuestoListDataTable.xhtml" />
+				<p:menuitem value="GluoPrograma"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/gluoProgramaListDataTable.xhtml" />
+				<p:menuitem value="GluoProyecto"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/gluoProyectoListDataTable.xhtml" />
+				<p:menuitem value="GluoSectorEjeDimension"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/gluoSectorEjeDimensionListDataTable.xhtml" />
+				<p:menuitem value="GluoSubprograma"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/gluoSubprogramaListDataTable.xhtml" />
+				<p:menuitem value="GluoTipoRecurso"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/gluoTipoRecursoListDataTable.xhtml" />
+				<p:menuitem value="SegOpcion"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/segOpcionListDataTable.xhtml" />
+				<p:menuitem value="SegPermiso"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/segPermisoListDataTable.xhtml" />
+				<p:menuitem value="SegRol"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/segRolListDataTable.xhtml" />
+				<p:menuitem value="SegRolUsuario"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/segRolUsuarioListDataTable.xhtml" />
+				<p:menuitem value="SegUsuario"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/segUsuarioListDataTable.xhtml" />
+			</p:submenu>
+          
+            </ps:menu>
+        </h:form>
+    </div>
+
+</ui:composition>

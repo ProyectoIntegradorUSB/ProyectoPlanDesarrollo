@@ -1,0 +1,168 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+		 
+	<ui:define name="content">		
+
+					
+		  			<h:form id="frm">								  		
+						
+						<p:panel id="panelDataTableGluoPresupuesto" header="GluoPresupuestoData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{gluoPresupuestoView.data}" var="gluoPresupuesto"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{gluoPresupuesto.pptoId}" sortBy="#{gluoPresupuesto.pptoId}" >
+										 <f:facet name="header">
+										<h:outputText value="pptoId"/>
+										</f:facet>
+										 <h:outputText value="#{gluoPresupuesto.pptoId}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{gluoPresupuesto.activo}" sortBy="#{gluoPresupuesto.activo}" >
+										 <f:facet name="header">
+										<h:outputText value="Activo"/>
+										</f:facet>
+										 <h:outputText value="#{gluoPresupuesto.activo}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoPresupuesto.aprobado}" sortBy="#{gluoPresupuesto.aprobado}" >
+										 <f:facet name="header">
+										<h:outputText value="Aprobado"/>
+										</f:facet>
+										 <h:outputText value="#{gluoPresupuesto.aprobado}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoPresupuesto.contabilizado}" sortBy="#{gluoPresupuesto.contabilizado}" >
+										 <f:facet name="header">
+										<h:outputText value="Contabilizado"/>
+										</f:facet>
+										 <h:outputText value="#{gluoPresupuesto.contabilizado}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoPresupuesto.fechaCreacion}" sortBy="#{gluoPresupuesto.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{gluoPresupuesto.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoPresupuesto.fechaModificacion}" sortBy="#{gluoPresupuesto.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{gluoPresupuesto.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoPresupuesto.tippId}" sortBy="#{gluoPresupuesto.tippId}" >
+										 <f:facet name="header">
+										<h:outputText value="TippId"/>
+										</f:facet>
+										 <h:outputText value="#{gluoPresupuesto.tippId}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoPresupuesto.usuAprobador}" sortBy="#{gluoPresupuesto.usuAprobador}" >
+										 <f:facet name="header">
+										<h:outputText value="UsuAprobador"/>
+										</f:facet>
+										 <h:outputText value="#{gluoPresupuesto.usuAprobador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoPresupuesto.usuCreador}" sortBy="#{gluoPresupuesto.usuCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="UsuCreador"/>
+										</f:facet>
+										 <h:outputText value="#{gluoPresupuesto.usuCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoPresupuesto.usuModificador}" sortBy="#{gluoPresupuesto.usuModificador}" >
+										 <f:facet name="header">
+										<h:outputText value="UsuModificador"/>
+										</f:facet>
+										 <h:outputText value="#{gluoPresupuesto.usuModificador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoPresupuesto.anofId_GluoAnoFiscal}" sortBy="#{gluoPresupuesto.anofId_GluoAnoFiscal}" >
+										 <f:facet name="header">
+										<h:outputText value="AnofId_GluoAnoFiscal"/>
+										</f:facet>
+										 <h:outputText value="#{gluoPresupuesto.anofId_GluoAnoFiscal}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogGluoPresupuesto"
+										actionListener="#{gluoPresupuestoView.action_edit}">
+										<f:attribute name="selectedGluoPresupuesto" value="#{gluoPresupuesto}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{gluoPresupuestoView.action_delete_datatable}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedGluoPresupuesto" value="#{gluoPresupuesto}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{gluoPresupuestoView.action_new()}" update=":dialogGluoPresupuesto" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogGluoPresupuesto" appendTo="@(body)" draggable="true"
+						closable="false" visible="#{gluoPresupuestoView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" />
+							<p:panel id="panelGluoPresupuesto" header="GluoPresupuesto">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgPptoId" value="PptoId"/>
+									 <p:inputText id="txtPptoId" binding="#{gluoPresupuestoView.txtPptoId}">
+									 <p:ajax update=":dialogGluoPresupuesto" listener="#{gluoPresupuestoView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgActivo" value=" Activo"/>
+									<p:inputText id="txtActivo" disabled="true" binding="#{gluoPresupuestoView.txtActivo}"/>
+																		<h:outputText id="msgAprobado" value=" Aprobado"/>
+									<p:inputText id="txtAprobado" disabled="true" binding="#{gluoPresupuestoView.txtAprobado}"/>
+																		<h:outputText id="msgContabilizado" value=" Contabilizado"/>
+									<p:inputText id="txtContabilizado" disabled="true" binding="#{gluoPresupuestoView.txtContabilizado}"/>
+																		<h:outputText id="msgTippId" value=" TippId"/>
+									<p:inputText id="txtTippId" disabled="true" binding="#{gluoPresupuestoView.txtTippId}"/>
+																		<h:outputText id="msgUsuAprobador" value=" UsuAprobador"/>
+									<p:inputText id="txtUsuAprobador" disabled="true" binding="#{gluoPresupuestoView.txtUsuAprobador}"/>
+																		<h:outputText id="msgUsuCreador" value=" UsuCreador"/>
+									<p:inputText id="txtUsuCreador" disabled="true" binding="#{gluoPresupuestoView.txtUsuCreador}"/>
+																		<h:outputText id="msgUsuModificador" value=" UsuModificador"/>
+									<p:inputText id="txtUsuModificador" disabled="true" binding="#{gluoPresupuestoView.txtUsuModificador}"/>
+																		<h:outputText id="msgAnofId_GluoAnoFiscal" value=" AnofId_GluoAnoFiscal"/>
+									<p:inputText id="txtAnofId_GluoAnoFiscal" disabled="true" binding="#{gluoPresupuestoView.txtAnofId_GluoAnoFiscal}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{gluoPresupuestoView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{gluoPresupuestoView.listener_txtFechaCreacion}" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{gluoPresupuestoView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{gluoPresupuestoView.listener_txtFechaModificacion}" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{gluoPresupuestoView.btnSave}" value="Save" action="#{gluoPresupuestoView.action_save()}" update=":dialogGluoPresupuesto :frm:panelDataTableGluoPresupuesto" />
+									<p:commandButton id="btnClear" value="Clear" action="#{gluoPresupuestoView.action_clear()}" update=":dialogGluoPresupuesto" />
+									<p:commandButton id="btnExit" value="Exit" action="#{gluoPresupuestoView.action_closeDialog()}" update=":dialogGluoPresupuesto" />
+								</div>
+				</p:panel>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
+

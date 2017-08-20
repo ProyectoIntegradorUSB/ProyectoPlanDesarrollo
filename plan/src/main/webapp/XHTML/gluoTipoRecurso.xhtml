@@ -1,0 +1,54 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+		 
+	<ui:define name="content">	
+			
+			
+			<h:form id="formDialog">
+				<p:messages id="msg" />
+				<p:growl id="men"/>
+					<p:panel id="panelGluoTipoRecurso" header="GluoTipoRecurso">							
+						<h:panelGrid columns="2" id="panelGrid" >
+												 	<h:outputText id="msgTireId" value="TireId"/>
+						 	<p:inputText id="txtTireId" binding="#{gluoTipoRecursoView.txtTireId}">
+						 		<p:ajax update="panelGluoTipoRecurso,msg,panelBotones" listener="#{gluoTipoRecursoView.listener_txtId}"/>
+						 	</p:inputText>	
+																		
+													<h:outputText id="msgActivo" value=" Activo"/>
+							<p:inputText id="txtActivo" disabled="true" binding="#{gluoTipoRecursoView.txtActivo}"/>
+													<h:outputText id="msgCodigo" value=" Codigo"/>
+							<p:inputText id="txtCodigo" disabled="true" binding="#{gluoTipoRecursoView.txtCodigo}"/>
+													<h:outputText id="msgDescripcion" value=" Descripcion"/>
+							<p:inputText id="txtDescripcion" disabled="true" binding="#{gluoTipoRecursoView.txtDescripcion}"/>
+													<h:outputText id="msgUsuCreador" value=" UsuCreador"/>
+							<p:inputText id="txtUsuCreador" disabled="true" binding="#{gluoTipoRecursoView.txtUsuCreador}"/>
+													<h:outputText id="msgUsuModificador" value=" UsuModificador"/>
+							<p:inputText id="txtUsuModificador" disabled="true" binding="#{gluoTipoRecursoView.txtUsuModificador}"/>
+												
+																				<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{gluoTipoRecursoView.txtFechaCreacion}" >
+								<p:ajax event="dateSelect" listener="#{gluoTipoRecursoView.listener_txtFechaCreacion}"  />
+							</p:calendar>
+														<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{gluoTipoRecursoView.txtFechaModificacion}" >
+								<p:ajax event="dateSelect" listener="#{gluoTipoRecursoView.listener_txtFechaModificacion}"  />
+							</p:calendar>
+																	   </h:panelGrid>
+				</p:panel>
+	   			<p:panel id="panelBotones">
+					<div align="center">					
+						<p:commandButton id="btnSave" binding="#{gluoTipoRecursoView.btnSave}" disabled="true" value="Save" action="#{gluoTipoRecursoView.action_save()}" update="panelGluoTipoRecurso, msg, panelBotones, men" />
+						<p:commandButton id="btnDelete" binding="#{gluoTipoRecursoView.btnDelete}" disabled="true" value="Delete" action="#{gluoTipoRecursoView.action_delete_master()}" onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}" update="panelGluoTipoRecurso, msg, panelBotones, men" />
+						<p:commandButton id="btnClear" value="Clear" action="#{gluoTipoRecursoView.action_clear()}" update="panelGluoTipoRecurso, msg, panelBotones, men" />
+					</div>
+				</p:panel>			
+			</h:form>
+			
+  </ui:define>
+</ui:composition>

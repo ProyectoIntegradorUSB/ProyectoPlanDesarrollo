@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 14, 2017 7:26:53 PM by Hibernate Tools 5.1.0.Final -->
+<hibernate-mapping>
+    <class name="com.vortexbird.gluon.plan.modelo.GluoDetalleProyecto" table="gluo_detalle_proyecto" schema="public" optimistic-lock="version">
+        <id name="dproId" type="java.lang.Integer">
+            <column name="dpro_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="gluoAnoFiscal" class="com.vortexbird.gluon.plan.modelo.GluoAnoFiscal" fetch="select">
+            <column name="anof_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="gluoProyecto" class="com.vortexbird.gluon.plan.modelo.GluoProyecto" fetch="select">
+            <column name="proy_id" not-null="true" />
+        </many-to-one>
+        <property name="activo" type="java.lang.String">
+            <column name="activo" length="1" not-null="true" />
+        </property>
+        <property name="fechaCreacion" type="java.util.Date">
+            <column name="fecha_creacion" length="29" not-null="true" />
+        </property>
+        <property name="fechaModificacion" type="java.util.Date">
+            <column name="fecha_modificacion" length="29" />
+        </property>
+        <property name="usuCreador" type="java.lang.Integer">
+            <column name="usu_creador" not-null="true" />
+        </property>
+        <property name="usuModificador" type="java.lang.Integer">
+            <column name="usu_modificador" />
+        </property>
+        <property name="valorTotalPresupuesto" type="java.lang.Double">
+            <column name="valor_total_presupuesto" precision="16" scale="4" not-null="true" />
+        </property>
+        <set name="gluoDetalleProyectoXRubros" table="gluo_detalle_proyecto_x_rubro" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="dpro_id" not-null="true" />
+            </key>
+            <one-to-many class="com.vortexbird.gluon.plan.modelo.GluoDetalleProyectoXRubro" />
+        </set>
+    </class>
+</hibernate-mapping>

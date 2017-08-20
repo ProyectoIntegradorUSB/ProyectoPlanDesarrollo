@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 14, 2017 7:26:53 PM by Hibernate Tools 5.1.0.Final -->
+<hibernate-mapping>
+    <class name="com.vortexbird.gluon.plan.modelo.GluoDetallePresupuesto" table="gluo_detalle_presupuesto" schema="public" optimistic-lock="version">
+        <id name="dptoId" type="java.lang.Integer">
+            <column name="dpto_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="gluoDetallePresupuesto" class="com.vortexbird.gluon.plan.modelo.GluoDetallePresupuesto" fetch="select">
+            <column name="dpto_id_padre" />
+        </many-to-one>
+        <many-to-one name="gluoPresupuesto" class="com.vortexbird.gluon.plan.modelo.GluoPresupuesto" fetch="select">
+            <column name="ppto_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="gluoTipoRecurso" class="com.vortexbird.gluon.plan.modelo.GluoTipoRecurso" fetch="select">
+            <column name="tire_id" />
+        </many-to-one>
+        <property name="codigoCuenta" type="java.lang.String">
+            <column name="codigo_cuenta" not-null="true" />
+        </property>
+        <property name="descripcionCuenta" type="java.lang.String">
+            <column name="descripcion_cuenta" not-null="true" />
+        </property>
+        <property name="valorInicial" type="java.lang.Double">
+            <column name="valor_inicial" precision="16" not-null="true">
+                <comment>VALOR INICIAL APROBADO DEL CODIGO PRESUPUESTAL</comment>
+            </column>
+        </property>
+        <property name="saldoEnCdps" type="java.lang.Double">
+            <column name="saldo_en_cdps" precision="16" not-null="true">
+                <comment>VALOR QUE SE ACUMULA PARA ESTE RUBRO EN CDPs</comment>
+            </column>
+        </property>
+        <property name="valorDespuesDeModificaciones" type="java.lang.Double">
+            <column name="valor_despues_de_modificaciones" precision="16" not-null="true">
+                <comment>VALOR DESPUES DE HACER ADICIONES, REDUCCIONES PARA ESTE RUBRO</comment>
+            </column>
+        </property>
+        <property name="valorAplazado" type="java.lang.Double">
+            <column name="valor_aplazado" precision="16" not-null="true">
+                <comment>CONTIENE EL VALOR APLAZADO DE ESTE RUBRO. DEBE ASEGURARSE QUE EL SALDO DE ESTE RUBRO, SEA SIEMPRE MAYOR O IGUAL AL VALOR APLAZADO, ESTO CON EL FIN DE
+                GARANTIZAR QUE SE CONGELE EL VALOR APLAZADO.</comment>
+            </column>
+        </property>
+        <property name="activo" type="java.lang.String">
+            <column name="activo" length="1" not-null="true" />
+        </property>
+        <property name="fechaCreacion" type="java.util.Date">
+            <column name="fecha_creacion" length="29" not-null="true" />
+        </property>
+        <property name="fechaModificacion" type="java.util.Date">
+            <column name="fecha_modificacion" length="29" />
+        </property>
+        <property name="usuCreador" type="java.lang.Integer">
+            <column name="usu_creador" not-null="true" />
+        </property>
+        <property name="usuModificador" type="java.lang.Integer">
+            <column name="usu_modificador" />
+        </property>
+        <property name="sectId" type="java.lang.Integer">
+            <column name="sect_id" />
+        </property>
+        <property name="tipoTransferencia" type="java.lang.String">
+            <column name="tipo_transferencia" length="1" />
+        </property>
+        <set name="gluoDetallePresupuestos" table="gluo_detalle_presupuesto" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="dpto_id_padre" />
+            </key>
+            <one-to-many class="com.vortexbird.gluon.plan.modelo.GluoDetallePresupuesto" />
+        </set>
+        <set name="gluoDetalleProyectoXRubros" table="gluo_detalle_proyecto_x_rubro" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="dpto_id" not-null="true" />
+            </key>
+            <one-to-many class="com.vortexbird.gluon.plan.modelo.GluoDetalleProyectoXRubro" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,54 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+		 
+	<ui:define name="content">	
+			
+			
+			<h:form id="formDialog">
+				<p:messages id="msg" />
+				<p:growl id="men"/>
+					<p:panel id="panelGluoSubprograma" header="GluoSubprograma">							
+						<h:panelGrid columns="2" id="panelGrid" >
+												 	<h:outputText id="msgSubpId" value="SubpId"/>
+						 	<p:inputText id="txtSubpId" binding="#{gluoSubprogramaView.txtSubpId}">
+						 		<p:ajax update="panelGluoSubprograma,msg,panelBotones" listener="#{gluoSubprogramaView.listener_txtId}"/>
+						 	</p:inputText>	
+																		
+													<h:outputText id="msgActivo" value=" Activo"/>
+							<p:inputText id="txtActivo" disabled="true" binding="#{gluoSubprogramaView.txtActivo}"/>
+													<h:outputText id="msgDescripcion" value=" Descripcion"/>
+							<p:inputText id="txtDescripcion" disabled="true" binding="#{gluoSubprogramaView.txtDescripcion}"/>
+													<h:outputText id="msgUsuCreador" value=" UsuCreador"/>
+							<p:inputText id="txtUsuCreador" disabled="true" binding="#{gluoSubprogramaView.txtUsuCreador}"/>
+													<h:outputText id="msgUsuModificador" value=" UsuModificador"/>
+							<p:inputText id="txtUsuModificador" disabled="true" binding="#{gluoSubprogramaView.txtUsuModificador}"/>
+													<h:outputText id="msgProgId_GluoPrograma" value=" ProgId_GluoPrograma"/>
+							<p:inputText id="txtProgId_GluoPrograma" disabled="true" binding="#{gluoSubprogramaView.txtProgId_GluoPrograma}"/>
+												
+																				<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{gluoSubprogramaView.txtFechaCreacion}" >
+								<p:ajax event="dateSelect" listener="#{gluoSubprogramaView.listener_txtFechaCreacion}"  />
+							</p:calendar>
+														<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{gluoSubprogramaView.txtFechaModificacion}" >
+								<p:ajax event="dateSelect" listener="#{gluoSubprogramaView.listener_txtFechaModificacion}"  />
+							</p:calendar>
+																	   </h:panelGrid>
+				</p:panel>
+	   			<p:panel id="panelBotones">
+					<div align="center">					
+						<p:commandButton id="btnSave" binding="#{gluoSubprogramaView.btnSave}" disabled="true" value="Save" action="#{gluoSubprogramaView.action_save()}" update="panelGluoSubprograma, msg, panelBotones, men" />
+						<p:commandButton id="btnDelete" binding="#{gluoSubprogramaView.btnDelete}" disabled="true" value="Delete" action="#{gluoSubprogramaView.action_delete_master()}" onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}" update="panelGluoSubprograma, msg, panelBotones, men" />
+						<p:commandButton id="btnClear" value="Clear" action="#{gluoSubprogramaView.action_clear()}" update="panelGluoSubprograma, msg, panelBotones, men" />
+					</div>
+				</p:panel>			
+			</h:form>
+			
+  </ui:define>
+</ui:composition>

@@ -1,0 +1,60 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+		 
+	<ui:define name="content">	
+			
+			
+			<h:form id="formDialog">
+				<p:messages id="msg" />
+				<p:growl id="men"/>
+					<p:panel id="panelGluoPresupuesto" header="GluoPresupuesto">							
+						<h:panelGrid columns="2" id="panelGrid" >
+												 	<h:outputText id="msgPptoId" value="PptoId"/>
+						 	<p:inputText id="txtPptoId" binding="#{gluoPresupuestoView.txtPptoId}">
+						 		<p:ajax update="panelGluoPresupuesto,msg,panelBotones" listener="#{gluoPresupuestoView.listener_txtId}"/>
+						 	</p:inputText>	
+																		
+													<h:outputText id="msgActivo" value=" Activo"/>
+							<p:inputText id="txtActivo" disabled="true" binding="#{gluoPresupuestoView.txtActivo}"/>
+													<h:outputText id="msgAprobado" value=" Aprobado"/>
+							<p:inputText id="txtAprobado" disabled="true" binding="#{gluoPresupuestoView.txtAprobado}"/>
+													<h:outputText id="msgContabilizado" value=" Contabilizado"/>
+							<p:inputText id="txtContabilizado" disabled="true" binding="#{gluoPresupuestoView.txtContabilizado}"/>
+													<h:outputText id="msgTippId" value=" TippId"/>
+							<p:inputText id="txtTippId" disabled="true" binding="#{gluoPresupuestoView.txtTippId}"/>
+													<h:outputText id="msgUsuAprobador" value=" UsuAprobador"/>
+							<p:inputText id="txtUsuAprobador" disabled="true" binding="#{gluoPresupuestoView.txtUsuAprobador}"/>
+													<h:outputText id="msgUsuCreador" value=" UsuCreador"/>
+							<p:inputText id="txtUsuCreador" disabled="true" binding="#{gluoPresupuestoView.txtUsuCreador}"/>
+													<h:outputText id="msgUsuModificador" value=" UsuModificador"/>
+							<p:inputText id="txtUsuModificador" disabled="true" binding="#{gluoPresupuestoView.txtUsuModificador}"/>
+													<h:outputText id="msgAnofId_GluoAnoFiscal" value=" AnofId_GluoAnoFiscal"/>
+							<p:inputText id="txtAnofId_GluoAnoFiscal" disabled="true" binding="#{gluoPresupuestoView.txtAnofId_GluoAnoFiscal}"/>
+												
+																				<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{gluoPresupuestoView.txtFechaCreacion}" >
+								<p:ajax event="dateSelect" listener="#{gluoPresupuestoView.listener_txtFechaCreacion}"  />
+							</p:calendar>
+														<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{gluoPresupuestoView.txtFechaModificacion}" >
+								<p:ajax event="dateSelect" listener="#{gluoPresupuestoView.listener_txtFechaModificacion}"  />
+							</p:calendar>
+																	   </h:panelGrid>
+				</p:panel>
+	   			<p:panel id="panelBotones">
+					<div align="center">					
+						<p:commandButton id="btnSave" binding="#{gluoPresupuestoView.btnSave}" disabled="true" value="Save" action="#{gluoPresupuestoView.action_save()}" update="panelGluoPresupuesto, msg, panelBotones, men" />
+						<p:commandButton id="btnDelete" binding="#{gluoPresupuestoView.btnDelete}" disabled="true" value="Delete" action="#{gluoPresupuestoView.action_delete_master()}" onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}" update="panelGluoPresupuesto, msg, panelBotones, men" />
+						<p:commandButton id="btnClear" value="Clear" action="#{gluoPresupuestoView.action_clear()}" update="panelGluoPresupuesto, msg, panelBotones, men" />
+					</div>
+				</p:panel>			
+			</h:form>
+			
+  </ui:define>
+</ui:composition>

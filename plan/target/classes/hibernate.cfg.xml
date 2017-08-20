@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <mapping resource="com/vortexbird/gluon/plan/modelo/GluoDetallePresupuesto.hbm.xml" />
+        <mapping resource="com/vortexbird/gluon/plan/modelo/GluoPlanDesarrollo.hbm.xml" />
+        <mapping resource="com/vortexbird/gluon/plan/modelo/GluoDetalleProyecto.hbm.xml" />
+        <mapping resource="com/vortexbird/gluon/plan/modelo/GluoObjetivo.hbm.xml" />
+        <mapping resource="com/vortexbird/gluon/plan/modelo/GluoHistorialIndicador.hbm.xml" />
+        <mapping resource="com/vortexbird/gluon/plan/modelo/SegPermiso.hbm.xml" />
+        <mapping resource="com/vortexbird/gluon/plan/modelo/SegUsuario.hbm.xml" />
+        <mapping resource="com/vortexbird/gluon/plan/modelo/GluoIndicador.hbm.xml" />
+        <mapping resource="com/vortexbird/gluon/plan/modelo/GluoPresupuesto.hbm.xml" />
+        <mapping resource="com/vortexbird/gluon/plan/modelo/SegOpcion.hbm.xml" />
+        <mapping resource="com/vortexbird/gluon/plan/modelo/GluoSectorEjeDimension.hbm.xml" />
+        <mapping resource="com/vortexbird/gluon/plan/modelo/SegRol.hbm.xml" />
+        <mapping resource="com/vortexbird/gluon/plan/modelo/SegRolUsuario.hbm.xml" />
+        <mapping resource="com/vortexbird/gluon/plan/modelo/GluoTipoRecurso.hbm.xml" />
+        <mapping resource="com/vortexbird/gluon/plan/modelo/GluoAnoFiscal.hbm.xml" />
+        <mapping resource="com/vortexbird/gluon/plan/modelo/GluoPrograma.hbm.xml" />
+        <mapping resource="com/vortexbird/gluon/plan/modelo/GluoProyecto.hbm.xml" />
+        <mapping resource="com/vortexbird/gluon/plan/modelo/GluoSubprograma.hbm.xml" />
+        <mapping resource="com/vortexbird/gluon/plan/modelo/GluoDetalleProyectoXRubro.hbm.xml" />
+    </session-factory>
+</hibernate-configuration>

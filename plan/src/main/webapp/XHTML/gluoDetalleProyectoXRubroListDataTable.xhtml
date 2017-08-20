@@ -1,0 +1,159 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+		 
+	<ui:define name="content">		
+
+					
+		  			<h:form id="frm">								  		
+						
+						<p:panel id="panelDataTableGluoDetalleProyectoXRubro" header="GluoDetalleProyectoXRubroData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{gluoDetalleProyectoXRubroView.data}" var="gluoDetalleProyectoXRubro"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{gluoDetalleProyectoXRubro.dpruId}" sortBy="#{gluoDetalleProyectoXRubro.dpruId}" >
+										 <f:facet name="header">
+										<h:outputText value="dpruId"/>
+										</f:facet>
+										 <h:outputText value="#{gluoDetalleProyectoXRubro.dpruId}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{gluoDetalleProyectoXRubro.activo}" sortBy="#{gluoDetalleProyectoXRubro.activo}" >
+										 <f:facet name="header">
+										<h:outputText value="Activo"/>
+										</f:facet>
+										 <h:outputText value="#{gluoDetalleProyectoXRubro.activo}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoDetalleProyectoXRubro.descripcion}" sortBy="#{gluoDetalleProyectoXRubro.descripcion}" >
+										 <f:facet name="header">
+										<h:outputText value="Descripcion"/>
+										</f:facet>
+										 <h:outputText value="#{gluoDetalleProyectoXRubro.descripcion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoDetalleProyectoXRubro.fechaCreacion}" sortBy="#{gluoDetalleProyectoXRubro.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{gluoDetalleProyectoXRubro.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoDetalleProyectoXRubro.fechaModificacion}" sortBy="#{gluoDetalleProyectoXRubro.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{gluoDetalleProyectoXRubro.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoDetalleProyectoXRubro.usuCreador}" sortBy="#{gluoDetalleProyectoXRubro.usuCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="UsuCreador"/>
+										</f:facet>
+										 <h:outputText value="#{gluoDetalleProyectoXRubro.usuCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoDetalleProyectoXRubro.usuModificador}" sortBy="#{gluoDetalleProyectoXRubro.usuModificador}" >
+										 <f:facet name="header">
+										<h:outputText value="UsuModificador"/>
+										</f:facet>
+										 <h:outputText value="#{gluoDetalleProyectoXRubro.usuModificador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoDetalleProyectoXRubro.valor}" sortBy="#{gluoDetalleProyectoXRubro.valor}" >
+										 <f:facet name="header">
+										<h:outputText value="Valor"/>
+										</f:facet>
+										 <h:outputText value="#{gluoDetalleProyectoXRubro.valor}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoDetalleProyectoXRubro.dptoId_GluoDetallePresupuesto}" sortBy="#{gluoDetalleProyectoXRubro.dptoId_GluoDetallePresupuesto}" >
+										 <f:facet name="header">
+										<h:outputText value="DptoId_GluoDetallePresupuesto"/>
+										</f:facet>
+										 <h:outputText value="#{gluoDetalleProyectoXRubro.dptoId_GluoDetallePresupuesto}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoDetalleProyectoXRubro.dproId_GluoDetalleProyecto}" sortBy="#{gluoDetalleProyectoXRubro.dproId_GluoDetalleProyecto}" >
+										 <f:facet name="header">
+										<h:outputText value="DproId_GluoDetalleProyecto"/>
+										</f:facet>
+										 <h:outputText value="#{gluoDetalleProyectoXRubro.dproId_GluoDetalleProyecto}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogGluoDetalleProyectoXRubro"
+										actionListener="#{gluoDetalleProyectoXRubroView.action_edit}">
+										<f:attribute name="selectedGluoDetalleProyectoXRubro" value="#{gluoDetalleProyectoXRubro}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{gluoDetalleProyectoXRubroView.action_delete_datatable}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedGluoDetalleProyectoXRubro" value="#{gluoDetalleProyectoXRubro}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{gluoDetalleProyectoXRubroView.action_new()}" update=":dialogGluoDetalleProyectoXRubro" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogGluoDetalleProyectoXRubro" appendTo="@(body)" draggable="true"
+						closable="false" visible="#{gluoDetalleProyectoXRubroView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" />
+							<p:panel id="panelGluoDetalleProyectoXRubro" header="GluoDetalleProyectoXRubro">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgDpruId" value="DpruId"/>
+									 <p:inputText id="txtDpruId" binding="#{gluoDetalleProyectoXRubroView.txtDpruId}">
+									 <p:ajax update=":dialogGluoDetalleProyectoXRubro" listener="#{gluoDetalleProyectoXRubroView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgActivo" value=" Activo"/>
+									<p:inputText id="txtActivo" disabled="true" binding="#{gluoDetalleProyectoXRubroView.txtActivo}"/>
+																		<h:outputText id="msgDescripcion" value=" Descripcion"/>
+									<p:inputText id="txtDescripcion" disabled="true" binding="#{gluoDetalleProyectoXRubroView.txtDescripcion}"/>
+																		<h:outputText id="msgUsuCreador" value=" UsuCreador"/>
+									<p:inputText id="txtUsuCreador" disabled="true" binding="#{gluoDetalleProyectoXRubroView.txtUsuCreador}"/>
+																		<h:outputText id="msgUsuModificador" value=" UsuModificador"/>
+									<p:inputText id="txtUsuModificador" disabled="true" binding="#{gluoDetalleProyectoXRubroView.txtUsuModificador}"/>
+																		<h:outputText id="msgValor" value=" Valor"/>
+									<p:inputText id="txtValor" disabled="true" binding="#{gluoDetalleProyectoXRubroView.txtValor}"/>
+																		<h:outputText id="msgDptoId_GluoDetallePresupuesto" value=" DptoId_GluoDetallePresupuesto"/>
+									<p:inputText id="txtDptoId_GluoDetallePresupuesto" disabled="true" binding="#{gluoDetalleProyectoXRubroView.txtDptoId_GluoDetallePresupuesto}"/>
+																		<h:outputText id="msgDproId_GluoDetalleProyecto" value=" DproId_GluoDetalleProyecto"/>
+									<p:inputText id="txtDproId_GluoDetalleProyecto" disabled="true" binding="#{gluoDetalleProyectoXRubroView.txtDproId_GluoDetalleProyecto}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{gluoDetalleProyectoXRubroView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{gluoDetalleProyectoXRubroView.listener_txtFechaCreacion}" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{gluoDetalleProyectoXRubroView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{gluoDetalleProyectoXRubroView.listener_txtFechaModificacion}" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{gluoDetalleProyectoXRubroView.btnSave}" value="Save" action="#{gluoDetalleProyectoXRubroView.action_save()}" update=":dialogGluoDetalleProyectoXRubro :frm:panelDataTableGluoDetalleProyectoXRubro" />
+									<p:commandButton id="btnClear" value="Clear" action="#{gluoDetalleProyectoXRubroView.action_clear()}" update=":dialogGluoDetalleProyectoXRubro" />
+									<p:commandButton id="btnExit" value="Exit" action="#{gluoDetalleProyectoXRubroView.action_closeDialog()}" update=":dialogGluoDetalleProyectoXRubro" />
+								</div>
+				</p:panel>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
+

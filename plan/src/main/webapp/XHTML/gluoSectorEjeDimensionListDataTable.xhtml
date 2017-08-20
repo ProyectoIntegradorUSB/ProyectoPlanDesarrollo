@@ -1,0 +1,141 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+		 
+	<ui:define name="content">		
+
+					
+		  			<h:form id="frm">								  		
+						
+						<p:panel id="panelDataTableGluoSectorEjeDimension" header="GluoSectorEjeDimensionData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{gluoSectorEjeDimensionView.data}" var="gluoSectorEjeDimension"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{gluoSectorEjeDimension.sediId}" sortBy="#{gluoSectorEjeDimension.sediId}" >
+										 <f:facet name="header">
+										<h:outputText value="sediId"/>
+										</f:facet>
+										 <h:outputText value="#{gluoSectorEjeDimension.sediId}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{gluoSectorEjeDimension.activo}" sortBy="#{gluoSectorEjeDimension.activo}" >
+										 <f:facet name="header">
+										<h:outputText value="Activo"/>
+										</f:facet>
+										 <h:outputText value="#{gluoSectorEjeDimension.activo}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoSectorEjeDimension.descripcion}" sortBy="#{gluoSectorEjeDimension.descripcion}" >
+										 <f:facet name="header">
+										<h:outputText value="Descripcion"/>
+										</f:facet>
+										 <h:outputText value="#{gluoSectorEjeDimension.descripcion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoSectorEjeDimension.fechaCreacion}" sortBy="#{gluoSectorEjeDimension.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{gluoSectorEjeDimension.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoSectorEjeDimension.fechaModificacion}" sortBy="#{gluoSectorEjeDimension.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{gluoSectorEjeDimension.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoSectorEjeDimension.usuCreador}" sortBy="#{gluoSectorEjeDimension.usuCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="UsuCreador"/>
+										</f:facet>
+										 <h:outputText value="#{gluoSectorEjeDimension.usuCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoSectorEjeDimension.usuModificador}" sortBy="#{gluoSectorEjeDimension.usuModificador}" >
+										 <f:facet name="header">
+										<h:outputText value="UsuModificador"/>
+										</f:facet>
+										 <h:outputText value="#{gluoSectorEjeDimension.usuModificador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoSectorEjeDimension.planId_GluoPlanDesarrollo}" sortBy="#{gluoSectorEjeDimension.planId_GluoPlanDesarrollo}" >
+										 <f:facet name="header">
+										<h:outputText value="PlanId_GluoPlanDesarrollo"/>
+										</f:facet>
+										 <h:outputText value="#{gluoSectorEjeDimension.planId_GluoPlanDesarrollo}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogGluoSectorEjeDimension"
+										actionListener="#{gluoSectorEjeDimensionView.action_edit}">
+										<f:attribute name="selectedGluoSectorEjeDimension" value="#{gluoSectorEjeDimension}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{gluoSectorEjeDimensionView.action_delete_datatable}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedGluoSectorEjeDimension" value="#{gluoSectorEjeDimension}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{gluoSectorEjeDimensionView.action_new()}" update=":dialogGluoSectorEjeDimension" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogGluoSectorEjeDimension" appendTo="@(body)" draggable="true"
+						closable="false" visible="#{gluoSectorEjeDimensionView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" />
+							<p:panel id="panelGluoSectorEjeDimension" header="GluoSectorEjeDimension">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgSediId" value="SediId"/>
+									 <p:inputText id="txtSediId" binding="#{gluoSectorEjeDimensionView.txtSediId}">
+									 <p:ajax update=":dialogGluoSectorEjeDimension" listener="#{gluoSectorEjeDimensionView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgActivo" value=" Activo"/>
+									<p:inputText id="txtActivo" disabled="true" binding="#{gluoSectorEjeDimensionView.txtActivo}"/>
+																		<h:outputText id="msgDescripcion" value=" Descripcion"/>
+									<p:inputText id="txtDescripcion" disabled="true" binding="#{gluoSectorEjeDimensionView.txtDescripcion}"/>
+																		<h:outputText id="msgUsuCreador" value=" UsuCreador"/>
+									<p:inputText id="txtUsuCreador" disabled="true" binding="#{gluoSectorEjeDimensionView.txtUsuCreador}"/>
+																		<h:outputText id="msgUsuModificador" value=" UsuModificador"/>
+									<p:inputText id="txtUsuModificador" disabled="true" binding="#{gluoSectorEjeDimensionView.txtUsuModificador}"/>
+																		<h:outputText id="msgPlanId_GluoPlanDesarrollo" value=" PlanId_GluoPlanDesarrollo"/>
+									<p:inputText id="txtPlanId_GluoPlanDesarrollo" disabled="true" binding="#{gluoSectorEjeDimensionView.txtPlanId_GluoPlanDesarrollo}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{gluoSectorEjeDimensionView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{gluoSectorEjeDimensionView.listener_txtFechaCreacion}" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{gluoSectorEjeDimensionView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{gluoSectorEjeDimensionView.listener_txtFechaModificacion}" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{gluoSectorEjeDimensionView.btnSave}" value="Save" action="#{gluoSectorEjeDimensionView.action_save()}" update=":dialogGluoSectorEjeDimension :frm:panelDataTableGluoSectorEjeDimension" />
+									<p:commandButton id="btnClear" value="Clear" action="#{gluoSectorEjeDimensionView.action_clear()}" update=":dialogGluoSectorEjeDimension" />
+									<p:commandButton id="btnExit" value="Exit" action="#{gluoSectorEjeDimensionView.action_closeDialog()}" update=":dialogGluoSectorEjeDimension" />
+								</div>
+				</p:panel>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
+

@@ -1,0 +1,72 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+		 
+	<ui:define name="content">	
+			
+			
+			<h:form id="formDialog">
+				<p:messages id="msg" />
+				<p:growl id="men"/>
+					<p:panel id="panelGluoDetallePresupuesto" header="GluoDetallePresupuesto">							
+						<h:panelGrid columns="2" id="panelGrid" >
+												 	<h:outputText id="msgDptoId" value="DptoId"/>
+						 	<p:inputText id="txtDptoId" binding="#{gluoDetallePresupuestoView.txtDptoId}">
+						 		<p:ajax update="panelGluoDetallePresupuesto,msg,panelBotones" listener="#{gluoDetallePresupuestoView.listener_txtId}"/>
+						 	</p:inputText>	
+																		
+													<h:outputText id="msgActivo" value=" Activo"/>
+							<p:inputText id="txtActivo" disabled="true" binding="#{gluoDetallePresupuestoView.txtActivo}"/>
+													<h:outputText id="msgCodigoCuenta" value=" CodigoCuenta"/>
+							<p:inputText id="txtCodigoCuenta" disabled="true" binding="#{gluoDetallePresupuestoView.txtCodigoCuenta}"/>
+													<h:outputText id="msgDescripcionCuenta" value=" DescripcionCuenta"/>
+							<p:inputText id="txtDescripcionCuenta" disabled="true" binding="#{gluoDetallePresupuestoView.txtDescripcionCuenta}"/>
+													<h:outputText id="msgSaldoEnCdps" value=" SaldoEnCdps"/>
+							<p:inputText id="txtSaldoEnCdps" disabled="true" binding="#{gluoDetallePresupuestoView.txtSaldoEnCdps}"/>
+													<h:outputText id="msgSectId" value=" SectId"/>
+							<p:inputText id="txtSectId" disabled="true" binding="#{gluoDetallePresupuestoView.txtSectId}"/>
+													<h:outputText id="msgTipoTransferencia" value=" TipoTransferencia"/>
+							<p:inputText id="txtTipoTransferencia" disabled="true" binding="#{gluoDetallePresupuestoView.txtTipoTransferencia}"/>
+													<h:outputText id="msgUsuCreador" value=" UsuCreador"/>
+							<p:inputText id="txtUsuCreador" disabled="true" binding="#{gluoDetallePresupuestoView.txtUsuCreador}"/>
+													<h:outputText id="msgUsuModificador" value=" UsuModificador"/>
+							<p:inputText id="txtUsuModificador" disabled="true" binding="#{gluoDetallePresupuestoView.txtUsuModificador}"/>
+													<h:outputText id="msgValorAplazado" value=" ValorAplazado"/>
+							<p:inputText id="txtValorAplazado" disabled="true" binding="#{gluoDetallePresupuestoView.txtValorAplazado}"/>
+													<h:outputText id="msgValorDespuesDeModificaciones" value=" ValorDespuesDeModificaciones"/>
+							<p:inputText id="txtValorDespuesDeModificaciones" disabled="true" binding="#{gluoDetallePresupuestoView.txtValorDespuesDeModificaciones}"/>
+													<h:outputText id="msgValorInicial" value=" ValorInicial"/>
+							<p:inputText id="txtValorInicial" disabled="true" binding="#{gluoDetallePresupuestoView.txtValorInicial}"/>
+													<h:outputText id="msgDptoId_GluoDetallePresupuesto" value=" DptoId_GluoDetallePresupuesto"/>
+							<p:inputText id="txtDptoId_GluoDetallePresupuesto" disabled="true" binding="#{gluoDetallePresupuestoView.txtDptoId_GluoDetallePresupuesto}"/>
+													<h:outputText id="msgPptoId_GluoPresupuesto" value=" PptoId_GluoPresupuesto"/>
+							<p:inputText id="txtPptoId_GluoPresupuesto" disabled="true" binding="#{gluoDetallePresupuestoView.txtPptoId_GluoPresupuesto}"/>
+													<h:outputText id="msgTireId_GluoTipoRecurso" value=" TireId_GluoTipoRecurso"/>
+							<p:inputText id="txtTireId_GluoTipoRecurso" disabled="true" binding="#{gluoDetallePresupuestoView.txtTireId_GluoTipoRecurso}"/>
+												
+																				<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{gluoDetallePresupuestoView.txtFechaCreacion}" >
+								<p:ajax event="dateSelect" listener="#{gluoDetallePresupuestoView.listener_txtFechaCreacion}"  />
+							</p:calendar>
+														<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{gluoDetallePresupuestoView.txtFechaModificacion}" >
+								<p:ajax event="dateSelect" listener="#{gluoDetallePresupuestoView.listener_txtFechaModificacion}"  />
+							</p:calendar>
+																	   </h:panelGrid>
+				</p:panel>
+	   			<p:panel id="panelBotones">
+					<div align="center">					
+						<p:commandButton id="btnSave" binding="#{gluoDetallePresupuestoView.btnSave}" disabled="true" value="Save" action="#{gluoDetallePresupuestoView.action_save()}" update="panelGluoDetallePresupuesto, msg, panelBotones, men" />
+						<p:commandButton id="btnDelete" binding="#{gluoDetallePresupuestoView.btnDelete}" disabled="true" value="Delete" action="#{gluoDetallePresupuestoView.action_delete_master()}" onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}" update="panelGluoDetallePresupuesto, msg, panelBotones, men" />
+						<p:commandButton id="btnClear" value="Clear" action="#{gluoDetallePresupuestoView.action_clear()}" update="panelGluoDetallePresupuesto, msg, panelBotones, men" />
+					</div>
+				</p:panel>			
+			</h:form>
+			
+  </ui:define>
+</ui:composition>

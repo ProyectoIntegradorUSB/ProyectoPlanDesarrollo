@@ -1,0 +1,141 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+		 
+	<ui:define name="content">		
+
+					
+		  			<h:form id="frm">								  		
+						
+						<p:panel id="panelDataTableGluoTipoRecurso" header="GluoTipoRecursoData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{gluoTipoRecursoView.data}" var="gluoTipoRecurso"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{gluoTipoRecurso.tireId}" sortBy="#{gluoTipoRecurso.tireId}" >
+										 <f:facet name="header">
+										<h:outputText value="tireId"/>
+										</f:facet>
+										 <h:outputText value="#{gluoTipoRecurso.tireId}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{gluoTipoRecurso.activo}" sortBy="#{gluoTipoRecurso.activo}" >
+										 <f:facet name="header">
+										<h:outputText value="Activo"/>
+										</f:facet>
+										 <h:outputText value="#{gluoTipoRecurso.activo}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoTipoRecurso.codigo}" sortBy="#{gluoTipoRecurso.codigo}" >
+										 <f:facet name="header">
+										<h:outputText value="Codigo"/>
+										</f:facet>
+										 <h:outputText value="#{gluoTipoRecurso.codigo}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoTipoRecurso.descripcion}" sortBy="#{gluoTipoRecurso.descripcion}" >
+										 <f:facet name="header">
+										<h:outputText value="Descripcion"/>
+										</f:facet>
+										 <h:outputText value="#{gluoTipoRecurso.descripcion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoTipoRecurso.fechaCreacion}" sortBy="#{gluoTipoRecurso.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{gluoTipoRecurso.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoTipoRecurso.fechaModificacion}" sortBy="#{gluoTipoRecurso.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{gluoTipoRecurso.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoTipoRecurso.usuCreador}" sortBy="#{gluoTipoRecurso.usuCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="UsuCreador"/>
+										</f:facet>
+										 <h:outputText value="#{gluoTipoRecurso.usuCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoTipoRecurso.usuModificador}" sortBy="#{gluoTipoRecurso.usuModificador}" >
+										 <f:facet name="header">
+										<h:outputText value="UsuModificador"/>
+										</f:facet>
+										 <h:outputText value="#{gluoTipoRecurso.usuModificador}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogGluoTipoRecurso"
+										actionListener="#{gluoTipoRecursoView.action_edit}">
+										<f:attribute name="selectedGluoTipoRecurso" value="#{gluoTipoRecurso}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{gluoTipoRecursoView.action_delete_datatable}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedGluoTipoRecurso" value="#{gluoTipoRecurso}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{gluoTipoRecursoView.action_new()}" update=":dialogGluoTipoRecurso" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogGluoTipoRecurso" appendTo="@(body)" draggable="true"
+						closable="false" visible="#{gluoTipoRecursoView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" />
+							<p:panel id="panelGluoTipoRecurso" header="GluoTipoRecurso">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgTireId" value="TireId"/>
+									 <p:inputText id="txtTireId" binding="#{gluoTipoRecursoView.txtTireId}">
+									 <p:ajax update=":dialogGluoTipoRecurso" listener="#{gluoTipoRecursoView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgActivo" value=" Activo"/>
+									<p:inputText id="txtActivo" disabled="true" binding="#{gluoTipoRecursoView.txtActivo}"/>
+																		<h:outputText id="msgCodigo" value=" Codigo"/>
+									<p:inputText id="txtCodigo" disabled="true" binding="#{gluoTipoRecursoView.txtCodigo}"/>
+																		<h:outputText id="msgDescripcion" value=" Descripcion"/>
+									<p:inputText id="txtDescripcion" disabled="true" binding="#{gluoTipoRecursoView.txtDescripcion}"/>
+																		<h:outputText id="msgUsuCreador" value=" UsuCreador"/>
+									<p:inputText id="txtUsuCreador" disabled="true" binding="#{gluoTipoRecursoView.txtUsuCreador}"/>
+																		<h:outputText id="msgUsuModificador" value=" UsuModificador"/>
+									<p:inputText id="txtUsuModificador" disabled="true" binding="#{gluoTipoRecursoView.txtUsuModificador}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{gluoTipoRecursoView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{gluoTipoRecursoView.listener_txtFechaCreacion}" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{gluoTipoRecursoView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{gluoTipoRecursoView.listener_txtFechaModificacion}" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{gluoTipoRecursoView.btnSave}" value="Save" action="#{gluoTipoRecursoView.action_save()}" update=":dialogGluoTipoRecurso :frm:panelDataTableGluoTipoRecurso" />
+									<p:commandButton id="btnClear" value="Clear" action="#{gluoTipoRecursoView.action_clear()}" update=":dialogGluoTipoRecurso" />
+									<p:commandButton id="btnExit" value="Exit" action="#{gluoTipoRecursoView.action_closeDialog()}" update=":dialogGluoTipoRecurso" />
+								</div>
+				</p:panel>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
+

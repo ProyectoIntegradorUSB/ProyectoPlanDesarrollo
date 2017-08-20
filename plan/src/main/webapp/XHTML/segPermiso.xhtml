@@ -1,0 +1,58 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+		 
+	<ui:define name="content">	
+			
+			
+			<h:form id="formDialog">
+				<p:messages id="msg" />
+				<p:growl id="men"/>
+					<p:panel id="panelSegPermiso" header="SegPermiso">							
+						<h:panelGrid columns="2" id="panelGrid" >
+												 	<h:outputText id="msgPermId" value="PermId"/>
+						 	<p:inputText id="txtPermId" binding="#{segPermisoView.txtPermId}">
+						 		<p:ajax update="panelSegPermiso,msg,panelBotones" listener="#{segPermisoView.listener_txtId}"/>
+						 	</p:inputText>	
+																		
+													<h:outputText id="msgActivo" value=" Activo"/>
+							<p:inputText id="txtActivo" disabled="true" binding="#{segPermisoView.txtActivo}"/>
+													<h:outputText id="msgRolId" value=" RolId"/>
+							<p:inputText id="txtRolId" disabled="true" binding="#{segPermisoView.txtRolId}"/>
+													<h:outputText id="msgUsuCreador" value=" UsuCreador"/>
+							<p:inputText id="txtUsuCreador" disabled="true" binding="#{segPermisoView.txtUsuCreador}"/>
+													<h:outputText id="msgUsuId" value=" UsuId"/>
+							<p:inputText id="txtUsuId" disabled="true" binding="#{segPermisoView.txtUsuId}"/>
+													<h:outputText id="msgUsuModificador" value=" UsuModificador"/>
+							<p:inputText id="txtUsuModificador" disabled="true" binding="#{segPermisoView.txtUsuModificador}"/>
+													<h:outputText id="msgOpcnId_SegOpcion" value=" OpcnId_SegOpcion"/>
+							<p:inputText id="txtOpcnId_SegOpcion" disabled="true" binding="#{segPermisoView.txtOpcnId_SegOpcion}"/>
+													<h:outputText id="msgRlusId_SegRolUsuario" value=" RlusId_SegRolUsuario"/>
+							<p:inputText id="txtRlusId_SegRolUsuario" disabled="true" binding="#{segPermisoView.txtRlusId_SegRolUsuario}"/>
+												
+																				<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{segPermisoView.txtFechaCreacion}" >
+								<p:ajax event="dateSelect" listener="#{segPermisoView.listener_txtFechaCreacion}"  />
+							</p:calendar>
+														<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{segPermisoView.txtFechaModificacion}" >
+								<p:ajax event="dateSelect" listener="#{segPermisoView.listener_txtFechaModificacion}"  />
+							</p:calendar>
+																	   </h:panelGrid>
+				</p:panel>
+	   			<p:panel id="panelBotones">
+					<div align="center">					
+						<p:commandButton id="btnSave" binding="#{segPermisoView.btnSave}" disabled="true" value="Save" action="#{segPermisoView.action_save()}" update="panelSegPermiso, msg, panelBotones, men" />
+						<p:commandButton id="btnDelete" binding="#{segPermisoView.btnDelete}" disabled="true" value="Delete" action="#{segPermisoView.action_delete_master()}" onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}" update="panelSegPermiso, msg, panelBotones, men" />
+						<p:commandButton id="btnClear" value="Clear" action="#{segPermisoView.action_clear()}" update="panelSegPermiso, msg, panelBotones, men" />
+					</div>
+				</p:panel>			
+			</h:form>
+			
+  </ui:define>
+</ui:composition>

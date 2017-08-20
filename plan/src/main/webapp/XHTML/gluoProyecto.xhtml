@@ -1,0 +1,54 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+		 
+	<ui:define name="content">	
+			
+			
+			<h:form id="formDialog">
+				<p:messages id="msg" />
+				<p:growl id="men"/>
+					<p:panel id="panelGluoProyecto" header="GluoProyecto">							
+						<h:panelGrid columns="2" id="panelGrid" >
+												 	<h:outputText id="msgProyId" value="ProyId"/>
+						 	<p:inputText id="txtProyId" binding="#{gluoProyectoView.txtProyId}">
+						 		<p:ajax update="panelGluoProyecto,msg,panelBotones" listener="#{gluoProyectoView.listener_txtId}"/>
+						 	</p:inputText>	
+																		
+													<h:outputText id="msgActivo" value=" Activo"/>
+							<p:inputText id="txtActivo" disabled="true" binding="#{gluoProyectoView.txtActivo}"/>
+													<h:outputText id="msgDescripcion" value=" Descripcion"/>
+							<p:inputText id="txtDescripcion" disabled="true" binding="#{gluoProyectoView.txtDescripcion}"/>
+													<h:outputText id="msgUsuCreador" value=" UsuCreador"/>
+							<p:inputText id="txtUsuCreador" disabled="true" binding="#{gluoProyectoView.txtUsuCreador}"/>
+													<h:outputText id="msgUsuModificador" value=" UsuModificador"/>
+							<p:inputText id="txtUsuModificador" disabled="true" binding="#{gluoProyectoView.txtUsuModificador}"/>
+													<h:outputText id="msgSubpId_GluoSubprograma" value=" SubpId_GluoSubprograma"/>
+							<p:inputText id="txtSubpId_GluoSubprograma" disabled="true" binding="#{gluoProyectoView.txtSubpId_GluoSubprograma}"/>
+												
+																				<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{gluoProyectoView.txtFechaCreacion}" >
+								<p:ajax event="dateSelect" listener="#{gluoProyectoView.listener_txtFechaCreacion}"  />
+							</p:calendar>
+														<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{gluoProyectoView.txtFechaModificacion}" >
+								<p:ajax event="dateSelect" listener="#{gluoProyectoView.listener_txtFechaModificacion}"  />
+							</p:calendar>
+																	   </h:panelGrid>
+				</p:panel>
+	   			<p:panel id="panelBotones">
+					<div align="center">					
+						<p:commandButton id="btnSave" binding="#{gluoProyectoView.btnSave}" disabled="true" value="Save" action="#{gluoProyectoView.action_save()}" update="panelGluoProyecto, msg, panelBotones, men" />
+						<p:commandButton id="btnDelete" binding="#{gluoProyectoView.btnDelete}" disabled="true" value="Delete" action="#{gluoProyectoView.action_delete_master()}" onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}" update="panelGluoProyecto, msg, panelBotones, men" />
+						<p:commandButton id="btnClear" value="Clear" action="#{gluoProyectoView.action_clear()}" update="panelGluoProyecto, msg, panelBotones, men" />
+					</div>
+				</p:panel>			
+			</h:form>
+			
+  </ui:define>
+</ui:composition>

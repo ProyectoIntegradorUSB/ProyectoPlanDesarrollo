@@ -1,0 +1,159 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+		 
+	<ui:define name="content">		
+
+					
+		  			<h:form id="frm">								  		
+						
+						<p:panel id="panelDataTableSegPermiso" header="SegPermisoData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{segPermisoView.data}" var="segPermiso"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{segPermiso.permId}" sortBy="#{segPermiso.permId}" >
+										 <f:facet name="header">
+										<h:outputText value="permId"/>
+										</f:facet>
+										 <h:outputText value="#{segPermiso.permId}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{segPermiso.activo}" sortBy="#{segPermiso.activo}" >
+										 <f:facet name="header">
+										<h:outputText value="Activo"/>
+										</f:facet>
+										 <h:outputText value="#{segPermiso.activo}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{segPermiso.fechaCreacion}" sortBy="#{segPermiso.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{segPermiso.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{segPermiso.fechaModificacion}" sortBy="#{segPermiso.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{segPermiso.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{segPermiso.rolId}" sortBy="#{segPermiso.rolId}" >
+										 <f:facet name="header">
+										<h:outputText value="RolId"/>
+										</f:facet>
+										 <h:outputText value="#{segPermiso.rolId}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{segPermiso.usuCreador}" sortBy="#{segPermiso.usuCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="UsuCreador"/>
+										</f:facet>
+										 <h:outputText value="#{segPermiso.usuCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{segPermiso.usuId}" sortBy="#{segPermiso.usuId}" >
+										 <f:facet name="header">
+										<h:outputText value="UsuId"/>
+										</f:facet>
+										 <h:outputText value="#{segPermiso.usuId}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{segPermiso.usuModificador}" sortBy="#{segPermiso.usuModificador}" >
+										 <f:facet name="header">
+										<h:outputText value="UsuModificador"/>
+										</f:facet>
+										 <h:outputText value="#{segPermiso.usuModificador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{segPermiso.opcnId_SegOpcion}" sortBy="#{segPermiso.opcnId_SegOpcion}" >
+										 <f:facet name="header">
+										<h:outputText value="OpcnId_SegOpcion"/>
+										</f:facet>
+										 <h:outputText value="#{segPermiso.opcnId_SegOpcion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{segPermiso.rlusId_SegRolUsuario}" sortBy="#{segPermiso.rlusId_SegRolUsuario}" >
+										 <f:facet name="header">
+										<h:outputText value="RlusId_SegRolUsuario"/>
+										</f:facet>
+										 <h:outputText value="#{segPermiso.rlusId_SegRolUsuario}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogSegPermiso"
+										actionListener="#{segPermisoView.action_edit}">
+										<f:attribute name="selectedSegPermiso" value="#{segPermiso}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{segPermisoView.action_delete_datatable}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedSegPermiso" value="#{segPermiso}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{segPermisoView.action_new()}" update=":dialogSegPermiso" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogSegPermiso" appendTo="@(body)" draggable="true"
+						closable="false" visible="#{segPermisoView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" />
+							<p:panel id="panelSegPermiso" header="SegPermiso">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgPermId" value="PermId"/>
+									 <p:inputText id="txtPermId" binding="#{segPermisoView.txtPermId}">
+									 <p:ajax update=":dialogSegPermiso" listener="#{segPermisoView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgActivo" value=" Activo"/>
+									<p:inputText id="txtActivo" disabled="true" binding="#{segPermisoView.txtActivo}"/>
+																		<h:outputText id="msgRolId" value=" RolId"/>
+									<p:inputText id="txtRolId" disabled="true" binding="#{segPermisoView.txtRolId}"/>
+																		<h:outputText id="msgUsuCreador" value=" UsuCreador"/>
+									<p:inputText id="txtUsuCreador" disabled="true" binding="#{segPermisoView.txtUsuCreador}"/>
+																		<h:outputText id="msgUsuId" value=" UsuId"/>
+									<p:inputText id="txtUsuId" disabled="true" binding="#{segPermisoView.txtUsuId}"/>
+																		<h:outputText id="msgUsuModificador" value=" UsuModificador"/>
+									<p:inputText id="txtUsuModificador" disabled="true" binding="#{segPermisoView.txtUsuModificador}"/>
+																		<h:outputText id="msgOpcnId_SegOpcion" value=" OpcnId_SegOpcion"/>
+									<p:inputText id="txtOpcnId_SegOpcion" disabled="true" binding="#{segPermisoView.txtOpcnId_SegOpcion}"/>
+																		<h:outputText id="msgRlusId_SegRolUsuario" value=" RlusId_SegRolUsuario"/>
+									<p:inputText id="txtRlusId_SegRolUsuario" disabled="true" binding="#{segPermisoView.txtRlusId_SegRolUsuario}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{segPermisoView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{segPermisoView.listener_txtFechaCreacion}" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{segPermisoView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{segPermisoView.listener_txtFechaModificacion}" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{segPermisoView.btnSave}" value="Save" action="#{segPermisoView.action_save()}" update=":dialogSegPermiso :frm:panelDataTableSegPermiso" />
+									<p:commandButton id="btnClear" value="Clear" action="#{segPermisoView.action_clear()}" update=":dialogSegPermiso" />
+									<p:commandButton id="btnExit" value="Exit" action="#{segPermisoView.action_closeDialog()}" update=":dialogSegPermiso" />
+								</div>
+				</p:panel>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
+

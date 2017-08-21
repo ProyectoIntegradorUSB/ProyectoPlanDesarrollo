@@ -430,4 +430,19 @@ public class SegRolUsuarioLogic implements ISegRolUsuarioLogic {
 
         return list;
     }
+
+	@Override
+	public SegRolUsuario obtenerIdRolUsuario(Integer segUsuario) throws Exception {
+		
+		SegRolUsuario segRolUsuario = segRolUsuarioDAO.consultarUsuarioPorId(segUsuario);
+		
+		if(segUsuario==null){
+			throw new Exception("El usuario o password no son validos");
+		}
+		if(segRolUsuario.getSegUsuario().equals(segUsuario)==false){
+			throw new Exception("El usuario o password no son validos");
+		}
+		
+		return segRolUsuario;
+	}
 }

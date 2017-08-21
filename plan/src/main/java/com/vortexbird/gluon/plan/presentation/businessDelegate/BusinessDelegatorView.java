@@ -1318,4 +1318,18 @@ public class BusinessDelegatorView implements IBusinessDelegatorView {
 	public SegUsuario validarUsuario(String usuLogin, String usuClave) throws Exception{
 		return segUsuarioLogic.validarUsuario(usuLogin,usuClave);
 	}
+	
+	public SegRolUsuario obtenerIdRolUsuario(Integer id) throws Exception{
+		return segRolUsuarioLogic.obtenerIdRolUsuario(id);
+	}
+
+	@Override
+	public List<GluoPlanDesarrollo> consultarTodoPlanDesarrollo() throws Exception {
+		return gluoPlanDesarrolloLogic.consultarTodoPlanDesarrollo();
+	}
+
+	@Override
+	public List<GluoObjetivo> consultarTodoObjetivo() throws Exception {
+		return gluoObjetivoLogic.consultarTodoObjetivo();
+	}
 }

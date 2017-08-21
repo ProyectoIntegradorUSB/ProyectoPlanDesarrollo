@@ -7,14 +7,16 @@ import com.vortexbird.gluon.plan.utilities.*;
 
 
 @ManagedBean
-public class UsuarioSession{
+public class UsuarioSession {
+	
 	
 	private SegUsuario segUsuario;
 	
-	public SegUsuario getsession() {
+	public SegUsuario getUsuariosession() {
 		segUsuario =(SegUsuario)FacesUtils.getfromSession("usuarioEnSession");
 		return segUsuario;
 	}
+	
 	public void setUsuarios(SegUsuario segUsuario) {
 		this.segUsuario = segUsuario;
 	}

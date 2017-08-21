@@ -2,6 +2,7 @@ package com.vortexbird.gluon.plan.dataaccess.dao;
 
 import com.vortexbird.gluon.plan.dataaccess.api.HibernateDaoImpl;
 import com.vortexbird.gluon.plan.modelo.GluoPlanDesarrollo;
+import com.vortexbird.gluon.plan.modelo.SegUsuario;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
@@ -51,4 +52,10 @@ public class GluoPlanDesarrolloDAO extends HibernateDaoImpl<GluoPlanDesarrollo, 
         ApplicationContext ctx) {
         return (IGluoPlanDesarrolloDAO) ctx.getBean("GluoPlanDesarrolloDAO");
     }
+
+	@Override
+	public List<GluoPlanDesarrollo> consultarTodoPlanLosDesarrollo() {
+		String hql="SELECT gluoPlan FROM GluoPlanDesarrollo gluoPlan";
+		return sessionFactory.getCurrentSession().createQuery(hql).getResultList();
+	}
 }

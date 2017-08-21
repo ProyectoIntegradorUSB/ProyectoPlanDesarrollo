@@ -51,4 +51,10 @@ public class GluoObjetivoDAO extends HibernateDaoImpl<GluoObjetivo, Integer>
         ApplicationContext ctx) {
         return (IGluoObjetivoDAO) ctx.getBean("GluoObjetivoDAO");
     }
+
+	@Override
+	public List<GluoObjetivo> consultarTodoObjetivo() {
+		String hql="SELECT gluoObj FROM GluoObjetivo gluoObj";
+		return sessionFactory.getCurrentSession().createQuery(hql).getResultList();
+	}
 }

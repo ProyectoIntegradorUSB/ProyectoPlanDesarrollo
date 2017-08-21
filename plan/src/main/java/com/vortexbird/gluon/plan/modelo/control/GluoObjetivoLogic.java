@@ -420,4 +420,9 @@ public class GluoObjetivoLogic implements IGluoObjetivoLogic {
 
         return list;
     }
+
+	@Override
+	public List<GluoObjetivo> consultarTodoObjetivo() throws Exception {
+		return gluoObjetivoDAO.consultarTodoObjetivo();
+	}
 }

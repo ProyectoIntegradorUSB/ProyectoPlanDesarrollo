@@ -9,7 +9,7 @@ import com.vortexbird.gluon.plan.utilities.*;
 import org.primefaces.component.calendar.*;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
-
+import org.primefaces.component.selectonemenu.SelectOneMenu;
 import org.primefaces.event.RowEditEvent;
 
 import org.slf4j.Logger;
@@ -34,6 +34,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 
 
 /**
@@ -46,6 +47,15 @@ import javax.faces.event.ActionEvent;
 public class GluoObjetivoView implements Serializable {
     private static final long serialVersionUID = 1L;
     private static final Logger log = LoggerFactory.getLogger(GluoObjetivoView.class);
+    
+    private String somActivo;
+    
+    private SelectOneMenu somObjetivos;
+    
+
+
+	private List<SelectItem> losObjetivosItems;
+    
     private InputText txtActivo;
     private InputText txtDescripcion;
     private InputText txtUsuCreador;
@@ -239,22 +249,28 @@ public class GluoObjetivoView implements Serializable {
         try {
             entity = new GluoObjetivo();
 
-            Integer objeId = FacesUtils.checkInteger(txtObjeId);
+            //Integer objeId = FacesUtils.checkInteger(txtObjeId);
 
             entity.setActivo(FacesUtils.checkString(txtActivo));
             entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
-            entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-            entity.setFechaModificacion(FacesUtils.checkDate(
-                    txtFechaModificacion));
-            entity.setObjeId(objeId);
-            entity.setUsuCreador(FacesUtils.checkInteger(txtUsuCreador));
-            entity.setUsuModificador(FacesUtils.checkInteger(txtUsuModificador));
+            //entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
+            //entity.setFechaModificacion(FacesUtils.checkDate(
+              //      txtFechaModificacion));
+           // entity.setObjeId(objeId);
+            SegUsuario segUsuario = (SegUsuario) FacesUtils.getfromSession("usuarioEnSession");
+            Integer usuaCreador = Integer.valueOf(segUsuario.getUsuId());
+            entity.setUsuCreador(usuaCreador);
+            
+           // entity.setUsuModificador(FacesUtils.checkInteger(txtUsuModificador));
+            
             entity.setGluoSectorEjeDimension((FacesUtils.checkInteger(
                     txtSediId_GluoSectorEjeDimension) != null)
                 ? businessDelegatorView.getGluoSectorEjeDimension(
                     FacesUtils.checkInteger(txtSediId_GluoSectorEjeDimension))
                 : null);
+            
             businessDelegatorView.saveGluoObjetivo(entity);
+            
             FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
             action_clear();
         } catch (Exception e) {
@@ -361,7 +377,43 @@ public class GluoObjetivoView implements Serializable {
 
         return "";
     }
+    
+    public String getSomActivo() {
+		return somActivo;
+	}
 
+	public void setSomActivo(String somActivo) {
+		this.somActivo = somActivo;
+	}
+
+	public SelectOneMenu getSomObjetivos() {
+		return somObjetivos;
+	}
+
+	public void setSomObjetivos(SelectOneMenu somObjetivos) {
+		this.somObjetivos = somObjetivos;
+	}
+
+	public List<SelectItem> getLosObjetivosItems() {
+		try {
+			if(losObjetivosItems == null) {
+				List<GluoObjetivo> losObjetivos= businessDelegatorView.consultarTodoObjetivo();
+				losObjetivosItems = new ArrayList<SelectItem>();
+				for (GluoObjetivo gluoObjetivo : losObjetivos) {
+					SelectItem selectItem = new SelectItem(gluoObjetivo.getObjeId(),gluoObjetivo.getDescripcion()); 
+					losObjetivosItems.add(selectItem);
+				}
+				
+			}
+		} catch (Exception e) {
+			FacesUtils.addErrorMessage(e.getMessage());
+		}
+		return losObjetivosItems;
+	}
+
+	public void setLosObjetivosItems(List<SelectItem> losObjetivosItems) {
+		this.losObjetivosItems = losObjetivosItems;
+	}
     public InputText getTxtActivo() {
         return txtActivo;
     }

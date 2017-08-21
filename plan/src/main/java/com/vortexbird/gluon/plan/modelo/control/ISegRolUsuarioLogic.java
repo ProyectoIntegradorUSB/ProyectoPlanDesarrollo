@@ -1,6 +1,7 @@
 package com.vortexbird.gluon.plan.modelo.control;
 
 import com.vortexbird.gluon.plan.modelo.SegRolUsuario;
+import com.vortexbird.gluon.plan.modelo.SegUsuario;
 import com.vortexbird.gluon.plan.modelo.dto.SegRolUsuarioDTO;
 
 import java.math.BigDecimal;
@@ -61,4 +62,6 @@ public interface ISegRolUsuarioLogic {
 
     public void validateSegRolUsuario(SegRolUsuario segRolUsuario)
         throws Exception;
+
+	public SegRolUsuario obtenerIdRolUsuario(Integer segUsuario) throws Exception;
 }

@@ -2,6 +2,7 @@ package com.vortexbird.gluon.plan.dataaccess.dao;
 
 import com.vortexbird.gluon.plan.dataaccess.api.HibernateDaoImpl;
 import com.vortexbird.gluon.plan.modelo.SegRolUsuario;
+import com.vortexbird.gluon.plan.modelo.SegUsuario;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
@@ -51,4 +52,11 @@ public class SegRolUsuarioDAO extends HibernateDaoImpl<SegRolUsuario, Integer>
         ApplicationContext ctx) {
         return (ISegRolUsuarioDAO) ctx.getBean("SegRolUsuarioDAO");
     }
+
+	@Override
+	public SegRolUsuario consultarUsuarioPorId(Integer usuId) {
+		String hql="SELECT segRol FROM SegRolUsuario segRol WHERE segRol.usuId=:id";
+		SegRolUsuario segRolUsuario=(SegRolUsuario)sessionFactory.getCurrentSession().createQuery(hql).setParameter("id", usuId).getSingleResult();
+		return segRolUsuario;
+	}
 }

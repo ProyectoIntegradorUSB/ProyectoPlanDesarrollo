@@ -11,35 +11,50 @@
 			<p:messages id="msg" />
 			<p:growl id="men" />
 			<p:panel id="panelGluoPlanDesarrollo" header="GluoPlanDesarrollo">
+
+				<p:steps activeIndex="4" styleClass="custom" readonly="false">
+					<p:menuitem value="Plan de desarrollo"
+						url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/gluoPlanDesarrollo.xhtml" />
+					<p:menuitem value="Objetivo"
+						url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/gluoObjetivo.xhtml" />
+					<p:menuitem value="Sector"
+						url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/gluoSectorEjeDimension.xhtml" />
+					<p:menuitem value="Confirmation" url="#" />
+				</p:steps>
+
 				<h:panelGrid columns="2" id="panelGrid">
 
 					<h:outputText id="msgActivo" value=" Activo" />
-					<p:inputText id="txtActivo" disabled="false"
-						binding="#{gluoPlanDesarrolloView.txtActivo}" />
-					<h:outputText id="msgDescripcion" value=" Descripcion" />
-					<p:inputText id="txtDescripcion" disabled="false"
-						binding="#{gluoPlanDesarrolloView.txtDescripcion}" />
-					<h:outputText id="msgEslogan" value=" Eslogan" />
-					<p:inputText id="txtEslogan" disabled="false"
-						binding="#{gluoPlanDesarrolloView.txtEslogan}" />
-					<h:outputText id="msgNombreAlcalde" value=" NombreAlcalde" />
-					<p:inputText id="txtNombreAlcalde" disabled="false"
-						binding="#{gluoPlanDesarrolloView.txtNombreAlcalde}" />
+					<p:selectOneMenu id="Activo" value="#{gluoPlanDesarrolloView.somActivo}" style="width:135px">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItem itemLabel="A" itemValue="A" />
+						<f:selectItem itemLabel="I" itemValue="I" />
+					</p:selectOneMenu>
+
+						<h:outputText id="msgDescripcion" value=" Descripcion" />
+						<p:inputText id="txtDescripcion" disabled="false"
+							binding="#{gluoPlanDesarrolloView.txtDescripcion}" />
+						<h:outputText id="msgEslogan" value=" Eslogan" />
+						<p:inputText id="txtEslogan" disabled="false"
+							binding="#{gluoPlanDesarrolloView.txtEslogan}" />
+						<h:outputText id="msgNombreAlcalde" value=" NombreAlcalde" />
+						<p:inputText id="txtNombreAlcalde" disabled="false"
+							binding="#{gluoPlanDesarrolloView.txtNombreAlcalde}" />
 
 
 
-					<h:outputText id="msgAnoFin" value=" AnoFin" />
-					<p:calendar showOn="button" navigator="true" locale="en"
-						binding="#{gluoPlanDesarrolloView.txtAnoFin}">
-						<p:ajax event="dateSelect"
-							listener="#{gluoPlanDesarrolloView.listener_txtAnoFin}" />
-					</p:calendar>
-					<h:outputText id="msgAnoInicio" value=" AnoInicio" />
-					<p:calendar showOn="button" navigator="true" locale="en"
-						binding="#{gluoPlanDesarrolloView.txtAnoInicio}">
-						<p:ajax event="dateSelect"
-							listener="#{gluoPlanDesarrolloView.listener_txtAnoInicio}" />
-					</p:calendar>
+						<h:outputText id="msgAnoFin" value=" AnoFin" />
+						<p:calendar showOn="button" navigator="true" locale="en"
+							binding="#{gluoPlanDesarrolloView.txtAnoFin}">
+							<p:ajax event="dateSelect"
+								listener="#{gluoPlanDesarrolloView.listener_txtAnoFin}" />
+						</p:calendar>
+						<h:outputText id="msgAnoInicio" value=" AnoInicio" />
+						<p:calendar showOn="button" navigator="true" locale="en"
+							binding="#{gluoPlanDesarrolloView.txtAnoInicio}">
+							<p:ajax event="dateSelect"
+								listener="#{gluoPlanDesarrolloView.listener_txtAnoInicio}" />
+						</p:calendar>
 				</h:panelGrid>
 			</p:panel>
 			<p:panel id="panelBotones">

@@ -13,32 +13,22 @@
 				<p:growl id="men"/>
 					<p:panel id="panelGluoObjetivo" header="GluoObjetivo">							
 						<h:panelGrid columns="2" id="panelGrid" >
-												 	<h:outputText id="msgObjeId" value="ObjeId"/>
-						 	<p:inputText id="txtObjeId" binding="#{gluoObjetivoView.txtObjeId}">
-						 		<p:ajax update="panelGluoObjetivo,msg,panelBotones" listener="#{gluoObjetivoView.listener_txtId}"/>
-						 	</p:inputText>	
-																		
+												 	
 													<h:outputText id="msgActivo" value=" Activo"/>
-							<p:inputText id="txtActivo" disabled="true" binding="#{gluoObjetivoView.txtActivo}"/>
+							<p:selectOneMenu id="Activo" value="#{gluoObjetivoView.somActivo}" style="width:135px">
+							<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+							<f:selectItem itemLabel="A" itemValue="A" />
+							<f:selectItem itemLabel="I" itemValue="I" />
+							</p:selectOneMenu>
 													<h:outputText id="msgDescripcion" value=" Descripcion"/>
-							<p:inputText id="txtDescripcion" disabled="true" binding="#{gluoObjetivoView.txtDescripcion}"/>
-													<h:outputText id="msgUsuCreador" value=" UsuCreador"/>
-							<p:inputText id="txtUsuCreador" disabled="true" binding="#{gluoObjetivoView.txtUsuCreador}"/>
-													<h:outputText id="msgUsuModificador" value=" UsuModificador"/>
-							<p:inputText id="txtUsuModificador" disabled="true" binding="#{gluoObjetivoView.txtUsuModificador}"/>
-													<h:outputText id="msgSediId_GluoSectorEjeDimension" value=" SediId_GluoSectorEjeDimension"/>
-							<p:inputText id="txtSediId_GluoSectorEjeDimension" disabled="true" binding="#{gluoObjetivoView.txtSediId_GluoSectorEjeDimension}"/>
-												
-																				<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
-														<p:calendar showOn="button" navigator="true" locale="en" 
-							binding="#{gluoObjetivoView.txtFechaCreacion}" >
-								<p:ajax event="dateSelect" listener="#{gluoObjetivoView.listener_txtFechaCreacion}"  />
-							</p:calendar>
-														<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
-														<p:calendar showOn="button" navigator="true" locale="en" 
-							binding="#{gluoObjetivoView.txtFechaModificacion}" >
-								<p:ajax event="dateSelect" listener="#{gluoObjetivoView.listener_txtFechaModificacion}"  />
-							</p:calendar>
+							<p:inputText id="txtDescripcion" disabled="false" binding="#{gluoObjetivoView.txtDescripcion}"/>
+													
+													
+													<h:outputText id="msgSediId_GluoSectorEjeDimension" value=" Sector Eje. Dicmensional"/>
+							<p:selectOneMenu id="somObjetivos" value="#{gluoObjetivoView.somObjetivos}">
+							<f:selectItem itemLabel="Seleccione una opcion" itemValue="-1" />
+							<f:selectItems value="#{gluoObjetivoView.losObjetivosItems}" />
+							</p:selectOneMenu>
 																	   </h:panelGrid>
 				</p:panel>
 	   			<p:panel id="panelBotones">

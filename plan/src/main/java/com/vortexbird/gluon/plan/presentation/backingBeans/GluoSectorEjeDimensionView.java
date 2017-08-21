@@ -6,10 +6,11 @@ import com.vortexbird.gluon.plan.modelo.dto.GluoSectorEjeDimensionDTO;
 import com.vortexbird.gluon.plan.presentation.businessDelegate.*;
 import com.vortexbird.gluon.plan.utilities.*;
 
+
 import org.primefaces.component.calendar.*;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
-
+import org.primefaces.component.selectonemenu.SelectOneMenu;
 import org.primefaces.event.RowEditEvent;
 
 import org.slf4j.Logger;
@@ -34,6 +35,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 
 
 /**
@@ -50,7 +52,15 @@ public class GluoSectorEjeDimensionView implements Serializable {
     private InputText txtDescripcion;
     private InputText txtUsuCreador;
     private InputText txtUsuModificador;
-    private InputText txtPlanId_GluoPlanDesarrollo;
+    private String somActivo;
+   
+
+	private SelectOneMenu somGluoPlanDesarrollo;
+    private List<SelectItem> losGluoPlanDesarrollo;
+    
+    
+
+	private InputText txtPlanId_GluoPlanDesarrollo;
     private InputText txtSediId;
     private Calendar txtFechaCreacion;
     private Calendar txtFechaModificacion;
@@ -62,6 +72,7 @@ public class GluoSectorEjeDimensionView implements Serializable {
     private GluoSectorEjeDimensionDTO selectedGluoSectorEjeDimension;
     private GluoSectorEjeDimension entity;
     private boolean showDialog;
+    
     @ManagedProperty(value = "#{BusinessDelegatorView}")
     private IBusinessDelegatorView businessDelegatorView;
 
@@ -96,10 +107,9 @@ public class GluoSectorEjeDimensionView implements Serializable {
             txtUsuCreador.setDisabled(true);
         }
 
-        if (txtUsuModificador != null) {
-            txtUsuModificador.setValue(null);
-            txtUsuModificador.setDisabled(true);
-        }
+//        if (somGluoPlanDesarrollo != null) {
+//        	somGluoPlanDesarrollo.setValue(getLosGluoPlanDesarrollo().toString());
+//        }
 
         if (txtPlanId_GluoPlanDesarrollo != null) {
             txtPlanId_GluoPlanDesarrollo.setValue(null);
@@ -239,20 +249,35 @@ public class GluoSectorEjeDimensionView implements Serializable {
         try {
             entity = new GluoSectorEjeDimension();
 
-            Integer sediId = FacesUtils.checkInteger(txtSediId);
+//            Integer sediId = FacesUtils.checkInteger(txtSediId);
 
-            entity.setActivo(FacesUtils.checkString(txtActivo));
+            entity.setActivo(somActivo);
             entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
-            entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-            entity.setFechaModificacion(FacesUtils.checkDate(
-                    txtFechaModificacion));
-            entity.setSediId(sediId);
-            entity.setUsuCreador(FacesUtils.checkInteger(txtUsuCreador));
-            entity.setUsuModificador(FacesUtils.checkInteger(txtUsuModificador));
-            entity.setGluoPlanDesarrollo((FacesUtils.checkInteger(
-                    txtPlanId_GluoPlanDesarrollo) != null)
-                ? businessDelegatorView.getGluoPlanDesarrollo(
-                    FacesUtils.checkInteger(txtPlanId_GluoPlanDesarrollo)) : null);
+            entity.setFechaCreacion(new Date());
+            
+//            entity.setFechaModificacion(FacesUtils.checkDate(
+//                    txtFechaModificacion));
+//            entity.setSediId(sediId);
+            
+            SegUsuario segUsuario = (SegUsuario) FacesUtils.getfromSession("usuarioEnSession");
+            Integer usuaCreador = Integer.valueOf(segUsuario.getUsuId());
+            entity.setUsuCreador(usuaCreador);
+            
+//            entity.setUsuModificador(FacesUtils.checkInteger(txtUsuModificador));
+            
+//            somGluoPlanDesarrollo.setValue(losGluoPlanDesarrollo);
+//            Integer idPlanDesarrollo = Integer.valueOf(somGluoPlanDesarrollo.getValue().toString());
+//            
+//            GluoPlanDesarrollo gluoplan = businessDelegatorView.getGluoPlanDesarrollo(idPlanDesarrollo);
+//            
+//            entity.setGluoPlanDesarrollo(gluoplan.getPlanId());
+            
+//            entity.setGluoPlanDesarrollo((FacesUtils.checkInteger(
+//            		idPlanDesarrollo) != null)
+//                ? businessDelegatorView.getGluoPlanDesarrollo(
+//                    FacesUtils.checkInteger(idPlanDesarrollo)) : null);
+            
+            
             businessDelegatorView.saveGluoSectorEjeDimension(entity);
             FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
             action_clear();
@@ -345,10 +370,14 @@ public class GluoSectorEjeDimensionView implements Serializable {
         try {
             entity.setActivo(FacesUtils.checkString(activo));
             entity.setDescripcion(FacesUtils.checkString(descripcion));
-            entity.setFechaCreacion(FacesUtils.checkDate(fechaCreacion));
-            entity.setFechaModificacion(FacesUtils.checkDate(fechaModificacion));
-            entity.setUsuCreador(FacesUtils.checkInteger(usuCreador));
-            entity.setUsuModificador(FacesUtils.checkInteger(usuModificador));
+//            entity.setFechaCreacion(FacesUtils.checkDate(fechaCreacion));
+            entity.setFechaModificacion(new Date());
+//            entity.setUsuCreador(FacesUtils.checkInteger(usuCreador));
+            
+            SegUsuario segUsuario = (SegUsuario) FacesUtils.getfromSession("usuarioEnSession");
+            Integer usuaModificador = Integer.valueOf(segUsuario.getUsuId());
+            entity.setUsuModificador(usuaModificador);
+            
             businessDelegatorView.updateGluoSectorEjeDimension(entity);
             FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
         } catch (Exception e) {
@@ -359,6 +388,41 @@ public class GluoSectorEjeDimensionView implements Serializable {
 
         return "";
     }
+    public List<SelectItem> getLosGluoPlanDesarrollo() {
+		try {
+			if(losGluoPlanDesarrollo == null) {
+				List<GluoPlanDesarrollo> losGluoPlanDesa= businessDelegatorView.consultarTodoPlanDesarrollo();
+				losGluoPlanDesarrollo = new ArrayList<SelectItem>();
+				
+				for (GluoPlanDesarrollo gluoPlanDesarrollo : losGluoPlanDesa) {
+					SelectItem selectItem = new SelectItem(gluoPlanDesarrollo.getPlanId(),gluoPlanDesarrollo.getDescripcion());
+					losGluoPlanDesarrollo.add(selectItem);
+				}
+			}
+		} catch (Exception e) {
+			FacesUtils.addErrorMessage(e.getMessage());
+		}
+    	return losGluoPlanDesarrollo;
+	}
+    public void setLosGluoPlanDesarrollo(List<SelectItem> losGluoPlanDesarrollo) {
+		this.losGluoPlanDesarrollo = losGluoPlanDesarrollo;
+	}
+    
+    public String getSomActivo() {
+		return somActivo;
+	}
+
+	public void setSomActivo(String somActivo) {
+		this.somActivo = somActivo;
+	}
+	
+	public SelectOneMenu getSomGluoPlanDesarrollo() {
+		return somGluoPlanDesarrollo;
+	}
+
+	public void setSomGluoPlanDesarrollo(SelectOneMenu somGluoPlanDesarrollo) {
+		this.somGluoPlanDesarrollo = somGluoPlanDesarrollo;
+	}
 
     public InputText getTxtActivo() {
         return txtActivo;

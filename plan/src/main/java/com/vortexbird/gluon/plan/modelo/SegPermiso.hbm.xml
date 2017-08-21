@@ -6,7 +6,7 @@
     <class name="com.vortexbird.gluon.plan.modelo.SegPermiso" table="seg_permiso" schema="public" optimistic-lock="version">
         <id name="permId" type="java.lang.Integer">
             <column name="perm_id" />
-            <generator class="identity" />
+            <generator class="assigned" />
         </id>
         <many-to-one name="segOpcion" class="com.vortexbird.gluon.plan.modelo.SegOpcion" fetch="select">
             <column name="opcn_id" not-null="true" />

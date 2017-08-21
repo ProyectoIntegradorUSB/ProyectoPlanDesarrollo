@@ -435,4 +435,9 @@ public class GluoPlanDesarrolloLogic implements IGluoPlanDesarrolloLogic {
 			throw e;
 		}
 	}
+
+	@Transactional(readOnly=false,propagation=Propagation.REQUIRED)
+	public List<GluoPlanDesarrollo> consultarTodoPlanDesarrollo() throws Exception {
+		return gluoPlanDesarrolloDAO.consultarTodoPlanLosDesarrollo();
+	}
 }

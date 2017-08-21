@@ -10,10 +10,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import com.vortexbird.gluon.plan.modelo.SegRolUsuario;
 import com.vortexbird.gluon.plan.modelo.SegUsuario;
 import com.vortexbird.gluon.plan.modelo.control.ISegRolUsuarioLogic;
 import com.vortexbird.gluon.plan.presentation.businessDelegate.IBusinessDelegatorView;
@@ -39,14 +41,15 @@ public class ZathuraCodeAuthenticationProvider implements AuthenticationProvider
         String name = authentication.getName();
         String password = authentication.getCredentials().toString();
         
-        
         try {
 			
         	SegUsuario segUsuario = businessDelegatorView.validarUsuario(name, password);
-        
+//        	SegRolUsuario segRolusuario= businessDelegatorView.obtenerIdRolUsuario(segUsuario.getSegRolUsuarios()); 
+        	
         	 if (segUsuario!=null) {
                  final List<GrantedAuthority> grantedAuths = new ArrayList<GrantedAuthority>(); 
-//                 grantedAuths.add(new SimpleGrantedAuthority(segUsuario.g));
+                 grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
+                  
                  //grantedAuths.add(new SimpleGrantedAuthority(usuarios.getTiposUsuarios().getTusuNombre()));
                  
                  

@@ -64,4 +64,6 @@ public interface IGluoPlanDesarrolloLogic {
         GluoPlanDesarrollo gluoPlanDesarrollo) throws Exception;
 
 	public void crearGluoPlanDesarrollo(GluoPlanDesarrolloDTO gluoPlanDesarrolloDTO) throws Exception;
+
+	public List<GluoPlanDesarrollo> consultarTodoPlanDesarrollo() throws Exception;
 }

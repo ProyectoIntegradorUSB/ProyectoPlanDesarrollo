@@ -6,7 +6,7 @@
     <class name="com.vortexbird.gluon.plan.modelo.GluoHistorialIndicador" table="gluo_historial_indicador" schema="public" optimistic-lock="version">
         <id name="hiinId" type="java.lang.Integer">
             <column name="hiin_id" />
-            <generator class="identiy" />
+            <generator class="assigned" />
         </id>
         <many-to-one name="gluoIndicador" class="com.vortexbird.gluon.plan.modelo.GluoIndicador" fetch="select">
             <column name="indi_id" not-null="true" />

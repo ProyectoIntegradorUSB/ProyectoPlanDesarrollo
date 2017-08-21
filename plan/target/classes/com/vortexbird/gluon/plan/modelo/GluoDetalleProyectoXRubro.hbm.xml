@@ -6,7 +6,7 @@
     <class name="com.vortexbird.gluon.plan.modelo.GluoDetalleProyectoXRubro" table="gluo_detalle_proyecto_x_rubro" schema="public" optimistic-lock="version">
         <id name="dpruId" type="java.lang.Integer">
             <column name="dpru_id" />
-            <generator class="identity" />
+            <generator class="assigned" />
         </id>
         <many-to-one name="gluoDetallePresupuesto" class="com.vortexbird.gluon.plan.modelo.GluoDetallePresupuesto" fetch="select">
             <column name="dpto_id" not-null="true" />

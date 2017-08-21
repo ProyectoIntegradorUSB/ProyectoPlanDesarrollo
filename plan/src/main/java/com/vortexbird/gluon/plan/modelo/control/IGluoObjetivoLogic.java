@@ -60,4 +60,6 @@ public interface IGluoObjetivoLogic {
 
     public void validateGluoObjetivo(GluoObjetivo gluoObjetivo)
         throws Exception;
+
+	public List<GluoObjetivo> consultarTodoObjetivo() throws Exception;
 }

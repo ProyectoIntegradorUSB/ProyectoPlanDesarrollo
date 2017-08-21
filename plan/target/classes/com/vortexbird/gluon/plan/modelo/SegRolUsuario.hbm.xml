@@ -6,7 +6,7 @@
     <class name="com.vortexbird.gluon.plan.modelo.SegRolUsuario" table="seg_rol_usuario" schema="public" optimistic-lock="version">
         <id name="rlusId" type="java.lang.Integer">
             <column name="rlus_id" />
-            <generator class="identity" />
+            <generator class="assigned" />
         </id>
         <many-to-one name="segRol" class="com.vortexbird.gluon.plan.modelo.SegRol" fetch="join" lazy="false">
             <column name="rol_id" not-null="true" />

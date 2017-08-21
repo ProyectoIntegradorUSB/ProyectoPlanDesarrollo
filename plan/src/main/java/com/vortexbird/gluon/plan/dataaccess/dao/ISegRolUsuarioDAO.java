@@ -9,4 +9,6 @@ import com.vortexbird.gluon.plan.modelo.SegRolUsuario;
 *
 */
 public interface ISegRolUsuarioDAO extends Dao<SegRolUsuario, Integer> {
+
+	SegRolUsuario consultarUsuarioPorId(Integer usuId);
 }

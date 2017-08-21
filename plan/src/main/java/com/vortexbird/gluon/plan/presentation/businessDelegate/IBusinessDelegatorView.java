@@ -96,7 +96,10 @@ import java.util.Set;
 *
 */
 public interface IBusinessDelegatorView {
-    public List<GluoAnoFiscal> getGluoAnoFiscal() throws Exception;
+	
+    public List<GluoPlanDesarrollo> consultarTodoPlanDesarrollo() throws Exception;
+
+	public List<GluoAnoFiscal> getGluoAnoFiscal() throws Exception;
 
     public void saveGluoAnoFiscal(GluoAnoFiscal entity)
         throws Exception;
@@ -659,4 +662,8 @@ public interface IBusinessDelegatorView {
 	public void crearGluoPlanDesarrollo(GluoPlanDesarrolloDTO gluoPlanDesarrolloDTO) throws Exception;
 	
 	public SegUsuario validarUsuario(String usuLogin, String password) throws Exception;
+	
+	public SegRolUsuario obtenerIdRolUsuario(Integer id) throws Exception;
+
+	public List<GluoObjetivo> consultarTodoObjetivo() throws Exception;
 }

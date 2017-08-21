@@ -12,38 +12,28 @@
 				<p:messages id="msg" />
 				<p:growl id="men"/>
 					<p:panel id="panelGluoSectorEjeDimension" header="GluoSectorEjeDimension">							
-						<h:panelGrid columns="2" id="panelGrid" >
-												 	<h:outputText id="msgSediId" value="SediId"/>
-						 	<p:inputText id="txtSediId" binding="#{gluoSectorEjeDimensionView.txtSediId}">
-						 		<p:ajax update="panelGluoSectorEjeDimension,msg,panelBotones" listener="#{gluoSectorEjeDimensionView.listener_txtId}"/>
-						 	</p:inputText>	
-																		
+						<h:panelGrid columns="2" id="panelGrid" >	
+										
 													<h:outputText id="msgActivo" value=" Activo"/>
-							<p:inputText id="txtActivo" disabled="true" binding="#{gluoSectorEjeDimensionView.txtActivo}"/>
+							<p:selectOneMenu id="Activo" value="#{gluoSectorEjeDimensionView.somActivo}" style="width:135px">
+							<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+							<f:selectItem itemLabel="A" itemValue="A" />
+							<f:selectItem itemLabel="I" itemValue="I" />
+							</p:selectOneMenu>
+							
 													<h:outputText id="msgDescripcion" value=" Descripcion"/>
-							<p:inputText id="txtDescripcion" disabled="true" binding="#{gluoSectorEjeDimensionView.txtDescripcion}"/>
-													<h:outputText id="msgUsuCreador" value=" UsuCreador"/>
-							<p:inputText id="txtUsuCreador" disabled="true" binding="#{gluoSectorEjeDimensionView.txtUsuCreador}"/>
-													<h:outputText id="msgUsuModificador" value=" UsuModificador"/>
-							<p:inputText id="txtUsuModificador" disabled="true" binding="#{gluoSectorEjeDimensionView.txtUsuModificador}"/>
-													<h:outputText id="msgPlanId_GluoPlanDesarrollo" value=" PlanId_GluoPlanDesarrollo"/>
-							<p:inputText id="txtPlanId_GluoPlanDesarrollo" disabled="true" binding="#{gluoSectorEjeDimensionView.txtPlanId_GluoPlanDesarrollo}"/>
-												
-																				<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
-														<p:calendar showOn="button" navigator="true" locale="en" 
-							binding="#{gluoSectorEjeDimensionView.txtFechaCreacion}" >
-								<p:ajax event="dateSelect" listener="#{gluoSectorEjeDimensionView.listener_txtFechaCreacion}"  />
-							</p:calendar>
-														<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
-														<p:calendar showOn="button" navigator="true" locale="en" 
-							binding="#{gluoSectorEjeDimensionView.txtFechaModificacion}" >
-								<p:ajax event="dateSelect" listener="#{gluoSectorEjeDimensionView.listener_txtFechaModificacion}"  />
-							</p:calendar>
-																	   </h:panelGrid>
+							<p:inputText id="txtDescripcion" disabled="false" binding="#{gluoSectorEjeDimensionView.txtDescripcion}"/>
+													
+										<h:outputText value = "Plan Desarrollo" />
+							<p:selectOneMenu id="somGluoPlanDesarrollo" blinding="#{gluoSectorEjeDimensionView.somGluoPlanDesarrollo}">
+							<f:selectItem itemLabel="Seleccione una opcion" itemValue="-1" />
+							<f:selectItems value="#{gluoSectorEjeDimensionView.losGluoPlanDesarrollo}" />
+							</p:selectOneMenu>								  
+						</h:panelGrid>
 				</p:panel>
 	   			<p:panel id="panelBotones">
 					<div align="center">					
-						<p:commandButton id="btnSave" binding="#{gluoSectorEjeDimensionView.btnSave}" disabled="true" value="Save" action="#{gluoSectorEjeDimensionView.action_save()}" update="panelGluoSectorEjeDimension, msg, panelBotones, men" />
+						<p:commandButton id="btnSave" binding="#{gluoSectorEjeDimensionView.btnSave}" disabled="false" value="Save" action="#{gluoSectorEjeDimensionView.action_save()}" update="panelGluoSectorEjeDimension, msg, panelBotones, men" />
 						<p:commandButton id="btnDelete" binding="#{gluoSectorEjeDimensionView.btnDelete}" disabled="true" value="Delete" action="#{gluoSectorEjeDimensionView.action_delete_master()}" onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}" update="panelGluoSectorEjeDimension, msg, panelBotones, men" />
 						<p:commandButton id="btnClear" value="Clear" action="#{gluoSectorEjeDimensionView.action_clear()}" update="panelGluoSectorEjeDimension, msg, panelBotones, men" />
 					</div>

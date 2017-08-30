@@ -25,12 +25,13 @@
 							<p:inputText id="txtDescripcion" disabled="false" binding="#{gluoSectorEjeDimensionView.txtDescripcion}"/>
 													
 										<h:outputText value = "Plan Desarrollo" />
-							<p:selectOneMenu id="somGluoPlanDesarrollo" blinding="#{gluoSectorEjeDimensionView.somGluoPlanDesarrollo}">
-							<f:selectItem itemLabel="Seleccione una opcion" itemValue="-1" />
-							<f:selectItems value="#{gluoSectorEjeDimensionView.losGluoPlanDesarrollo}" />
+							<p:selectOneMenu binding="#{gluoSectorEjeDimensionView.somPlanDesarrollo}" id="somPlanDesarrollo">
+							
+							<f:selectItems value="#{gluoSectorEjeDimensionView.losPlanDesarrolloItems}" />
 							</p:selectOneMenu>								  
 						</h:panelGrid>
 				</p:panel>
+				
 	   			<p:panel id="panelBotones">
 					<div align="center">					
 						<p:commandButton id="btnSave" binding="#{gluoSectorEjeDimensionView.btnSave}" disabled="false" value="Save" action="#{gluoSectorEjeDimensionView.action_save()}" update="panelGluoSectorEjeDimension, msg, panelBotones, men" />

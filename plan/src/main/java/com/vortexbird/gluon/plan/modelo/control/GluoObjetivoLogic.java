@@ -421,7 +421,7 @@ public class GluoObjetivoLogic implements IGluoObjetivoLogic {
         return list;
     }
 
-	@Override
+	@Transactional(readOnly=true)
 	public List<GluoObjetivo> consultarTodoObjetivo() throws Exception {
 		return gluoObjetivoDAO.consultarTodoObjetivo();
 	}

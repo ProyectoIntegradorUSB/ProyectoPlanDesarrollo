@@ -1323,12 +1323,12 @@ public class BusinessDelegatorView implements IBusinessDelegatorView {
 		return segRolUsuarioLogic.obtenerIdRolUsuario(id);
 	}
 
-	@Override
+	
 	public List<GluoPlanDesarrollo> consultarTodoPlanDesarrollo() throws Exception {
 		return gluoPlanDesarrolloLogic.consultarTodoPlanDesarrollo();
 	}
 
-	@Override
+	
 	public List<GluoObjetivo> consultarTodoObjetivo() throws Exception {
 		return gluoObjetivoLogic.consultarTodoObjetivo();
 	}

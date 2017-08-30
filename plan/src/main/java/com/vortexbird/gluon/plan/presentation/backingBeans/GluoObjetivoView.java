@@ -397,8 +397,9 @@ public class GluoObjetivoView implements Serializable {
 	public List<SelectItem> getLosObjetivosItems() {
 		try {
 			if(losObjetivosItems == null) {
-				List<GluoObjetivo> losObjetivos= businessDelegatorView.consultarTodoObjetivo();
 				losObjetivosItems = new ArrayList<SelectItem>();
+				List<GluoObjetivo> losObjetivos= businessDelegatorView.consultarTodoObjetivo();
+				
 				for (GluoObjetivo gluoObjetivo : losObjetivos) {
 					SelectItem selectItem = new SelectItem(gluoObjetivo.getObjeId(),gluoObjetivo.getDescripcion()); 
 					losObjetivosItems.add(selectItem);

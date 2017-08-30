@@ -5,7 +5,7 @@ import com.vortexbird.gluon.plan.modelo.*;
 import com.vortexbird.gluon.plan.modelo.dto.GluoSectorEjeDimensionDTO;
 import com.vortexbird.gluon.plan.presentation.businessDelegate.*;
 import com.vortexbird.gluon.plan.utilities.*;
-
+import javax.faces.model.SelectItem;
 
 import org.primefaces.component.calendar.*;
 import org.primefaces.component.commandbutton.CommandButton;
@@ -35,7 +35,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.faces.model.SelectItem;
+
 
 
 /**
@@ -46,6 +46,7 @@ import javax.faces.model.SelectItem;
 @ManagedBean
 @ViewScoped
 public class GluoSectorEjeDimensionView implements Serializable {
+	
     private static final long serialVersionUID = 1L;
     private static final Logger log = LoggerFactory.getLogger(GluoSectorEjeDimensionView.class);
     private InputText txtActivo;
@@ -53,13 +54,10 @@ public class GluoSectorEjeDimensionView implements Serializable {
     private InputText txtUsuCreador;
     private InputText txtUsuModificador;
     private String somActivo;
-   
-
-	private SelectOneMenu somGluoPlanDesarrollo;
-    private List<SelectItem> losGluoPlanDesarrollo;
     
-    
-
+	private List<SelectItem> losPlanDesarrolloItems;
+	private SelectOneMenu somPlanDesarrollo;
+	
 	private InputText txtPlanId_GluoPlanDesarrollo;
     private InputText txtSediId;
     private Calendar txtFechaCreacion;
@@ -92,43 +90,14 @@ public class GluoSectorEjeDimensionView implements Serializable {
         entity = null;
         selectedGluoSectorEjeDimension = null;
 
-        if (txtActivo != null) {
-            txtActivo.setValue(null);
-            txtActivo.setDisabled(true);
-        }
 
         if (txtDescripcion != null) {
             txtDescripcion.setValue(null);
             txtDescripcion.setDisabled(true);
         }
 
-        if (txtUsuCreador != null) {
-            txtUsuCreador.setValue(null);
-            txtUsuCreador.setDisabled(true);
-        }
-
-//        if (somGluoPlanDesarrollo != null) {
-//        	somGluoPlanDesarrollo.setValue(getLosGluoPlanDesarrollo().toString());
-//        }
-
-        if (txtPlanId_GluoPlanDesarrollo != null) {
-            txtPlanId_GluoPlanDesarrollo.setValue(null);
-            txtPlanId_GluoPlanDesarrollo.setDisabled(true);
-        }
-
-        if (txtFechaCreacion != null) {
-            txtFechaCreacion.setValue(null);
-            txtFechaCreacion.setDisabled(true);
-        }
-
-        if (txtFechaModificacion != null) {
-            txtFechaModificacion.setValue(null);
-            txtFechaModificacion.setDisabled(true);
-        }
-
-        if (txtSediId != null) {
-            txtSediId.setValue(null);
-            txtSediId.setDisabled(false);
+        if (somPlanDesarrollo != null) {
+        	somPlanDesarrollo.setValue(-1);
         }
 
         if (btnSave != null) {
@@ -248,9 +217,7 @@ public class GluoSectorEjeDimensionView implements Serializable {
     public String action_create() {
         try {
             entity = new GluoSectorEjeDimension();
-
 //            Integer sediId = FacesUtils.checkInteger(txtSediId);
-
             entity.setActivo(somActivo);
             entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
             entity.setFechaCreacion(new Date());
@@ -264,18 +231,16 @@ public class GluoSectorEjeDimensionView implements Serializable {
             entity.setUsuCreador(usuaCreador);
             
 //            entity.setUsuModificador(FacesUtils.checkInteger(txtUsuModificador));
-            
 //            somGluoPlanDesarrollo.setValue(losGluoPlanDesarrollo);
-//            Integer idPlanDesarrollo = Integer.valueOf(somGluoPlanDesarrollo.getValue().toString());
-//            
-//            GluoPlanDesarrollo gluoplan = businessDelegatorView.getGluoPlanDesarrollo(idPlanDesarrollo);
-//            
-//            entity.setGluoPlanDesarrollo(gluoplan.getPlanId());
+            
+            Integer idPlanDesarrollo = Integer.valueOf(somPlanDesarrollo.getValue().toString());
+            GluoPlanDesarrollo gluoplan = businessDelegatorView.getGluoPlanDesarrollo(idPlanDesarrollo);       
+            entity.setGluoPlanDesarrollo(gluoplan);
             
 //            entity.setGluoPlanDesarrollo((FacesUtils.checkInteger(
-//            		idPlanDesarrollo) != null)
+//            		idPlanDesarrollo.toString()) != null)
 //                ? businessDelegatorView.getGluoPlanDesarrollo(
-//                    FacesUtils.checkInteger(idPlanDesarrollo)) : null);
+//                    FacesUtils.checkInteger(idPlanDesarrollo.toString())) : null);
             
             
             businessDelegatorView.saveGluoSectorEjeDimension(entity);
@@ -388,26 +353,34 @@ public class GluoSectorEjeDimensionView implements Serializable {
 
         return "";
     }
-    public List<SelectItem> getLosGluoPlanDesarrollo() {
-		try {
-			if(losGluoPlanDesarrollo == null) {
-				List<GluoPlanDesarrollo> losGluoPlanDesa= businessDelegatorView.consultarTodoPlanDesarrollo();
-				losGluoPlanDesarrollo = new ArrayList<SelectItem>();
-				
-				for (GluoPlanDesarrollo gluoPlanDesarrollo : losGluoPlanDesa) {
-					SelectItem selectItem = new SelectItem(gluoPlanDesarrollo.getPlanId(),gluoPlanDesarrollo.getDescripcion());
-					losGluoPlanDesarrollo.add(selectItem);
+    public List<SelectItem> getLosPlanDesarrolloItems() throws Exception{
+    	try {
+			if(losPlanDesarrolloItems == null) {
+				losPlanDesarrolloItems = new ArrayList<SelectItem>();
+				List<GluoPlanDesarrollo> losGluoPlanDesarrollo = businessDelegatorView.getGluoPlanDesarrollo();
+				for (GluoPlanDesarrollo gluoPlanDesarrollo : losGluoPlanDesarrollo) {
+//					SelectItem selectItem = new SelectItem(gluoPlanDesarrollo.getPlanId(),gluoPlanDesarrollo.getDescripcion());
+//					losPlanDesarrolloItems.add(selectItem);
+					losPlanDesarrolloItems.add(new SelectItem(gluoPlanDesarrollo.getPlanId(),gluoPlanDesarrollo.getDescripcion()));
 				}
 			}
 		} catch (Exception e) {
 			FacesUtils.addErrorMessage(e.getMessage());
 		}
-    	return losGluoPlanDesarrollo;
+		return losPlanDesarrolloItems;
 	}
-    public void setLosGluoPlanDesarrollo(List<SelectItem> losGluoPlanDesarrollo) {
-		this.losGluoPlanDesarrollo = losGluoPlanDesarrollo;
+
+	public void setLosPlanDesarrolloItems(List<SelectItem> losPlanDesarrolloItems) {
+		this.losPlanDesarrolloItems = losPlanDesarrolloItems;
 	}
-    
+
+	public SelectOneMenu getSomPlanDesarrollo() {
+		return somPlanDesarrollo;
+	}
+
+	public void setSomPlanDesarrollo(SelectOneMenu somPlanDesarrollo) {
+		this.somPlanDesarrollo = somPlanDesarrollo;
+	}
     public String getSomActivo() {
 		return somActivo;
 	}
@@ -415,15 +388,6 @@ public class GluoSectorEjeDimensionView implements Serializable {
 	public void setSomActivo(String somActivo) {
 		this.somActivo = somActivo;
 	}
-	
-	public SelectOneMenu getSomGluoPlanDesarrollo() {
-		return somGluoPlanDesarrollo;
-	}
-
-	public void setSomGluoPlanDesarrollo(SelectOneMenu somGluoPlanDesarrollo) {
-		this.somGluoPlanDesarrollo = somGluoPlanDesarrollo;
-	}
-
     public InputText getTxtActivo() {
         return txtActivo;
     }

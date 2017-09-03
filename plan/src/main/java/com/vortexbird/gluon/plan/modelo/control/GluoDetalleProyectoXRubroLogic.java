@@ -122,11 +122,11 @@ public class GluoDetalleProyectoXRubroLogic
             }
 
             validateGluoDetalleProyectoXRubro(entity);
-
+/*
             if (getGluoDetalleProyectoXRubro(entity.getDpruId()) != null) {
                 throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
             }
-
+*/
             gluoDetalleProyectoXRubroDAO.save(entity);
 
             log.debug("save GluoDetalleProyectoXRubro successful");

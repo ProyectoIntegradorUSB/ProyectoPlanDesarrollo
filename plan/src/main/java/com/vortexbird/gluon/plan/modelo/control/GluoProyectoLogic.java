@@ -123,11 +123,12 @@ public class GluoProyectoLogic implements IGluoProyectoLogic {
             }
 
             validateGluoProyecto(entity);
-
+            
+            /*
             if (getGluoProyecto(entity.getProyId()) != null) {
                 throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
             }
-
+            */
             gluoProyectoDAO.save(entity);
 
             log.debug("save GluoProyecto successful");

@@ -118,11 +118,12 @@ public class GluoSubprogramaLogic implements IGluoSubprogramaLogic {
             }
 
             validateGluoSubprograma(entity);
-
+            
+            /*
             if (getGluoSubprograma(entity.getSubpId()) != null) {
                 throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
             }
-
+            */
             gluoSubprogramaDAO.save(entity);
 
             log.debug("save GluoSubprograma successful");

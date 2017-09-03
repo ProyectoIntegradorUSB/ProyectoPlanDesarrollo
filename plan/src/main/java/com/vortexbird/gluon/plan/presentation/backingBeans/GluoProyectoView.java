@@ -5,35 +5,21 @@ import com.vortexbird.gluon.plan.modelo.*;
 import com.vortexbird.gluon.plan.modelo.dto.GluoProyectoDTO;
 import com.vortexbird.gluon.plan.presentation.businessDelegate.*;
 import com.vortexbird.gluon.plan.utilities.*;
-
-import org.primefaces.component.calendar.*;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
-
-import org.primefaces.event.RowEditEvent;
-
+import org.primefaces.component.selectonemenu.SelectOneMenu;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.io.Serializable;
-
-import java.sql.*;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import java.util.TimeZone;
-
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 
 
 /**
@@ -48,15 +34,10 @@ public class GluoProyectoView implements Serializable {
     private static final Logger log = LoggerFactory.getLogger(GluoProyectoView.class);
     private InputText txtActivo;
     private InputText txtDescripcion;
-    private InputText txtUsuCreador;
-    private InputText txtUsuModificador;
-    private InputText txtSubpId_GluoSubprograma;
-    private InputText txtProyId;
-    private Calendar txtFechaCreacion;
-    private Calendar txtFechaModificacion;
+    private List<SelectItem> losSubProgramasItems;
+	private SelectOneMenu somSubPrograma;
     private CommandButton btnSave;
     private CommandButton btnModify;
-    private CommandButton btnDelete;
     private CommandButton btnClear;
     private List<GluoProyectoDTO> data;
     private GluoProyectoDTO selectedGluoProyecto;
@@ -91,47 +72,15 @@ public class GluoProyectoView implements Serializable {
             txtDescripcion.setDisabled(true);
         }
 
-        if (txtUsuCreador != null) {
-            txtUsuCreador.setValue(null);
-            txtUsuCreador.setDisabled(true);
-        }
-
-        if (txtUsuModificador != null) {
-            txtUsuModificador.setValue(null);
-            txtUsuModificador.setDisabled(true);
-        }
-
-        if (txtSubpId_GluoSubprograma != null) {
-            txtSubpId_GluoSubprograma.setValue(null);
-            txtSubpId_GluoSubprograma.setDisabled(true);
-        }
-
-        if (txtFechaCreacion != null) {
-            txtFechaCreacion.setValue(null);
-            txtFechaCreacion.setDisabled(true);
-        }
-
-        if (txtFechaModificacion != null) {
-            txtFechaModificacion.setValue(null);
-            txtFechaModificacion.setDisabled(true);
-        }
-
-        if (txtProyId != null) {
-            txtProyId.setValue(null);
-            txtProyId.setDisabled(false);
-        }
-
+        
         if (btnSave != null) {
             btnSave.setDisabled(true);
         }
 
-        if (btnDelete != null) {
-            btnDelete.setDisabled(true);
-        }
 
         return "";
     }
-
+/*
     public void listener_txtFechaCreacion() {
         Date inputDate = (Date) txtFechaCreacion.getValue();
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -192,7 +141,7 @@ public class GluoProyectoView implements Serializable {
             }
         }
     }
-
+*/
     public String action_edit(ActionEvent evt) {
         selectedGluoProyecto = (GluoProyectoDTO) (evt.getComponent()
                                                      .getAttributes()
@@ -201,18 +150,6 @@ public class GluoProyectoView implements Serializable {
         txtActivo.setDisabled(false);
         txtDescripcion.setValue(selectedGluoProyecto.getDescripcion());
         txtDescripcion.setDisabled(false);
-        txtFechaCreacion.setValue(selectedGluoProyecto.getFechaCreacion());
-        txtFechaCreacion.setDisabled(false);
-        txtFechaModificacion.setValue(selectedGluoProyecto.getFechaModificacion());
-        txtFechaModificacion.setDisabled(false);
-        txtUsuCreador.setValue(selectedGluoProyecto.getUsuCreador());
-        txtUsuCreador.setDisabled(false);
-        txtUsuModificador.setValue(selectedGluoProyecto.getUsuModificador());
-        txtUsuModificador.setDisabled(false);
-        txtSubpId_GluoSubprograma.setValue(selectedGluoProyecto.getSubpId_GluoSubprograma());
-        txtSubpId_GluoSubprograma.setDisabled(false);
-        txtProyId.setValue(selectedGluoProyecto.getProyId());
-        txtProyId.setDisabled(true);
         btnSave.setDisabled(false);
         setShowDialog(true);
 
@@ -239,20 +176,19 @@ public class GluoProyectoView implements Serializable {
         try {
             entity = new GluoProyecto();
 
-            Integer proyId = FacesUtils.checkInteger(txtProyId);
 
             entity.setActivo(FacesUtils.checkString(txtActivo));
             entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
-            entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-            entity.setFechaModificacion(FacesUtils.checkDate(
-                    txtFechaModificacion));
-            entity.setProyId(proyId);
-            entity.setUsuCreador(FacesUtils.checkInteger(txtUsuCreador));
-            entity.setUsuModificador(FacesUtils.checkInteger(txtUsuModificador));
-            entity.setGluoSubprograma((FacesUtils.checkInteger(
-                    txtSubpId_GluoSubprograma) != null)
-                ? businessDelegatorView.getGluoSubprograma(
-                    FacesUtils.checkInteger(txtSubpId_GluoSubprograma)) : null);
+            entity.setFechaCreacion(new Date());
+            
+            SegUsuario segUsuario = (SegUsuario) FacesUtils.getfromSession("usuarioEnSession");
+            Integer usuaCreador = Integer.valueOf(segUsuario.getUsuId());
+            entity.setUsuCreador(usuaCreador);
+            
+            Integer idSubPrograma = Integer.valueOf(somSubPrograma.getValue().toString());
+            GluoSubprograma gluoSubPrograma = businessDelegatorView.getGluoSubprograma(idSubPrograma);
+            entity.setGluoSubprograma(gluoSubPrograma);
+           
             businessDelegatorView.saveGluoProyecto(entity);
             FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
             action_clear();
@@ -273,15 +209,11 @@ public class GluoProyectoView implements Serializable {
 
             entity.setActivo(FacesUtils.checkString(txtActivo));
             entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
-            entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-            entity.setFechaModificacion(FacesUtils.checkDate(
-                    txtFechaModificacion));
-            entity.setUsuCreador(FacesUtils.checkInteger(txtUsuCreador));
-            entity.setUsuModificador(FacesUtils.checkInteger(txtUsuModificador));
-            entity.setGluoSubprograma((FacesUtils.checkInteger(
-                    txtSubpId_GluoSubprograma) != null)
-                ? businessDelegatorView.getGluoSubprograma(
-                    FacesUtils.checkInteger(txtSubpId_GluoSubprograma)) : null);
+            SegUsuario segUsuario = (SegUsuario) FacesUtils.getfromSession("usuarioEnSession");
+            Integer usuaModificador = Integer.valueOf(segUsuario.getUsuId());
+            entity.setUsuModificador(usuaModificador);
+            
+            
             businessDelegatorView.updateGluoProyecto(entity);
             FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
         } catch (Exception e) {
@@ -291,7 +223,7 @@ public class GluoProyectoView implements Serializable {
 
         return "";
     }
-
+/*
     public String action_delete_datatable(ActionEvent evt) {
         try {
             selectedGluoProyecto = (GluoProyectoDTO) (evt.getComponent()
@@ -330,7 +262,7 @@ public class GluoProyectoView implements Serializable {
             throw e;
         }
     }
-
+*/
     public String action_closeDialog() {
         setShowDialog(false);
         action_clear();
@@ -345,10 +277,9 @@ public class GluoProyectoView implements Serializable {
         try {
             entity.setActivo(FacesUtils.checkString(activo));
             entity.setDescripcion(FacesUtils.checkString(descripcion));
-            entity.setFechaCreacion(FacesUtils.checkDate(fechaCreacion));
-            entity.setFechaModificacion(FacesUtils.checkDate(fechaModificacion));
-            entity.setUsuCreador(FacesUtils.checkInteger(usuCreador));
-            entity.setUsuModificador(FacesUtils.checkInteger(usuModificador));
+            SegUsuario segUsuario = (SegUsuario) FacesUtils.getfromSession("usuarioEnSession");
+            Integer usuaModificador = Integer.valueOf(segUsuario.getUsuId());
+            entity.setUsuModificador(usuaModificador);
             businessDelegatorView.updateGluoProyecto(entity);
             FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
         } catch (Exception e) {
@@ -359,8 +290,38 @@ public class GluoProyectoView implements Serializable {
 
         return "";
     }
+    
+    
 
-    public InputText getTxtActivo() {
+    public List<SelectItem> getLosSubProgramasItems() {
+    	try {
+			if (losSubProgramasItems == null) {
+				losSubProgramasItems = new ArrayList<SelectItem>();
+				List<GluoSubprograma> losGluoSubPrograma = businessDelegatorView.getGluoSubprograma();
+				for (GluoSubprograma gluoSubPrograma : losGluoSubPrograma) {
+					losSubProgramasItems.add(new SelectItem(gluoSubPrograma.getSubpId(), gluoSubPrograma.getDescripcion()));
+				}
+			}
+		} catch (Exception e) {
+			FacesUtils.addErrorMessage(e.getMessage());
+		}
+    	
+		return losSubProgramasItems;
+	}
+
+	public void setLosSubProgramasItems(List<SelectItem> losSubProgramasItems) {
+		this.losSubProgramasItems = losSubProgramasItems;
+	}
+
+	public SelectOneMenu getSomSubPrograma() {
+		return somSubPrograma;
+	}
+
+	public void setSomSubPrograma(SelectOneMenu somSubPrograma) {
+		this.somSubPrograma = somSubPrograma;
+	}
+
+	public InputText getTxtActivo() {
         return txtActivo;
     }
 
@@ -376,55 +337,7 @@ public class GluoProyectoView implements Serializable {
         this.txtDescripcion = txtDescripcion;
     }
 
-    public InputText getTxtUsuCreador() {
-        return txtUsuCreador;
-    }
-
-    public void setTxtUsuCreador(InputText txtUsuCreador) {
-        this.txtUsuCreador = txtUsuCreador;
-    }
-
-    public InputText getTxtUsuModificador() {
-        return txtUsuModificador;
-    }
-
-    public void setTxtUsuModificador(InputText txtUsuModificador) {
-        this.txtUsuModificador = txtUsuModificador;
-    }
-
-    public InputText getTxtSubpId_GluoSubprograma() {
-        return txtSubpId_GluoSubprograma;
-    }
-
-    public void setTxtSubpId_GluoSubprograma(
-        InputText txtSubpId_GluoSubprograma) {
-        this.txtSubpId_GluoSubprograma = txtSubpId_GluoSubprograma;
-    }
-
-    public Calendar getTxtFechaCreacion() {
-        return txtFechaCreacion;
-    }
-
-    public void setTxtFechaCreacion(Calendar txtFechaCreacion) {
-        this.txtFechaCreacion = txtFechaCreacion;
-    }
-
-    public Calendar getTxtFechaModificacion() {
-        return txtFechaModificacion;
-    }
-
-    public void setTxtFechaModificacion(Calendar txtFechaModificacion) {
-        this.txtFechaModificacion = txtFechaModificacion;
-    }
-
-    public InputText getTxtProyId() {
-        return txtProyId;
-    }
-
-    public void setTxtProyId(InputText txtProyId) {
-        this.txtProyId = txtProyId;
-    }
-
+    
     public List<GluoProyectoDTO> getData() {
         try {
             if (data == null) {
@@ -463,14 +376,6 @@ public class GluoProyectoView implements Serializable {
 
     public void setBtnModify(CommandButton btnModify) {
         this.btnModify = btnModify;
-    }
-
-    public CommandButton getBtnDelete() {
-        return btnDelete;
-    }
-
-    public void setBtnDelete(CommandButton btnDelete) {
-        this.btnDelete = btnDelete;
     }
 
     public CommandButton getBtnClear() {

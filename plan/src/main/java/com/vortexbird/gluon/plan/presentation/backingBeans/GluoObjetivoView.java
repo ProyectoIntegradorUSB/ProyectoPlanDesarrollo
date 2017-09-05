@@ -51,7 +51,7 @@ public class GluoObjetivoView implements Serializable {
     
     private String somActivo;
     private SelectOneMenu somSectorEje;
-	private List<SelectItem> losObjetivosItems;
+	private List<SelectItem> losSectorEjeItems;
     
     private InputTextarea txtAreaDescripcion;
     private InputText txtUsuCreador;
@@ -333,25 +333,25 @@ public class GluoObjetivoView implements Serializable {
 		this.somSectorEje = somSectorEje;
 	}
 
-	public List<SelectItem> getLosObjetivosItems() {
+	public List<SelectItem> losSectorEjeItems() {
 		try {
-			if(losObjetivosItems == null) {
-				losObjetivosItems = new ArrayList<SelectItem>();
+			if(losSectorEjeItems == null) {
+				losSectorEjeItems = new ArrayList<SelectItem>();
 				List<GluoSectorEjeDimension> losgluoSector= businessDelegatorView.getGluoSectorEjeDimension();
 				
 				for (GluoSectorEjeDimension gluoSectorEjeDimension : losgluoSector) {
-					losObjetivosItems.add(new SelectItem(gluoSectorEjeDimension.getSediId(),gluoSectorEjeDimension.getDescripcion()));
+					losSectorEjeItems.add(new SelectItem(gluoSectorEjeDimension.getSediId(),gluoSectorEjeDimension.getDescripcion()));
 				}
 				
 			}
 		} catch (Exception e) {
 			FacesUtils.addErrorMessage(e.getMessage());
 		}
-		return losObjetivosItems;
+		return losSectorEjeItems;
 	}
 
-	public void setLosObjetivosItems(List<SelectItem> losObjetivosItems) {
-		this.losObjetivosItems = losObjetivosItems;
+	public void setLosSectorEjeItems(List<SelectItem> losSectorEjeItems) {
+		this.losSectorEjeItems = losSectorEjeItems;
 	}
 
 	public InputTextarea getTxtAreaDescripcion() {

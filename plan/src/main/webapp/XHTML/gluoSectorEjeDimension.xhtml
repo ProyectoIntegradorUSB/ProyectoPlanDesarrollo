@@ -1,4 +1,5 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<<<<<<< HEAD
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -41,4 +42,65 @@
 			</h:form>
 			
   </ui:define>
+=======
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+
+
+		<h:form id="formDialog">
+			<p:messages id="msg" />
+			<p:growl id="men" />
+			<p:panel id="panelGluoSectorEjeDimension"
+				header="GluoSectorEjeDimension">
+				<h:panelGrid columns="2" id="panelGrid">
+
+					<h:outputText id="msgActivo" value=" Activo" />
+					<p:selectOneMenu id="Activo"
+						value="#{gluoSectorEjeDimensionView.somActivo}"
+						style="width:135px">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItem itemLabel="A" itemValue="A" />
+						<f:selectItem itemLabel="I" itemValue="I" />
+					</p:selectOneMenu>
+
+					<h:outputText id="msgDescripcion" value=" Descripcion" />
+					<p:inputText id="txtDescripcion" disabled="false"
+						binding="#{gluoSectorEjeDimensionView.txtDescripcion}" />
+
+					<h:outputText value="Plan Desarrollo" />
+					<p:selectOneMenu
+						binding="#{gluoSectorEjeDimensionView.somPlanDesarrollo}"
+						id="somPlanDesarrollo">
+
+						<f:selectItems
+							value="#{gluoSectorEjeDimensionView.losPlanDesarrolloItems}" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+			</p:panel>
+
+			<p:panel id="panelBotones">
+				<div align="center">
+					<p:commandButton id="btnSave"
+						binding="#{gluoSectorEjeDimensionView.btnSave}" disabled="false"
+						value="Save" action="#{gluoSectorEjeDimensionView.action_save()}"
+						update="panelGluoSectorEjeDimension, msg, panelBotones, men" />
+					<p:commandButton id="btnDelete"
+						binding="#{gluoSectorEjeDimensionView.btnDelete}" disabled="true"
+						value="Delete"
+						action="#{gluoSectorEjeDimensionView.action_delete_master()}"
+						onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+						update="panelGluoSectorEjeDimension, msg, panelBotones, men" />
+					<p:commandButton id="btnClear" value="Clear"
+						action="#{gluoSectorEjeDimensionView.action_clear()}"
+						update="panelGluoSectorEjeDimension, msg, panelBotones, men" />
+				</div>
+			</p:panel>
+		</h:form>
+
+	</ui:define>
+>>>>>>> 4fe19e7affc900b890846ed41ae55616b7d41211
 </ui:composition>

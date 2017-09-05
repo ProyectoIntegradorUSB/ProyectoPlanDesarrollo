@@ -1,4 +1,5 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<<<<<<< HEAD
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -156,6 +157,140 @@
 							action="#{gluoProgramaView.action_closeDialog()}"
 							update=":dialogGluoPrograma" />
 					</div>
+=======
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+		 
+	<ui:define name="content">		
+
+					
+		  			<h:form id="frm">								  		
+						
+						<p:panel id="panelDataTableGluoPrograma" header="GluoProgramaData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{gluoProgramaView.data}" var="gluoPrograma"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{gluoPrograma.progId}" sortBy="#{gluoPrograma.progId}" >
+										 <f:facet name="header">
+										<h:outputText value="progId"/>
+										</f:facet>
+										 <h:outputText value="#{gluoPrograma.progId}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{gluoPrograma.activo}" sortBy="#{gluoPrograma.activo}" >
+										 <f:facet name="header">
+										<h:outputText value="Activo"/>
+										</f:facet>
+										 <h:outputText value="#{gluoPrograma.activo}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoPrograma.descripcion}" sortBy="#{gluoPrograma.descripcion}" >
+										 <f:facet name="header">
+										<h:outputText value="Descripcion"/>
+										</f:facet>
+										 <h:outputText value="#{gluoPrograma.descripcion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoPrograma.fechaCreacion}" sortBy="#{gluoPrograma.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{gluoPrograma.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoPrograma.fechaModificacion}" sortBy="#{gluoPrograma.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{gluoPrograma.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoPrograma.usuCreador}" sortBy="#{gluoPrograma.usuCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="UsuCreador"/>
+										</f:facet>
+										 <h:outputText value="#{gluoPrograma.usuCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoPrograma.usuModificador}" sortBy="#{gluoPrograma.usuModificador}" >
+										 <f:facet name="header">
+										<h:outputText value="UsuModificador"/>
+										</f:facet>
+										 <h:outputText value="#{gluoPrograma.usuModificador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{gluoPrograma.objeId_GluoObjetivo}" sortBy="#{gluoPrograma.objeId_GluoObjetivo}" >
+										 <f:facet name="header">
+										<h:outputText value="ObjeId_GluoObjetivo"/>
+										</f:facet>
+										 <h:outputText value="#{gluoPrograma.objeId_GluoObjetivo}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogGluoPrograma"
+										actionListener="#{gluoProgramaView.action_edit}">
+										<f:attribute name="selectedGluoPrograma" value="#{gluoPrograma}" />
+									</p:commandButton>
+									
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{gluoProgramaView.action_new()}" update=":dialogGluoPrograma" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogGluoPrograma" appendTo="@(body)" draggable="true"
+						closable="false" visible="#{gluoProgramaView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" />
+							<p:panel id="panelGluoPrograma" header="GluoPrograma">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgProgId" value="ProgId"/>
+									 <p:inputText id="txtProgId" binding="#{gluoProgramaView.txtProgId}">
+									 <p:ajax update=":dialogGluoPrograma" listener="#{gluoProgramaView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgActivo" value=" Activo"/>
+									<p:selectOneMenu id="txtActivo" value="#{gluoProgramaView.somActivo}">
+										<f:selectItem itemLabel="A" itemValue="A" />
+										<f:selectItem itemLabel="I" itemValue="I" />
+									</p:selectOneMenu>
+																		<h:outputText id="msgDescripcion" value=" Descripcion"/>
+									<p:inputTextarea id="txtAreaDescripcion" disabled="true" binding="#{gluoProgramaView.txtAreaDescripcion}"/>
+																		<h:outputText id="msgUsuCreador" value=" UsuCreador"/>
+									<p:inputText id="txtUsuCreador" disabled="true" binding="#{gluoProgramaView.txtUsuCreador}"/>
+																		<h:outputText id="msgUsuModificador" value=" UsuModificador"/>
+									<p:inputText id="txtUsuModificador" disabled="true" binding="#{gluoProgramaView.txtUsuModificador}"/>
+																		<h:outputText id="msgObjeId_GluoObjetivo" value=" ObjeId_GluoObjetivo"/>
+									<p:inputText id="txtObjeId_GluoObjetivo" disabled="true" binding="#{gluoProgramaView.txtObjeId_GluoObjetivo}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{gluoProgramaView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{gluoProgramaView.listener_txtFechaCreacion}" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{gluoProgramaView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{gluoProgramaView.listener_txtFechaModificacion}" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{gluoProgramaView.btnSave}" value="Save" action="#{gluoProgramaView.action_save()}" update=":dialogGluoPrograma :frm:panelDataTableGluoPrograma" />
+									<p:commandButton id="btnClear" value="Clear" action="#{gluoProgramaView.action_clear()}" update=":dialogGluoPrograma" />
+									<p:commandButton id="btnExit" value="Exit" action="#{gluoProgramaView.action_closeDialog()}" update=":dialogGluoPrograma" />
+								</div>
+>>>>>>> ccb02e5ee1a81312ec3ad6da4a03d307df64e7c8
 				</p:panel>
 			</h:form>
 		</p:dialog>

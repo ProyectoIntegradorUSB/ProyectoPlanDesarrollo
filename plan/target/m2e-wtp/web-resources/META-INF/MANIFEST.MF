@@ -1,5 +1,10 @@
 Manifest-Version: 1.0
+<<<<<<< HEAD
+Built-By: souls
+Build-Jdk: 1.8.0_144
+=======
 Built-By: andru
 Build-Jdk: 1.8.0_131
+>>>>>>> 4fe19e7affc900b890846ed41ae55616b7d41211
 Created-By: Maven Integration for Eclipse
 

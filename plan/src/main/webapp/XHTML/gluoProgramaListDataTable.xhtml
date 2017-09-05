@@ -76,12 +76,7 @@
 										actionListener="#{gluoProgramaView.action_edit}">
 										<f:attribute name="selectedGluoPrograma" value="#{gluoPrograma}" />
 									</p:commandButton>
-									<p:commandButton id="btnDelete"									
-										title="Delete" actionListener="#{gluoProgramaView.action_delete_datatable}"
-										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
-										icon="ui-icon-trash" update="@form">
-										<f:attribute name="selectedGluoPrograma" value="#{gluoPrograma}" />
-									</p:commandButton>
+									
 								</p:column>									                    
 							</p:dataTable>	
 						</p:panel>
@@ -105,9 +100,12 @@
 									 </p:inputText>	
 																											
 																		<h:outputText id="msgActivo" value=" Activo"/>
-									<p:inputText id="txtActivo" disabled="true" binding="#{gluoProgramaView.txtActivo}"/>
+									<p:selectOneMenu id="txtActivo" value="#{gluoProgramaView.somActivo}">
+										<f:selectItem itemLabel="A" itemValue="A" />
+										<f:selectItem itemLabel="I" itemValue="I" />
+									</p:selectOneMenu>
 																		<h:outputText id="msgDescripcion" value=" Descripcion"/>
-									<p:inputText id="txtDescripcion" disabled="true" binding="#{gluoProgramaView.txtDescripcion}"/>
+									<p:inputTextarea id="txtAreaDescripcion" disabled="true" binding="#{gluoProgramaView.txtAreaDescripcion}"/>
 																		<h:outputText id="msgUsuCreador" value=" UsuCreador"/>
 									<p:inputText id="txtUsuCreador" disabled="true" binding="#{gluoProgramaView.txtUsuCreador}"/>
 																		<h:outputText id="msgUsuModificador" value=" UsuModificador"/>

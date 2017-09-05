@@ -76,12 +76,7 @@
 										actionListener="#{gluoSectorEjeDimensionView.action_edit}">
 										<f:attribute name="selectedGluoSectorEjeDimension" value="#{gluoSectorEjeDimension}" />
 									</p:commandButton>
-									<p:commandButton id="btnDelete"									
-										title="Delete" actionListener="#{gluoSectorEjeDimensionView.action_delete_datatable}"
-										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
-										icon="ui-icon-trash" update="@form">
-										<f:attribute name="selectedGluoSectorEjeDimension" value="#{gluoSectorEjeDimension}" />
-									</p:commandButton>
+									
 								</p:column>									                    
 							</p:dataTable>	
 						</p:panel>
@@ -105,16 +100,23 @@
 									 </p:inputText>	
 																											
 																		<h:outputText id="msgActivo" value=" Activo"/>
-									<p:inputText id="txtActivo" disabled="true" binding="#{gluoSectorEjeDimensionView.txtActivo}"/>
+									<p:selectOneMenu id="somActivo"  value="#{gluoSectorEjeDimensionView.somActivo}"> 
+										<f:selectItem itemLabel="A" itemValue="A"/>
+										<f:selectItem itemLabel="I" itemValue="I"/>
+									</p:selectOneMenu>
 																		<h:outputText id="msgDescripcion" value=" Descripcion"/>
-									<p:inputText id="txtDescripcion" disabled="true" binding="#{gluoSectorEjeDimensionView.txtDescripcion}"/>
+									<p:inputTextarea id="txtDescripcion" disabled="true" binding="#{gluoSectorEjeDimensionView.txtAreaDescripcion}"/>
+									
+									
+																		<h:outputText id="msgPlanId_GluoPlanDesarrollo" value=" PlanId_GluoPlanDesarrollo"/>
+									<p:selectOneMenu binding="#{gluoSectorEjeDimensionView.somPlanDesarrollo}" id="somPlanDesarrollo">
+										<f:selectItem itemLabel="Seleccione una opcion" itemValue="-1" />
+										<f:selectItems value="#{gluoSectorEjeDimensionView.losPlanDesarrolloItems}" />
+									</p:selectOneMenu>
 																		<h:outputText id="msgUsuCreador" value=" UsuCreador"/>
 									<p:inputText id="txtUsuCreador" disabled="true" binding="#{gluoSectorEjeDimensionView.txtUsuCreador}"/>
 																		<h:outputText id="msgUsuModificador" value=" UsuModificador"/>
 									<p:inputText id="txtUsuModificador" disabled="true" binding="#{gluoSectorEjeDimensionView.txtUsuModificador}"/>
-																		<h:outputText id="msgPlanId_GluoPlanDesarrollo" value=" PlanId_GluoPlanDesarrollo"/>
-									<p:inputText id="txtPlanId_GluoPlanDesarrollo" disabled="true" binding="#{gluoSectorEjeDimensionView.txtPlanId_GluoPlanDesarrollo}"/>
-																		
 																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
 																				<p:calendar showOn="button" navigator="true" locale="en" 
 										binding="#{gluoSectorEjeDimensionView.txtFechaCreacion}" >

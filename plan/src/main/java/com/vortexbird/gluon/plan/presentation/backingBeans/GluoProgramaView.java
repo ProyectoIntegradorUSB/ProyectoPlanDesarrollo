@@ -9,7 +9,7 @@ import com.vortexbird.gluon.plan.utilities.*;
 import org.primefaces.component.calendar.*;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
-
+import org.primefaces.component.inputtextarea.InputTextarea;
 import org.primefaces.event.RowEditEvent;
 
 import org.slf4j.Logger;
@@ -46,8 +46,8 @@ import javax.faces.event.ActionEvent;
 public class GluoProgramaView implements Serializable {
     private static final long serialVersionUID = 1L;
     private static final Logger log = LoggerFactory.getLogger(GluoProgramaView.class);
-    private InputText txtActivo;
-    private InputText txtDescripcion;
+    private String somActivo;
+    private InputTextarea txtAreaDescripcion;
     private InputText txtUsuCreador;
     private InputText txtUsuModificador;
     private InputText txtObjeId_GluoObjetivo;
@@ -81,15 +81,15 @@ public class GluoProgramaView implements Serializable {
         entity = null;
         selectedGluoPrograma = null;
 
-        if (txtActivo != null) {
-            txtActivo.setValue(null);
-            txtActivo.setDisabled(true);
-        }
+//        if (txtActivo != null) {
+//            txtActivo.setValue(null);
+//            txtActivo.setDisabled(true);
+//        }
 
-        if (txtDescripcion != null) {
-            txtDescripcion.setValue(null);
-            txtDescripcion.setDisabled(true);
-        }
+//        if (txtDescripcion != null) {
+//            txtDescripcion.setValue(null);
+//            txtDescripcion.setDisabled(true);
+//        }
 
         if (txtUsuCreador != null) {
             txtUsuCreador.setValue(null);
@@ -158,8 +158,8 @@ public class GluoProgramaView implements Serializable {
         }
 
         if (entity == null) {
-            txtActivo.setDisabled(false);
-            txtDescripcion.setDisabled(false);
+//            txtActivo.setDisabled(false);
+            txtAreaDescripcion.setDisabled(false);
             txtUsuCreador.setDisabled(false);
             txtUsuModificador.setDisabled(false);
             txtObjeId_GluoObjetivo.setDisabled(false);
@@ -168,10 +168,10 @@ public class GluoProgramaView implements Serializable {
             txtProgId.setDisabled(false);
             btnSave.setDisabled(false);
         } else {
-            txtActivo.setValue(entity.getActivo());
-            txtActivo.setDisabled(false);
-            txtDescripcion.setValue(entity.getDescripcion());
-            txtDescripcion.setDisabled(false);
+//            txtActivo.setValue(entity.getActivo());
+//            txtActivo.setDisabled(false);
+        	txtAreaDescripcion.setValue(entity.getDescripcion());
+        	txtAreaDescripcion.setDisabled(false);
             txtFechaCreacion.setValue(entity.getFechaCreacion());
             txtFechaCreacion.setDisabled(false);
             txtFechaModificacion.setValue(entity.getFechaModificacion());
@@ -196,10 +196,10 @@ public class GluoProgramaView implements Serializable {
         selectedGluoPrograma = (GluoProgramaDTO) (evt.getComponent()
                                                      .getAttributes()
                                                      .get("selectedGluoPrograma"));
-        txtActivo.setValue(selectedGluoPrograma.getActivo());
-        txtActivo.setDisabled(false);
-        txtDescripcion.setValue(selectedGluoPrograma.getDescripcion());
-        txtDescripcion.setDisabled(false);
+//        txtActivo.setValue(selectedGluoPrograma.getActivo());
+//        txtActivo.setDisabled(false);
+        txtAreaDescripcion.setValue(selectedGluoPrograma.getDescripcion());
+        txtAreaDescripcion.setDisabled(false);
         txtFechaCreacion.setValue(selectedGluoPrograma.getFechaCreacion());
         txtFechaCreacion.setDisabled(false);
         txtFechaModificacion.setValue(selectedGluoPrograma.getFechaModificacion());
@@ -240,8 +240,8 @@ public class GluoProgramaView implements Serializable {
 
             Integer progId = FacesUtils.checkInteger(txtProgId);
 
-            entity.setActivo(FacesUtils.checkString(txtActivo));
-            entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
+            entity.setActivo(FacesUtils.checkString(somActivo));
+            entity.setDescripcion(FacesUtils.checkString(txtAreaDescripcion));
             entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
             entity.setFechaModificacion(FacesUtils.checkDate(
                     txtFechaModificacion));
@@ -270,8 +270,8 @@ public class GluoProgramaView implements Serializable {
                 entity = businessDelegatorView.getGluoPrograma(progId);
             }
 
-            entity.setActivo(FacesUtils.checkString(txtActivo));
-            entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
+            entity.setActivo(FacesUtils.checkString(somActivo));
+            entity.setDescripcion(FacesUtils.checkString(txtAreaDescripcion));
             entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
             entity.setFechaModificacion(FacesUtils.checkDate(
                     txtFechaModificacion));
@@ -359,21 +359,37 @@ public class GluoProgramaView implements Serializable {
         return "";
     }
 
-    public InputText getTxtActivo() {
-        return txtActivo;
-    }
+//    public InputText getTxtActivo() {
+//        return txtActivo;
+//    }
+//
+//    public void setTxtActivo(InputText txtActivo) {
+//        this.txtActivo = txtActivo;
+//    }
 
-    public void setTxtActivo(InputText txtActivo) {
-        this.txtActivo = txtActivo;
-    }
+//    public InputText getTxtDescripcion() {
+//        return txtDescripcion;
+//    }
+    
+//	public void setTxtDescripcion(InputText txtDescripcion) {
+//  this.txtDescripcion = txtDescripcion;
+//}
+    
+    public String getSomActivo() {
+		return somActivo;
+	}
 
-    public InputText getTxtDescripcion() {
-        return txtDescripcion;
-    }
+	public InputTextarea getTxtAreaDescripcion() {
+		return txtAreaDescripcion;
+	}
 
-    public void setTxtDescripcion(InputText txtDescripcion) {
-        this.txtDescripcion = txtDescripcion;
-    }
+	public void setTxtAreaDescripcion(InputTextarea txtAreaDescripcion) {
+		this.txtAreaDescripcion = txtAreaDescripcion;
+	}
+
+	public void setSomActivo(String somActivo) {
+		this.somActivo = somActivo;
+	}
 
     public InputText getTxtUsuCreador() {
         return txtUsuCreador;

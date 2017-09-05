@@ -14,12 +14,12 @@
 							<p:growl id="men"/>				
 							<p:dataTable value="#{gluoObjetivoView.data}" var="gluoObjetivo"
 								paginator="true" rows="5">
-																										<p:column filterBy="#{gluoObjetivo.objeId}" sortBy="#{gluoObjetivo.objeId}" >
+									<p:column filterBy="#{gluoObjetivo.objeId}" sortBy="#{gluoObjetivo.objeId}" >
 										 <f:facet name="header">
 										<h:outputText value="objeId"/>
 										</f:facet>
 										 <h:outputText value="#{gluoObjetivo.objeId}"/>
-										 </p:column>
+									</p:column>
 			                    																									
 										<p:column filterBy="#{gluoObjetivo.activo}" sortBy="#{gluoObjetivo.activo}" >
 										 <f:facet name="header">
@@ -76,12 +76,7 @@
 										actionListener="#{gluoObjetivoView.action_edit}">
 										<f:attribute name="selectedGluoObjetivo" value="#{gluoObjetivo}" />
 									</p:commandButton>
-									<p:commandButton id="btnDelete"									
-										title="Delete" actionListener="#{gluoObjetivoView.action_delete_datatable}"
-										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
-										icon="ui-icon-trash" update="@form">
-										<f:attribute name="selectedGluoObjetivo" value="#{gluoObjetivo}" />
-									</p:commandButton>
+									
 								</p:column>									                    
 							</p:dataTable>	
 						</p:panel>
@@ -105,17 +100,29 @@
 									 </p:inputText>	
 																											
 																		<h:outputText id="msgActivo" value=" Activo"/>
-									<p:inputText id="txtActivo" disabled="true" binding="#{gluoObjetivoView.txtActivo}"/>
+									<p:selectOneMenu id="txtActivo"  value="#{gluoObjetivoView.somActivo}"> 
+										<f:selectItem itemLabel="A" itemValue="A"/>
+										<f:selectItem itemLabel="I" itemValue="I"/>
+									</p:selectOneMenu>
+									
 																		<h:outputText id="msgDescripcion" value=" Descripcion"/>
-									<p:inputText id="txtDescripcion" disabled="true" binding="#{gluoObjetivoView.txtDescripcion}"/>
+									<p:inputTextarea id="txtDescripcion" disabled="true" binding="#{gluoObjetivoView.txtAreaDescripcion}"/>
+									
+									<h:outputText id="msgSediId_GluoSectorEjeDimension" value=" SediId_GluoSectorEjeDimension"/>
+									<p:selectOneMenu id="txtSediId_GluoSectorEjeDimension" binding="#{gluoObjetivoView.somSectorEje}">
+										<f:selectItems value="#{gluoObjetivoView.losObjetivosItems}" />
+									</p:selectOneMenu>
+									
 																		<h:outputText id="msgUsuCreador" value=" UsuCreador"/>
 									<p:inputText id="txtUsuCreador" disabled="true" binding="#{gluoObjetivoView.txtUsuCreador}"/>
+									
 																		<h:outputText id="msgUsuModificador" value=" UsuModificador"/>
 									<p:inputText id="txtUsuModificador" disabled="true" binding="#{gluoObjetivoView.txtUsuModificador}"/>
-																		<h:outputText id="msgSediId_GluoSectorEjeDimension" value=" SediId_GluoSectorEjeDimension"/>
-									<p:inputText id="txtSediId_GluoSectorEjeDimension" disabled="true" binding="#{gluoObjetivoView.txtSediId_GluoSectorEjeDimension}"/>
+									
 																		
-																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+									
+																		
+																				<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
 																				<p:calendar showOn="button" navigator="true" locale="en" 
 										binding="#{gluoObjetivoView.txtFechaCreacion}" >
 										<p:ajax event="dateSelect" listener="#{gluoObjetivoView.listener_txtFechaCreacion}" />

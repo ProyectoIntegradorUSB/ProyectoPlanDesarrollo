@@ -9,7 +9,7 @@ import com.vortexbird.gluon.plan.utilities.*;
 import org.primefaces.component.calendar.*;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
-import org.primefaces.component.selectonemenu.SelectOneMenu;
+import org.primefaces.component.inputtextarea.InputTextarea;
 import org.primefaces.event.RowEditEvent;
 
 import org.slf4j.Logger;
@@ -46,11 +46,9 @@ import javax.faces.event.ActionEvent;
 public class GluoPlanDesarrolloView implements Serializable {
     private static final long serialVersionUID = 1L;
     private static final Logger log = LoggerFactory.getLogger(GluoPlanDesarrolloView.class);
-    
-    private InputText txtActivo;
     private String somActivo;
-    private InputText txtDescripcion;
-    private InputText txtEslogan;
+    private InputTextarea txtAreaDescripcion;
+    private InputTextarea txtAreaEslogan;
     private InputText txtNombreAlcalde;
     private InputText txtUsuCreador;
     private InputText txtUsuModificador;
@@ -73,29 +71,7 @@ public class GluoPlanDesarrolloView implements Serializable {
     public GluoPlanDesarrolloView() {
         super();
     }
-    
-    public void crearGluoPlanDesarrollo() throws Exception{
-    	try {
-			
-    		GluoPlanDesarrolloDTO gluoPlanDesarrolloDTO = new GluoPlanDesarrolloDTO();
-    		gluoPlanDesarrolloDTO.setNombreAlcalde(txtNombreAlcalde.getValue().toString().trim());
-    		gluoPlanDesarrolloDTO.setDescripcion(txtDescripcion.getValue().toString().trim());
-    		gluoPlanDesarrolloDTO.setActivo(txtActivo.getValue().toString().trim());
-    		gluoPlanDesarrolloDTO.setAnoInicio(FacesUtils.checkDate(txtAnoInicio.getValue()));
-    		gluoPlanDesarrolloDTO.setAnoFin(FacesUtils.checkDate(txtAnoFin.getValue()));
-    		
-    		Integer idUsuarioCreador = Integer.valueOf(FacesUtils.getSession().getId());
-    		
-    		gluoPlanDesarrolloDTO.setUsuCreador(idUsuarioCreador);
-    		gluoPlanDesarrolloDTO.setFechaCreacion(new Date());
-    		
-    		businessDelegatorView.crearGluoPlanDesarrollo(gluoPlanDesarrolloDTO);
-    		
-		} catch (Exception e) {
-			FacesUtils.addErrorMessage(e.getMessage());
-		}
-    }
-    
+
     public String action_new() {
         action_clear();
         selectedGluoPlanDesarrollo = null;
@@ -108,19 +84,19 @@ public class GluoPlanDesarrolloView implements Serializable {
         entity = null;
         selectedGluoPlanDesarrollo = null;
 
-        if (txtActivo != null) {
-            txtActivo.setValue(null);
-            txtActivo.setDisabled(true);
+//        if (txtActivo != null) {
+//            txtActivo.setValue(null);
+//            txtActivo.setDisabled(true);
+//        }
+
+        if (txtAreaDescripcion != null) {
+        	txtAreaDescripcion.setValue(null);
+        	txtAreaDescripcion.setDisabled(true);
         }
 
-        if (txtDescripcion != null) {
-            txtDescripcion.setValue(null);
-            txtDescripcion.setDisabled(true);
-        }
-
-        if (txtEslogan != null) {
-            txtEslogan.setValue(null);
-            txtEslogan.setDisabled(true);
+        if (txtAreaEslogan != null) {
+        	txtAreaEslogan.setValue(null);
+        	txtAreaEslogan.setDisabled(true);
         }
 
         if (txtNombreAlcalde != null) {
@@ -216,9 +192,9 @@ public class GluoPlanDesarrolloView implements Serializable {
         }
 
         if (entity == null) {
-            txtActivo.setDisabled(false);
-            txtDescripcion.setDisabled(false);
-            txtEslogan.setDisabled(false);
+//            txtActivo.setDisabled(false);
+        	txtAreaDescripcion.setDisabled(false);
+        	txtAreaEslogan.setDisabled(false);
             txtNombreAlcalde.setDisabled(false);
             txtUsuCreador.setDisabled(false);
             txtUsuModificador.setDisabled(false);
@@ -229,16 +205,16 @@ public class GluoPlanDesarrolloView implements Serializable {
             txtPlanId.setDisabled(false);
             btnSave.setDisabled(false);
         } else {
-            txtActivo.setValue(entity.getActivo());
-            txtActivo.setDisabled(false);
+//            txtActivo.setValue(entity.getActivo());
+//            txtActivo.setDisabled(false);
             txtAnoFin.setValue(entity.getAnoFin());
             txtAnoFin.setDisabled(false);
             txtAnoInicio.setValue(entity.getAnoInicio());
             txtAnoInicio.setDisabled(false);
-            txtDescripcion.setValue(entity.getDescripcion());
-            txtDescripcion.setDisabled(false);
-            txtEslogan.setValue(entity.getEslogan());
-            txtEslogan.setDisabled(false);
+            txtAreaDescripcion.setValue(entity.getDescripcion());
+            txtAreaDescripcion.setDisabled(false);
+            txtAreaEslogan.setValue(entity.getEslogan());
+            txtAreaEslogan.setDisabled(false);
             txtFechaCreacion.setValue(entity.getFechaCreacion());
             txtFechaCreacion.setDisabled(false);
             txtFechaModificacion.setValue(entity.getFechaModificacion());
@@ -263,26 +239,26 @@ public class GluoPlanDesarrolloView implements Serializable {
         selectedGluoPlanDesarrollo = (GluoPlanDesarrolloDTO) (evt.getComponent()
                                                                  .getAttributes()
                                                                  .get("selectedGluoPlanDesarrollo"));
-        txtActivo.setValue(selectedGluoPlanDesarrollo.getActivo());
-        txtActivo.setDisabled(false);
+//        txtActivo.setValue(selectedGluoPlanDesarrollo.getActivo());
+//        txtActivo.setDisabled(false);
         txtAnoFin.setValue(selectedGluoPlanDesarrollo.getAnoFin());
         txtAnoFin.setDisabled(false);
         txtAnoInicio.setValue(selectedGluoPlanDesarrollo.getAnoInicio());
         txtAnoInicio.setDisabled(false);
-        txtDescripcion.setValue(selectedGluoPlanDesarrollo.getDescripcion());
-        txtDescripcion.setDisabled(false);
-        txtEslogan.setValue(selectedGluoPlanDesarrollo.getEslogan());
-        txtEslogan.setDisabled(false);
+        txtAreaDescripcion.setValue(selectedGluoPlanDesarrollo.getDescripcion());
+        txtAreaDescripcion.setDisabled(false);
+        txtAreaEslogan.setValue(selectedGluoPlanDesarrollo.getEslogan());
+        txtAreaEslogan.setDisabled(false);
         txtFechaCreacion.setValue(selectedGluoPlanDesarrollo.getFechaCreacion());
-        txtFechaCreacion.setDisabled(false);
+        txtFechaCreacion.setDisabled(true);
         txtFechaModificacion.setValue(selectedGluoPlanDesarrollo.getFechaModificacion());
-        txtFechaModificacion.setDisabled(false);
+        txtFechaModificacion.setDisabled(true);
         txtNombreAlcalde.setValue(selectedGluoPlanDesarrollo.getNombreAlcalde());
         txtNombreAlcalde.setDisabled(false);
         txtUsuCreador.setValue(selectedGluoPlanDesarrollo.getUsuCreador());
-        txtUsuCreador.setDisabled(false);
+        txtUsuCreador.setDisabled(true);
         txtUsuModificador.setValue(selectedGluoPlanDesarrollo.getUsuModificador());
-        txtUsuModificador.setDisabled(false);
+        txtUsuModificador.setDisabled(true);
         txtPlanId.setValue(selectedGluoPlanDesarrollo.getPlanId());
         txtPlanId.setDisabled(true);
         btnSave.setDisabled(false);
@@ -311,22 +287,22 @@ public class GluoPlanDesarrolloView implements Serializable {
         try {
             entity = new GluoPlanDesarrollo();
 
-            //Integer planId = FacesUtils.checkInteger(txtPlanId);
+//            Integer planId = FacesUtils.checkInteger(txtPlanId);
 
             entity.setActivo(somActivo);
             entity.setAnoFin(FacesUtils.checkDate(txtAnoFin));
             entity.setAnoInicio(FacesUtils.checkDate(txtAnoInicio));
-            entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
-            entity.setEslogan(FacesUtils.checkString(txtEslogan));
+            entity.setDescripcion(FacesUtils.checkString(txtAreaDescripcion));
+            entity.setEslogan(FacesUtils.checkString(txtAreaEslogan));
             entity.setFechaCreacion(new Date());
-            //entity.setFechaModificacion(FacesUtils.checkDate(
-            //        txtFechaModificacion));
+//            entity.setFechaModificacion(FacesUtils.checkDate(
+//                    txtFechaModificacion));
             entity.setNombreAlcalde(FacesUtils.checkString(txtNombreAlcalde));
-            //entity.setPlanId(planId);
-            SegUsuario segUsuario = (SegUsuario) FacesUtils.getfromSession("usuarioEnSession"); //saco el usuario de session
-            Integer idUsuariocreador = Integer.valueOf(segUsuario.getUsuId());
-            entity.setUsuCreador(idUsuariocreador);
-            //entity.setUsuModificador(FacesUtils.checkInteger(txtUsuModificador));
+//            entity.setPlanId(planId);
+            SegUsuario segUsuario = (SegUsuario) FacesUtils.getfromSession("usuarioEnSession");
+            Integer usuaCreador = Integer.valueOf(segUsuario.getUsuId());
+            entity.setUsuCreador(usuaCreador);
+//            entity.setUsuModificador(FacesUtils.checkInteger(txtUsuModificador));
             businessDelegatorView.saveGluoPlanDesarrollo(entity);
             FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
             action_clear();
@@ -345,17 +321,20 @@ public class GluoPlanDesarrolloView implements Serializable {
                 entity = businessDelegatorView.getGluoPlanDesarrollo(planId);
             }
 
-            entity.setActivo(somActivo);
+            entity.setActivo(somActivo.toString());
             entity.setAnoFin(FacesUtils.checkDate(txtAnoFin));
             entity.setAnoInicio(FacesUtils.checkDate(txtAnoInicio));
-            entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
-            entity.setEslogan(FacesUtils.checkString(txtEslogan));
-            entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-            entity.setFechaModificacion(FacesUtils.checkDate(
-                    txtFechaModificacion));
+            entity.setDescripcion(FacesUtils.checkString(txtAreaDescripcion));
+            entity.setEslogan(FacesUtils.checkString(txtAreaEslogan));
+//            entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
+            entity.setFechaModificacion(
+                    new Date());
             entity.setNombreAlcalde(FacesUtils.checkString(txtNombreAlcalde));
-            entity.setUsuCreador(FacesUtils.checkInteger(txtUsuCreador));
-            entity.setUsuModificador(FacesUtils.checkInteger(txtUsuModificador));
+//            entity.setUsuCreador(FacesUtils.checkInteger(txtUsuCreador));
+            SegUsuario segUsuario = (SegUsuario) FacesUtils.getfromSession("usuarioEnSession");
+            Integer usuaModificador = Integer.valueOf(segUsuario.getUsuId());
+            
+            entity.setUsuModificador(usuaModificador);
             businessDelegatorView.updateGluoPlanDesarrollo(entity);
             FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
         } catch (Exception e) {
@@ -366,15 +345,7 @@ public class GluoPlanDesarrolloView implements Serializable {
         return "";
     }
 
-    public String getSomActivo() {
-		return somActivo;
-	}
-
-	public void setSomActivo(String somActivo) {
-		this.somActivo = somActivo;
-	}
-
-	public String action_delete_datatable(ActionEvent evt) {
+    public String action_delete_datatable(ActionEvent evt) {
         try {
             selectedGluoPlanDesarrollo = (GluoPlanDesarrolloDTO) (evt.getComponent()
                                                                      .getAttributes()
@@ -430,11 +401,11 @@ public class GluoPlanDesarrolloView implements Serializable {
             entity.setAnoInicio(FacesUtils.checkDate(anoInicio));
             entity.setDescripcion(FacesUtils.checkString(descripcion));
             entity.setEslogan(FacesUtils.checkString(eslogan));
-            //entity.setFechaCreacion(FacesUtils.checkDate(fechaCreacion));
-            //entity.setFechaModificacion(FacesUtils.checkDate(fechaModificacion));
+            entity.setFechaCreacion(FacesUtils.checkDate(fechaCreacion));
+            entity.setFechaModificacion(FacesUtils.checkDate(fechaModificacion));
             entity.setNombreAlcalde(FacesUtils.checkString(nombreAlcalde));
-            //entity.setUsuCreador(FacesUtils.checkInteger(usuCreador));
-            //entity.setUsuModificador(FacesUtils.checkInteger(usuModificador));
+            entity.setUsuCreador(FacesUtils.checkInteger(usuCreador));
+            entity.setUsuModificador(FacesUtils.checkInteger(usuModificador));
             businessDelegatorView.updateGluoPlanDesarrollo(entity);
             FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
         } catch (Exception e) {
@@ -446,35 +417,59 @@ public class GluoPlanDesarrolloView implements Serializable {
         return "";
     }
 
-    public InputText getTxtActivo() {
-        return txtActivo;
-    }
-
-    public void setTxtActivo(InputText txtActivo) {
-        this.txtActivo = txtActivo;
-    }
-
-    public InputText getTxtDescripcion() {
-        return txtDescripcion;
-    }
-
-    public void setTxtDescripcion(InputText txtDescripcion) {
-        this.txtDescripcion = txtDescripcion;
-    }
-
-    public InputText getTxtEslogan() {
-        return txtEslogan;
-    }
-
-    public void setTxtEslogan(InputText txtEslogan) {
-        this.txtEslogan = txtEslogan;
-    }
+//    public InputText getTxtActivo() {
+//        return txtActivo;
+//    }
+//
+//    public void setTxtActivo(InputText txtActivo) {
+//        this.txtActivo = txtActivo;
+//    }
+//
+//    public InputText getTxtDescripcion() {
+//        return txtDescripcion;
+//    }
+//
+//    public void setTxtDescripcion(InputText txtDescripcion) {
+//        this.txtDescripcion = txtDescripcion;
+//    }
+//
+//    public InputText getTxtEslogan() {
+//        return txtEslogan;
+//    }
+//
+//    public void setTxtEslogan(InputText txtEslogan) {
+//        this.txtEslogan = txtEslogan;
+//    }
 
     public InputText getTxtNombreAlcalde() {
         return txtNombreAlcalde;
     }
 
-    public void setTxtNombreAlcalde(InputText txtNombreAlcalde) {
+    public String getSomActivo() {
+		return somActivo;
+	}
+
+	public void setSomActivo(String somActivo) {
+		this.somActivo = somActivo;
+	}
+
+	public InputTextarea getTxtAreaDescripcion() {
+		return txtAreaDescripcion;
+	}
+
+	public void setTxtAreaDescripcion(InputTextarea txtAreaDescripcion) {
+		this.txtAreaDescripcion = txtAreaDescripcion;
+	}
+
+	public InputTextarea getTxtAreaEslogan() {
+		return txtAreaEslogan;
+	}
+
+	public void setTxtAreaEslogan(InputTextarea txtAreaEslogan) {
+		this.txtAreaEslogan = txtAreaEslogan;
+	}
+
+	public void setTxtNombreAlcalde(InputText txtNombreAlcalde) {
         this.txtNombreAlcalde = txtNombreAlcalde;
     }
 
@@ -611,5 +606,4 @@ public class GluoPlanDesarrolloView implements Serializable {
     public void setShowDialog(boolean showDialog) {
         this.showDialog = showDialog;
     }
-
 }

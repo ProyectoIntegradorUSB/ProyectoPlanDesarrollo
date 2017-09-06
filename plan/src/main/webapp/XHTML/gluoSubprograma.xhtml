@@ -15,11 +15,15 @@
 
 
 					<h:outputText id="msgActivo" value=" Activo" />
-					<p:inputText id="txtActivo" disabled="true"
-						binding="#{gluoSubprogramaView.txtActivo}" />
+					<p:selectOneMenu id="Activo"
+						value="#{gluoSubprogramaView.somActivo}" style="width:135px">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItem itemLabel="A" itemValue="A" />
+						<f:selectItem itemLabel="I" itemValue="I" />
+					</p:selectOneMenu>
 					<h:outputText id="msgDescripcion" value=" Descripcion" />
-					<p:inputText id="txtDescripcion" disabled="true"
-						binding="#{gluoSubprogramaView.txtDescripcion}" />
+					<p:inputTextarea id="txtAreaDescripcion" disabled="false"
+						binding="#{gluoSubprogramaView.txtAreaDescripcion}" />
 
 					<h:outputText value="Programa" />
 					<p:selectOneMenu binding="#{gluoSubprogramaView.somPrograma}"
@@ -36,12 +40,6 @@
 					<p:commandButton id="btnSave"
 						binding="#{gluoSubprogramaView.btnSave}" disabled="false"
 						value="Guardar" action="#{gluoSubprogramaView.action_save()}"
-						update="panelGluoSubprograma, msg, panelBotones, men" />
-					<p:commandButton id="btnModify"
-						binding="#{gluoSubprogramaView.btnModify}" disabled="false"
-						value="Modificar"
-						action="#{gluoSubprogramaView.action_modify()}"
-						onclick="if(!confirm('Do you really want to modify this Entry?')){return false;}"
 						update="panelGluoSubprograma, msg, panelBotones, men" />
 					<p:commandButton id="btnClear" value="Limpiar"
 						action="#{gluoSubprogramaView.action_clear()}"

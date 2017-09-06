@@ -13,32 +13,31 @@
 			<p:panel id="panelGluoPrograma" header="GluoPrograma">
 				<h:panelGrid columns="2" id="panelGrid">
 
-
 					<h:outputText id="msgActivo" value=" Activo" />
-					<p:inputText id="txtActivo" disabled="true"
-						binding="#{gluoProgramaView.txtActivo}" />
+					<p:selectOneMenu id="Activo" value="#{gluoProgramaView.somActivo}"
+						style="width:135px">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItem itemLabel="A" itemValue="A" />
+						<f:selectItem itemLabel="I" itemValue="I" />
+					</p:selectOneMenu>
+
 					<h:outputText id="msgDescripcion" value=" Descripcion" />
-					<p:inputText id="txtDescripcion" disabled="true"
-						binding="#{gluoProgramaView.txtDescripcion}" />
+					<p:inputTextarea id="txtDescripcion" disabled="false"
+						binding="#{gluoProgramaView.txtAreaDescripcion}" />
 
 					<h:outputText value="Objetivo" />
-					<p:selectOneMenu binding="#{gluoProgramaView.somObjetivo}"
-						id="somObjetivo">
-
+					<p:selectOneMenu id="somObjetivos"
+						binding="#{gluoProgramaView.somObjetivos}">
 						<f:selectItems value="#{gluoProgramaView.losObjetivosItems}" />
 					</p:selectOneMenu>
+
 				</h:panelGrid>
 			</p:panel>
 			<p:panel id="panelBotones">
 				<div align="center">
-					<p:commandButton id="btnGuardar" binding="#{gluoProgramaView.btnSave}"
-						disabled="false" value="Guardar"
-						action="#{gluoProgramaView.action_save()}"
-						update="panelGluoPrograma, msg, panelBotones, men" />
-					<p:commandButton id="btnModify"
-						binding="#{gluoProgramaView.btnModify}" disabled="false"
-						value="Modificar" action="#{gluoProgramaView.action_modify()}"
-						onclick="if(!confirm('Do you really want to modify this Entry?')){return false;}"
+					<p:commandButton id="btnGuardar"
+						binding="#{gluoProgramaView.btnSave}" disabled="false"
+						value="Guardar" action="#{gluoProgramaView.action_save()}"
 						update="panelGluoPrograma, msg, panelBotones, men" />
 					<p:commandButton id="btnClear" value="Limpiar"
 						action="#{gluoProgramaView.action_clear()}"

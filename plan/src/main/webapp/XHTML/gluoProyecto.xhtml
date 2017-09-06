@@ -15,12 +15,16 @@
 
 
 					<h:outputText id="msgActivo" value=" Activo" />
-					<p:inputText id="txtActivo" disabled="true"
-						binding="#{gluoProyectoView.txtActivo}" />
+					<p:selectOneMenu id="Activo" value="#{gluoProyectoView.somActivo}"
+						style="width:135px">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItem itemLabel="A" itemValue="A" />
+						<f:selectItem itemLabel="I" itemValue="I" />
+					</p:selectOneMenu>
 					<h:outputText id="msgDescripcion" value=" Descripcion" />
-					<p:inputText id="txtDescripcion" disabled="true"
-						binding="#{gluoProyectoView.txtDescripcion}" />
-						
+					<p:inputTextarea id="txtAreaDescripcion" disabled="false"
+						binding="#{gluoProyectoView.txtAreaDescripcion}" />
+
 					<h:outputText value="Sub Programa" />
 					<p:selectOneMenu binding="#{gluoProyectoView.somSubPrograma}"
 						id="somSubPrograma">
@@ -35,11 +39,6 @@
 					<p:commandButton id="btnSave" binding="#{gluoProyectoView.btnSave}"
 						disabled="false" value="Guardar"
 						action="#{gluoProyectoView.action_save()}"
-						update="panelGluoProyecto, msg, panelBotones, men" />
-					<p:commandButton id="btnModify"
-						binding="#{gluoProyectoView.btnModify}" disabled="false"
-						value="Modificar" action="#{gluoProyectoView.action_modify()}"
-						onclick="if(!confirm('Do you really want to modify this Entry?')){return false;}"
 						update="panelGluoProyecto, msg, panelBotones, men" />
 					<p:commandButton id="btnClear" value="Limpiar"
 						action="#{gluoProyectoView.action_clear()}"

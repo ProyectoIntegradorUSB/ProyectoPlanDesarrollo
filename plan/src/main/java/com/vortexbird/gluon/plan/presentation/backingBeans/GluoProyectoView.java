@@ -9,6 +9,7 @@ import com.vortexbird.gluon.plan.utilities.*;
 import org.primefaces.component.calendar.*;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
+import org.primefaces.component.inputtextarea.InputTextarea;
 import org.primefaces.component.selectonemenu.SelectOneMenu;
 import org.primefaces.event.RowEditEvent;
 
@@ -47,8 +48,8 @@ import javax.faces.model.SelectItem;
 public class GluoProyectoView implements Serializable {
     private static final long serialVersionUID = 1L;
     private static final Logger log = LoggerFactory.getLogger(GluoProyectoView.class);
-    private InputText txtActivo;
-    private InputText txtAreaDescripcion;
+    private String somActivo;
+    private InputTextarea txtAreaDescripcion;
 
     private List<SelectItem> losSubProgramasItems;
 	private SelectOneMenu somSubPrograma;
@@ -245,7 +246,7 @@ public class GluoProyectoView implements Serializable {
 
             //Integer proyId = FacesUtils.checkInteger(txtProyId);
 
-            entity.setActivo(FacesUtils.checkString(txtActivo));
+            entity.setActivo(FacesUtils.checkString(somActivo));
             entity.setDescripcion(FacesUtils.checkString(txtAreaDescripcion));
             entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
             //entity.setFechaModificacion(FacesUtils.checkDate(txtFechaModificacion));
@@ -280,7 +281,7 @@ public class GluoProyectoView implements Serializable {
                 entity = businessDelegatorView.getGluoProyecto(proyId);
             }
 
-            entity.setActivo(FacesUtils.checkString(txtActivo));
+            entity.setActivo(FacesUtils.checkString(somActivo));
             entity.setDescripcion(FacesUtils.checkString(txtAreaDescripcion));
             ///entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
             SegUsuario segUsuario = (SegUsuario) FacesUtils.getfromSession("usuarioEnSession");
@@ -404,21 +405,20 @@ public class GluoProyectoView implements Serializable {
 	}
 
 
+	public String getSomActivo() {
+		return somActivo;
+	}
 
-    public InputText getTxtActivo() {
-        return txtActivo;
-    }
+	public void setSomActivo(String somActivo) {
+		this.somActivo = somActivo;
+	}
 
-    public void setTxtActivo(InputText txtActivo) {
-        this.txtActivo = txtActivo;
-    }
-
-    public InputText getTxtAreaDescripcion() {
+    public InputTextarea getTxtAreaDescripcion() {
         return txtAreaDescripcion;
     }
 
-    public void setTxtDescripcion(InputText txtDescripcion) {
-        this.txtAreaDescripcion = txtDescripcion;
+    public void setTxtAreaDescripcion(InputTextarea txtAreaDescripcion) {
+        this.txtAreaDescripcion = txtAreaDescripcion;
     }
 
     public InputText getTxtUsuCreador() {

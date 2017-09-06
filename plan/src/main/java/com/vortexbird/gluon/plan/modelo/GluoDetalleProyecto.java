@@ -1,6 +1,7 @@
 package com.vortexbird.gluon.plan.modelo;
 
 import org.hibernate.validator.constraints.*;
+import org.primefaces.component.selectonemenu.SelectOneMenu;
 
 import java.util.Date;
 import java.util.HashSet;

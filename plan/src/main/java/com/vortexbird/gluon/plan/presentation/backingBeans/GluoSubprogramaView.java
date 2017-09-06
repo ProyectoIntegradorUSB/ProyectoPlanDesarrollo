@@ -9,6 +9,7 @@ import com.vortexbird.gluon.plan.utilities.*;
 import org.primefaces.component.calendar.*;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
+import org.primefaces.component.inputtextarea.InputTextarea;
 import org.primefaces.component.selectonemenu.SelectOneMenu;
 
 import org.slf4j.Logger;
@@ -42,8 +43,8 @@ import javax.faces.model.SelectItem;
 public class GluoSubprogramaView implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private static final Logger log = LoggerFactory.getLogger(GluoSubprogramaView.class);
-	private InputText txtActivo;
-	private InputText txtAreaDescripcion;
+	private String somActivo;
+	private InputTextarea txtAreaDescripcion;
 
 	private List<SelectItem> losProgramasItems;
 	private SelectOneMenu somPrograma;
@@ -81,10 +82,10 @@ public class GluoSubprogramaView implements Serializable {
 		entity = null;
 		selectedGluoSubprograma = null;
 
-		// if (txtActivo != null) {
-		// txtActivo.setValue(null);
-		// txtActivo.setDisabled(true);
-		// }
+//		 if (somActivo != null) {
+//		 somActivo.setValue(null);
+//		 somActivo.setDisabled(true);
+//		 }
 
 		if (txtAreaDescripcion != null) {
 			txtAreaDescripcion.setValue(null);
@@ -236,7 +237,7 @@ public class GluoSubprogramaView implements Serializable {
 
 			// Integer subpId = FacesUtils.checkInteger(txtSubpId);
 
-			entity.setActivo(FacesUtils.checkString(txtActivo));
+			entity.setActivo(FacesUtils.checkString(somActivo));
 			entity.setDescripcion(FacesUtils.checkString(txtAreaDescripcion));
 			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
 			// entity.setFechaModificacion(FacesUtils.checkDate(
@@ -271,7 +272,7 @@ public class GluoSubprogramaView implements Serializable {
 				entity = businessDelegatorView.getGluoSubprograma(subpId);
 			}
 
-			entity.setActivo(FacesUtils.checkString(txtActivo));
+			entity.setActivo(FacesUtils.checkString(somActivo));
 			entity.setDescripcion(FacesUtils.checkString(txtAreaDescripcion));
 			//entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
 			entity.setFechaModificacion(FacesUtils.checkDate(txtFechaModificacion));
@@ -390,19 +391,19 @@ public class GluoSubprogramaView implements Serializable {
 		this.somPrograma = somPrograma;
 	}
 
-	public InputText getTxtActivo() {
-		return txtActivo;
+	public String getSomActivo() {
+		return somActivo;
 	}
 
-	public void setTxtActivo(InputText txtActivo) {
-		this.txtActivo = txtActivo;
+	public void setSomActivo(String somActivo) {
+		this.somActivo = somActivo;
 	}
 
-	public InputText getTxtAreaDescripcion() {
+	public InputTextarea getTxtAreaDescripcion() {
 		return txtAreaDescripcion;
 	}
 
-	public void setTxtAreaDescripcion(InputText txtAreaDescripcion) {
+	public void setTxtAreaDescripcion(InputTextarea txtAreaDescripcion) {
 		this.txtAreaDescripcion = txtAreaDescripcion;
 	}
 

@@ -15,14 +15,18 @@
 				<h:panelGrid columns="2" id="panelGrid">
 
 					<h:outputText id="msgActivo" value=" Activo" />
-					<p:inputText id="txtActivo" disabled="true"
-						binding="#{gluoDetalleProyectoXRubroView.txtActivo}" />
-					<h:outputText id="msgDescripcion" value=" Descripcion" />
-					<p:inputText id="txtDescripcion" disabled="true"
-						binding="#{gluoDetalleProyectoXRubroView.txtDescripcion}" />
+					<p:selectOneMenu id="Activo" value="#{gluoDetalleProyectoXRubroView.somActivo}"
+						style="width:135px">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItem itemLabel="A" itemValue="A" />
+						<f:selectItem itemLabel="I" itemValue="I" />
+					</p:selectOneMenu>
+					<h:outputText id="msgAreaDescripcion" value=" Area Descripcion" />
+					<p:inputTextarea id="txtDescripcion" disabled="false"
+						binding="#{gluoDetalleProyectoXRubroView.txtAreaDescripcion}" />
 
 					<h:outputText id="msgValor" value=" Valor" />
-					<p:inputText id="txtValor" disabled="true"
+					<p:inputText id="txtValor" disabled="false"
 						binding="#{gluoDetalleProyectoXRubroView.txtValor}" />
 
 					<h:outputText value="Detalle del Proyecto" />
@@ -50,11 +54,6 @@
 						binding="#{gluoDetalleProyectoXRubroView.btnSave}" disabled="false"
 						value="Guardar"
 						action="#{gluoDetalleProyectoXRubroView.action_save()}"
-						update="panelGluoDetalleProyectoXRubro, msg, panelBotones, men" />
-					<p:commandButton id="btnModify"
-						binding="#{gluoProgramaView.btnModify}" disabled="false"
-						value="Modificar" action="#{gluoProgramaView.action_modify()}"
-						onclick="if(!confirm('Do you really want to modify this Entry?')){return false;}"
 						update="panelGluoDetalleProyectoXRubro, msg, panelBotones, men" />
 					<p:commandButton id="btnClear" value="Limpiar"
 						action="#{gluoDetalleProyectoXRubroView.action_clear()}"

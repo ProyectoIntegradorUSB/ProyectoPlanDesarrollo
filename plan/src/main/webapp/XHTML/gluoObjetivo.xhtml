@@ -1,51 +1,53 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-<<<<<<< HEAD
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-                template="/WEB-INF/template.xhtml">
-		 
-	<ui:define name="content">	
-			
-			
-			<h:form id="formDialog">
-				<p:messages id="msg" />
-				<p:growl id="men"/>
-					<p:panel id="panelGluoObjetivo" header="GluoObjetivo">							
-						<h:panelGrid columns="2" id="panelGrid" >
-												 	
-													<h:outputText id="msgActivo" value=" Activo"/>
-							<p:selectOneMenu id="Activo" value="#{gluoObjetivoView.somActivo}" style="width:135px">
-							<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
-							<f:selectItem itemLabel="A" itemValue="A" />
-							<f:selectItem itemLabel="I" itemValue="I" />
-							</p:selectOneMenu>
-													<h:outputText id="msgDescripcion" value=" Descripcion"/>
-							<p:inputTextarea id="txtDescripcion" rows="6" cols="33" disabled="false" binding="#{gluoObjetivoView.txtDescripcion}"/>
-													
-													
-													<h:outputText id="msgSediId_GluoSectorEjeDimension" value=" Sector Eje Dicmensional"/>
-							<p:selectOneMenu id="somObjetivos" binding="#{gluoObjetivoView.somSectorEje}">
-							<f:selectItem itemLabel="Seleccione una opcion" itemValue="-1" />
-							<f:selectItems value="#{gluoObjetivoView.losObjetivosItems}" />
-							</p:selectOneMenu>
-																	   </h:panelGrid>
-				</p:panel>
-	   			<p:panel id="panelBotones">
-					<div align="center">					
-						<p:commandButton id="btnSave" binding="#{gluoObjetivoView.btnSave}" disabled="false" value="Save" action="#{gluoObjetivoView.action_save()}" update="panelGluoObjetivo, msg, panelBotones, men" />
-						<p:commandButton id="btnClear" value="Clear" action="#{gluoObjetivoView.action_clear()}" update="panelGluoObjetivo, msg, panelBotones, men" />
-					</div>
-				</p:panel>			
-			</h:form>
-			
-  </ui:define>
-=======
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+
+
+		<h:form id="formDialog">
+			<p:messages id="msg" />
+			<p:growl id="men" />
+			<p:panel id="panelGluoObjetivo" header="GluoObjetivo">
+				<h:panelGrid columns="2" id="panelGrid">
+
+					<h:outputText id="msgActivo" value=" Activo" />
+					<p:selectOneMenu id="Activo" value="#{gluoObjetivoView.somActivo}"
+						style="width:135px">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItem itemLabel="A" itemValue="A" />
+						<f:selectItem itemLabel="I" itemValue="I" />
+					</p:selectOneMenu>
+					<h:outputText id="msgDescripcion" value=" Descripcion" />
+					<p:inputTextarea id="txtAreaDescripcion" rows="6" cols="33"
+						disabled="false" binding="#{gluoObjetivoView.txtAreaDescripcion}" />
+
+
+					<h:outputText id="msgSediId_GluoSectorEjeDimension"
+						value=" Sector Eje Dicmensional" />
+					<p:selectOneMenu id="somObjetivos"
+						binding="#{gluoObjetivoView.somSectorEje}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="-1" />
+						<f:selectItems value="#{gluoObjetivoView.losObjetivosItems}" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+			</p:panel>
+			<p:panel id="panelBotones">
+				<div align="center">
+					<p:commandButton id="btnSave" binding="#{gluoObjetivoView.btnSave}"
+						disabled="false" value="Save"
+						action="#{gluoObjetivoView.action_save()}"
+						update="panelGluoObjetivo, msg, panelBotones, men" />
+					<p:commandButton id="btnClear" value="Clear"
+						action="#{gluoObjetivoView.action_clear()}"
+						update="panelGluoObjetivo, msg, panelBotones, men" />
+				</div>
+			</p:panel>
+		</h:form>
+
+	</ui:define>
 
 	<ui:define name="content">
 
@@ -91,5 +93,4 @@
 		</h:form>
 
 	</ui:define>
->>>>>>> 4fe19e7affc900b890846ed41ae55616b7d41211
 </ui:composition>

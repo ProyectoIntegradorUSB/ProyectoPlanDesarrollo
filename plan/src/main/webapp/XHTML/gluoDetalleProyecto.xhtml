@@ -12,28 +12,41 @@
 			<p:growl id="men" />
 			<p:panel id="panelGluoDetalleProyecto" header="GluoDetalleProyecto">
 				<h:panelGrid columns="2" id="panelGrid">
-					
+
 
 					<h:outputText id="msgActivo" value=" Activo" />
-					<p:inputText id="txtActivo" disabled="true"
-						binding="#{gluoDetalleProyectoView.txtActivo}" />
-					
+					<p:selectOneMenu id="Activo"
+						value="#{gluoDetalleProyectoView.somActivo}" style="width:135px">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItem itemLabel="A" itemValue="A" />
+						<f:selectItem itemLabel="I" itemValue="I" />
+					</p:selectOneMenu>
 					<h:outputText id="msgValorTotalPresupuesto"
 						value=" ValorTotalPresupuesto" />
-					<p:inputText id="txtValorTotalPresupuesto" disabled="true"
+					<p:inputText id="txtValorTotalPresupuesto" disabled="false"
 						binding="#{gluoDetalleProyectoView.txtValorTotalPresupuesto}" />
-					<h:outputText id="msgAnofId_GluoAnoFiscal"
-						value=" AnofId_GluoAnoFiscal" />
-					<p:inputText id="txtAnofId_GluoAnoFiscal" disabled="true"
-						binding="#{gluoDetalleProyectoView.txtAnofId_GluoAnoFiscal}" />
-					
-					<h:outputText value="Proyecto" />
+						
+						<h:outputText value="Proyecto" />
 					<p:selectOneMenu binding="#{gluoDetalleProyectoView.somProyecto}"
 						id="somProyecto">
 
-						<f:selectItems value="#{gluoDetalleProyectoView.losProyectosItems}" />
+						<f:selectItems
+							value="#{gluoDetalleProyectoView.losProyectosItems}" />
 					</p:selectOneMenu>
 					
+						
+					<h:outputText value="Año Fiscal" />
+					<p:selectOneMenu binding="#{gluoDetalleProyectoView.somAnoFiscal}"
+						id="somAnoFiscal">
+
+						<f:selectItems
+							value="#{gluoDetalleProyectoView.anoFiscalItems}" />
+					</p:selectOneMenu>
+
+					
+					
+					
+
 				</h:panelGrid>
 			</p:panel>
 			<p:panel id="panelBotones">
@@ -41,11 +54,6 @@
 					<p:commandButton id="btnSave"
 						binding="#{gluoDetalleProyectoView.btnSave}" disabled="false"
 						value="Guardar" action="#{gluoDetalleProyectoView.action_save()}"
-						update="panelGluoDetalleProyecto, msg, panelBotones, men" />
-					<p:commandButton id="btnModify"
-						binding="#{gluoProyectoView.btnModify}" disabled="false"
-						value="Modificar" action="#{gluoProyectoView.action_modify()}"
-						onclick="if(!confirm('Do you really want to modify this Entry?')){return false;}"
 						update="panelGluoDetalleProyecto, msg, panelBotones, men" />
 					<p:commandButton id="btnClear" value="Limpiar"
 						action="#{gluoDetalleProyectoView.action_clear()}"

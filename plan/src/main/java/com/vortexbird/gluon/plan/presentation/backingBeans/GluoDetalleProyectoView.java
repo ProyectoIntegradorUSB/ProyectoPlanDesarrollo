@@ -308,7 +308,7 @@ public class GluoDetalleProyectoView implements Serializable {
                 entity = businessDelegatorView.getGluoDetalleProyecto(dproId);
             }
 
-            entity.setActivo(FacesUtils.checkString(somActivo));
+            entity.setActivo(somActivo);
            // entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
             entity.setFechaModificacion(FacesUtils.checkDate(
                     txtFechaModificacion));

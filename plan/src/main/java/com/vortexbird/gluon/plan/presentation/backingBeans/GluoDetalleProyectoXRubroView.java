@@ -276,7 +276,7 @@ public class GluoDetalleProyectoXRubroView implements Serializable {
 
            // Integer dpruId = FacesUtils.checkInteger(txtDpruId);
 
-            entity.setActivo(FacesUtils.checkString(somActivo));
+            entity.setActivo(somActivo);
             entity.setDescripcion(FacesUtils.checkString(txtAreaDescripcion));
             //entity.setDpruId(dpruId);
             entity.setFechaCreacion(new Date());
@@ -325,7 +325,7 @@ public class GluoDetalleProyectoXRubroView implements Serializable {
                 entity = businessDelegatorView.getGluoDetalleProyectoXRubro(dpruId);
             }
 
-            entity.setActivo(FacesUtils.checkString(somActivo));
+            entity.setActivo(somActivo);
             entity.setDescripcion(FacesUtils.checkString(txtAreaDescripcion));
             //entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
             entity.setFechaModificacion(FacesUtils.checkDate(
@@ -463,7 +463,7 @@ public class GluoDetalleProyectoXRubroView implements Serializable {
 				List<GluoDetalleProyecto> losgluoDetalleProyecto= businessDelegatorView.getGluoDetalleProyecto();
 				
 				for (GluoDetalleProyecto gluoDetalleProyecto: losgluoDetalleProyecto) {
-					losDetalleProyectoItems.add(new SelectItem(gluoDetalleProyecto.getDproId(),gluoDetalleProyecto.getGluoProyecto().getDescripcion()));
+					losDetalleProyectoItems.add(new SelectItem(gluoDetalleProyecto.getDproId(),gluoDetalleProyecto.getActivo()));
 				}
 				
 			}

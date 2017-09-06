@@ -110,25 +110,27 @@
 						</p:inputText>
 
 						<h:outputText id="msgActivo" value=" Activo" />
-						<p:selectOneMenu id="txtActivo"
+						<p:selectOneMenu id="somActivo"
 							value="#{gluoProgramaView.somActivo}">
 							<f:selectItem itemLabel="A" itemValue="A" />
 							<f:selectItem itemLabel="I" itemValue="I" />
 						</p:selectOneMenu>
 						<h:outputText id="msgDescripcion" value=" Descripcion" />
-						<p:inputTextarea id="txtAreaDescripcion" disabled="true"
+						<p:inputTextarea id="txtAreaDescripcion" disabled="false"
 							binding="#{gluoProgramaView.txtAreaDescripcion}" />
+
+						<h:outputText value="Objetivo" />
+						<p:selectOneMenu id="somObjetivos"
+							binding="#{gluoProgramaView.somObjetivos}">
+							<f:selectItems value="#{gluoProgramaView.losObjetivosItems}" />
+						</p:selectOneMenu>
 						<h:outputText id="msgUsuCreador" value=" UsuCreador" />
 						<p:inputText id="txtUsuCreador" disabled="true"
 							binding="#{gluoProgramaView.txtUsuCreador}" />
 						<h:outputText id="msgUsuModificador" value=" UsuModificador" />
 						<p:inputText id="txtUsuModificador" disabled="true"
 							binding="#{gluoProgramaView.txtUsuModificador}" />
-						<h:outputText id="msgObjeId_GluoObjetivo"
-							value=" ObjeId_GluoObjetivo" />
-						<p:inputText id="txtObjeId_GluoObjetivo" disabled="true"
-							binding="#{gluoProgramaView.txtObjeId_GluoObjetivo}" />
-
+			
 						<h:outputText id="msgFechaCreacion" value=" FechaCreacion" />
 						<p:calendar showOn="button" navigator="true" locale="en"
 							binding="#{gluoProgramaView.txtFechaCreacion}">

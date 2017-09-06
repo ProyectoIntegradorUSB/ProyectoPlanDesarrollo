@@ -273,7 +273,7 @@ public class GluoProgramaView implements Serializable {
 				entity = businessDelegatorView.getGluoPrograma(progId);
 			}
 
-			entity.setActivo(FacesUtils.checkString(somActivo));
+			entity.setActivo(somActivo);
 			entity.setDescripcion(FacesUtils.checkString(txtAreaDescripcion));
 			//entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
 			 entity.setFechaModificacion(FacesUtils.checkDate(txtFechaModificacion));

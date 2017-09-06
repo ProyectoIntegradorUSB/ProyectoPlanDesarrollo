@@ -237,9 +237,9 @@ public class GluoSubprogramaView implements Serializable {
 
 			// Integer subpId = FacesUtils.checkInteger(txtSubpId);
 
-			entity.setActivo(FacesUtils.checkString(somActivo));
+			entity.setActivo(somActivo);
 			entity.setDescripcion(FacesUtils.checkString(txtAreaDescripcion));
-			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
+			entity.setFechaCreacion(new Date());
 			// entity.setFechaModificacion(FacesUtils.checkDate(
 			// txtFechaModificacion));
 			// entity.setSubpId(subpId);
@@ -272,7 +272,7 @@ public class GluoSubprogramaView implements Serializable {
 				entity = businessDelegatorView.getGluoSubprograma(subpId);
 			}
 
-			entity.setActivo(FacesUtils.checkString(somActivo));
+			entity.setActivo(somActivo);
 			entity.setDescripcion(FacesUtils.checkString(txtAreaDescripcion));
 			//entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
 			entity.setFechaModificacion(FacesUtils.checkDate(txtFechaModificacion));

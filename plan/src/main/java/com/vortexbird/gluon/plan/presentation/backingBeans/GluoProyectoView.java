@@ -246,9 +246,9 @@ public class GluoProyectoView implements Serializable {
 
             //Integer proyId = FacesUtils.checkInteger(txtProyId);
 
-            entity.setActivo(FacesUtils.checkString(somActivo));
+            entity.setActivo(somActivo);
             entity.setDescripcion(FacesUtils.checkString(txtAreaDescripcion));
-            entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
+            entity.setFechaCreacion(new Date());
             //entity.setFechaModificacion(FacesUtils.checkDate(txtFechaModificacion));
             //entity.setProyId(proyId);
             SegUsuario segUsuario = (SegUsuario) FacesUtils.getfromSession("usuarioEnSession");
@@ -281,7 +281,7 @@ public class GluoProyectoView implements Serializable {
                 entity = businessDelegatorView.getGluoProyecto(proyId);
             }
 
-            entity.setActivo(FacesUtils.checkString(somActivo));
+            entity.setActivo(somActivo);
             entity.setDescripcion(FacesUtils.checkString(txtAreaDescripcion));
             ///entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
             SegUsuario segUsuario = (SegUsuario) FacesUtils.getfromSession("usuarioEnSession");

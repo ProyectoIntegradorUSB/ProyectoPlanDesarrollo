@@ -1,56 +1,66 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-                template="/WEB-INF/template.xhtml">
-		 
-	<ui:define name="content">	
-			
-			
-			<h:form id="formDialog">
-				<p:messages id="msg" />
-				<p:growl id="men"/>
-					<p:panel id="panelGluoPlanDesarrollo" header="GluoPlanDesarrollo">							
-						<h:panelGrid columns="2" id="panelGrid" >
-												 	
-													<h:outputText id="msgActivo" value=" Activo"/>
-							<p:selectOneMenu id="somActivo" value="#{gluoPlanDesarrolloView.somActivo}">
-							<f:selectItem itemLabel="A" itemValue="A" />
-							<f:selectItem itemLabel="I" itemValue="I" />
-							</p:selectOneMenu>
-													<h:outputText id="msgDescripcion" value=" Descripcion"/>
-							<p:inputTextarea id="txtAreaDescripcion" disabled="false" binding="#{gluoPlanDesarrolloView.txtAreaDescripcion}"/>
-							
-													<h:outputText id="msgEslogan" value=" Eslogan"/>
-							<p:inputTextarea id="txtAreaEslogan" disabled="false" binding="#{gluoPlanDesarrolloView.txtAreaEslogan}"/>
-							
-													<h:outputText id="msgNombreAlcalde" value=" NombreAlcalde"/>
-							<p:inputText id="txtNombreAlcalde" disabled="false" binding="#{gluoPlanDesarrolloView.txtNombreAlcalde}"/>
-													
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
 
-														<h:outputText id="msgAnoInicio" value=" Año Inicio"/>
-														<p:calendar showOn="button" navigator="true" locale="en" 
-							binding="#{gluoPlanDesarrolloView.txtAnoInicio}" >
-								<p:ajax event="dateSelect" listener="#{gluoPlanDesarrolloView.listener_txtAnoInicio}"  />
-							</p:calendar>
-							
-														<h:outputText id="msgAnoFin" value=" Año Fin"/>
-														<p:calendar showOn="button" navigator="true" locale="en" 
-							binding="#{gluoPlanDesarrolloView.txtAnoFin}" >
-								<p:ajax event="dateSelect" listener="#{gluoPlanDesarrolloView.listener_txtAnoFin}"  />
-							</p:calendar>
-							
+	<ui:define name="content">
 
-																	   </h:panelGrid>
-				</p:panel>
-	   			<p:panel id="panelBotones">
-					<div align="center">					
-						<p:commandButton id="btnSave" binding="#{gluoPlanDesarrolloView.btnSave}" disabled="false" value="Save" action="#{gluoPlanDesarrolloView.action_save()}" update="panelGluoPlanDesarrollo, msg, panelBotones, men" />
-						<p:commandButton id="btnClear" value="Clear" action="#{gluoPlanDesarrolloView.action_clear()}" update="panelGluoPlanDesarrollo, msg, panelBotones, men" />
-					</div>
-				</p:panel>			
-			</h:form>
-			
-  </ui:define>
+
+		<h:form id="formDialog">
+			<p:messages id="msg" />
+			<p:growl id="men" />
+			<p:panel id="panelGluoPlanDesarrollo" header="GluoPlanDesarrollo">
+				<h:panelGrid columns="2" id="panelGrid">
+
+					<h:outputText id="msgActivo" value=" Activo" />
+					<p:selectOneMenu id="somActivo"
+						value="#{gluoPlanDesarrolloView.somActivo}">
+						<f:selectItem itemLabel="A" itemValue="A" />
+						<f:selectItem itemLabel="I" itemValue="I" />
+					</p:selectOneMenu>
+					<h:outputText id="msgDescripcion" value=" Descripcion" />
+					<p:inputTextarea id="txtAreaDescripcion" disabled="false"
+						binding="#{gluoPlanDesarrolloView.txtAreaDescripcion}" />
+
+					<h:outputText id="msgEslogan" value=" Eslogan" />
+					<p:inputTextarea id="txtAreaEslogan" disabled="false"
+						binding="#{gluoPlanDesarrolloView.txtAreaEslogan}" />
+
+					<h:outputText id="msgNombreAlcalde" value=" NombreAlcalde" />
+					<p:inputText id="txtNombreAlcalde" disabled="false"
+						binding="#{gluoPlanDesarrolloView.txtNombreAlcalde}" />
+
+
+					<h:outputText id="msgAnoInicio" value=" Año Inicio" />
+					<p:calendar showOn="button" navigator="true" locale="en"
+						binding="#{gluoPlanDesarrolloView.txtAnoInicio}">
+						<p:ajax event="dateSelect"
+							listener="#{gluoPlanDesarrolloView.listener_txtAnoInicio}" />
+					</p:calendar>
+
+					<h:outputText id="msgAnoFin" value=" Año Fin" />
+					<p:calendar showOn="button" navigator="true" locale="en"
+						binding="#{gluoPlanDesarrolloView.txtAnoFin}">
+						<p:ajax event="dateSelect"
+							listener="#{gluoPlanDesarrolloView.listener_txtAnoFin}" />
+					</p:calendar>
+
+
+				</h:panelGrid>
+			</p:panel>
+			<p:panel id="panelBotones">
+				<div align="center">
+					<p:commandButton id="btnSave"
+						binding="#{gluoPlanDesarrolloView.btnSave}" disabled="false"
+						value="Save" action="#{gluoPlanDesarrolloView.action_save()}"
+						update="panelGluoPlanDesarrollo, msg, panelBotones, men" />
+					<p:commandButton id="btnClear" value="Clear"
+						action="#{gluoPlanDesarrolloView.action_clear()}"
+						update="panelGluoPlanDesarrollo, msg, panelBotones, men" />
+				</div>
+			</p:panel>
+		</h:form>
+
+	</ui:define>
 </ui:composition>

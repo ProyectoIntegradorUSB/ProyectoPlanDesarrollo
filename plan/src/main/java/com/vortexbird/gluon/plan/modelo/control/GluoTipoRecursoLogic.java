@@ -112,9 +112,9 @@ public class GluoTipoRecursoLogic implements IGluoTipoRecursoLogic {
 
             validateGluoTipoRecurso(entity);
 
-            if (getGluoTipoRecurso(entity.getTireId()) != null) {
-                throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
-            }
+//            if (getGluoTipoRecurso(entity.getTireId()) != null) {
+//                throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
+//            }
 
             gluoTipoRecursoDAO.save(entity);
 

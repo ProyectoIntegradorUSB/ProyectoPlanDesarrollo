@@ -92,7 +92,7 @@ public class GluoObjetivoView implements Serializable {
 
 		if (txtAreaDescripcion != null) {
 			txtAreaDescripcion.setValue(null);
-			txtAreaDescripcion.setDisabled(true);
+			txtAreaDescripcion.setDisabled(false);
 		}
 
 		if (txtUsuCreador != null) {
@@ -126,7 +126,7 @@ public class GluoObjetivoView implements Serializable {
 		}
 
 		if (btnSave != null) {
-			btnSave.setDisabled(true);
+			btnSave.setDisabled(false);
 		}
 
 		if (btnDelete != null) {
@@ -254,6 +254,7 @@ public class GluoObjetivoView implements Serializable {
 			Integer idsector = Integer.valueOf(somSectorEje.getValue().toString());
 			GluoSectorEjeDimension gluoSectorEjeDimencional = businessDelegatorView.getGluoSectorEjeDimension(idsector);
 			entity.setGluoSectorEjeDimension(gluoSectorEjeDimencional);
+			
 			// entity.setGluoSectorEjeDimension((FacesUtils.checkInteger(
 			// txtSediId_GluoSectorEjeDimension) != null)
 			// ? businessDelegatorView.getGluoSectorEjeDimension(

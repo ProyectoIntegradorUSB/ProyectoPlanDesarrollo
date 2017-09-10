@@ -1,219 +1,297 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-                template="/WEB-INF/template.xhtml">
-		 
-	<ui:define name="content">		
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
 
+	<ui:define name="content">
+
+
+		<h:form id="frm">
+
+			<p:panel id="panelDataTableGluoDetallePresupuesto"
+				header="GluoDetallePresupuestoData">
+				<p:growl id="men" />
+				<p:dataTable value="#{gluoDetallePresupuestoView.data}"
+					var="gluoDetallePresupuesto" paginator="true" rows="5">
+					<p:column filterBy="#{gluoDetallePresupuesto.dptoId}"
+						sortBy="#{gluoDetallePresupuesto.dptoId}">
+						<f:facet name="header">
+							<h:outputText value="dptoId" />
+						</f:facet>
+						<h:outputText value="#{gluoDetallePresupuesto.dptoId}" />
+					</p:column>
+
+					<p:column filterBy="#{gluoDetallePresupuesto.activo}"
+						sortBy="#{gluoDetallePresupuesto.activo}">
+						<f:facet name="header">
+							<h:outputText value="Activo" />
+						</f:facet>
+						<h:outputText value="#{gluoDetallePresupuesto.activo}" />
+					</p:column>
+
+					<p:column filterBy="#{gluoDetallePresupuesto.codigoCuenta}"
+						sortBy="#{gluoDetallePresupuesto.codigoCuenta}">
+						<f:facet name="header">
+							<h:outputText value="CodigoCuenta" />
+						</f:facet>
+						<h:outputText value="#{gluoDetallePresupuesto.codigoCuenta}" />
+					</p:column>
+
+					<p:column filterBy="#{gluoDetallePresupuesto.descripcionCuenta}"
+						sortBy="#{gluoDetallePresupuesto.descripcionCuenta}">
+						<f:facet name="header">
+							<h:outputText value="DescripcionCuenta" />
+						</f:facet>
+						<h:outputText value="#{gluoDetallePresupuesto.descripcionCuenta}" />
+					</p:column>
+
+					<p:column filterBy="#{gluoDetallePresupuesto.fechaCreacion}"
+						sortBy="#{gluoDetallePresupuesto.fechaCreacion}">
+						<f:facet name="header">
+							<h:outputText value="FechaCreacion" />
+						</f:facet>
+						<h:outputText value="#{gluoDetallePresupuesto.fechaCreacion}" />
+					</p:column>
+
+					<p:column filterBy="#{gluoDetallePresupuesto.fechaModificacion}"
+						sortBy="#{gluoDetallePresupuesto.fechaModificacion}">
+						<f:facet name="header">
+							<h:outputText value="FechaModificacion" />
+						</f:facet>
+						<h:outputText value="#{gluoDetallePresupuesto.fechaModificacion}" />
+					</p:column>
+
+					<p:column filterBy="#{gluoDetallePresupuesto.saldoEnCdps}"
+						sortBy="#{gluoDetallePresupuesto.saldoEnCdps}">
+						<f:facet name="header">
+							<h:outputText value="SaldoEnCdps" />
+						</f:facet>
+						<h:outputText value="#{gluoDetallePresupuesto.saldoEnCdps}" />
+					</p:column>
+
+					<p:column filterBy="#{gluoDetallePresupuesto.sectId}"
+						sortBy="#{gluoDetallePresupuesto.sectId}">
+						<f:facet name="header">
+							<h:outputText value="SectId" />
+						</f:facet>
+						<h:outputText value="#{gluoDetallePresupuesto.sectId}" />
+					</p:column>
+
+					<p:column filterBy="#{gluoDetallePresupuesto.tipoTransferencia}"
+						sortBy="#{gluoDetallePresupuesto.tipoTransferencia}">
+						<f:facet name="header">
+							<h:outputText value="TipoTransferencia" />
+						</f:facet>
+						<h:outputText value="#{gluoDetallePresupuesto.tipoTransferencia}" />
+					</p:column>
+
+					<p:column filterBy="#{gluoDetallePresupuesto.usuCreador}"
+						sortBy="#{gluoDetallePresupuesto.usuCreador}">
+						<f:facet name="header">
+							<h:outputText value="UsuCreador" />
+						</f:facet>
+						<h:outputText value="#{gluoDetallePresupuesto.usuCreador}" />
+					</p:column>
+
+					<p:column filterBy="#{gluoDetallePresupuesto.usuModificador}"
+						sortBy="#{gluoDetallePresupuesto.usuModificador}">
+						<f:facet name="header">
+							<h:outputText value="UsuModificador" />
+						</f:facet>
+						<h:outputText value="#{gluoDetallePresupuesto.usuModificador}" />
+					</p:column>
+
+					<p:column filterBy="#{gluoDetallePresupuesto.valorAplazado}"
+						sortBy="#{gluoDetallePresupuesto.valorAplazado}">
+						<f:facet name="header">
+							<h:outputText value="ValorAplazado" />
+						</f:facet>
+						<h:outputText value="#{gluoDetallePresupuesto.valorAplazado}" />
+					</p:column>
+
+					<p:column
+						filterBy="#{gluoDetallePresupuesto.valorDespuesDeModificaciones}"
+						sortBy="#{gluoDetallePresupuesto.valorDespuesDeModificaciones}">
+						<f:facet name="header">
+							<h:outputText value="ValorDespuesDeModificaciones" />
+						</f:facet>
+						<h:outputText
+							value="#{gluoDetallePresupuesto.valorDespuesDeModificaciones}" />
+					</p:column>
+
+					<p:column filterBy="#{gluoDetallePresupuesto.valorInicial}"
+						sortBy="#{gluoDetallePresupuesto.valorInicial}">
+						<f:facet name="header">
+							<h:outputText value="ValorInicial" />
+						</f:facet>
+						<h:outputText value="#{gluoDetallePresupuesto.valorInicial}" />
+					</p:column>
+
+					<p:column
+						filterBy="#{gluoDetallePresupuesto.dptoId_GluoDetallePresupuesto}"
+						sortBy="#{gluoDetallePresupuesto.dptoId_GluoDetallePresupuesto}">
+						<f:facet name="header">
+							<h:outputText value="DptoId_GluoDetallePresupuesto" />
+						</f:facet>
+						<h:outputText
+							value="#{gluoDetallePresupuesto.dptoId_GluoDetallePresupuesto}" />
+					</p:column>
+
+					<p:column
+						filterBy="#{gluoDetallePresupuesto.pptoId_GluoPresupuesto}"
+						sortBy="#{gluoDetallePresupuesto.pptoId_GluoPresupuesto}">
+						<f:facet name="header">
+							<h:outputText value="PptoId_GluoPresupuesto" />
+						</f:facet>
+						<h:outputText
+							value="#{gluoDetallePresupuesto.pptoId_GluoPresupuesto}" />
+					</p:column>
+
+					<p:column
+						filterBy="#{gluoDetallePresupuesto.tireId_GluoTipoRecurso}"
+						sortBy="#{gluoDetallePresupuesto.tireId_GluoTipoRecurso}">
+						<f:facet name="header">
+							<h:outputText value="TireId_GluoTipoRecurso" />
+						</f:facet>
+						<h:outputText
+							value="#{gluoDetallePresupuesto.tireId_GluoTipoRecurso}" />
+					</p:column>
+
+					<p:column headerText="Options">
+						<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+							update=":dialogGluoDetallePresupuesto"
+							actionListener="#{gluoDetallePresupuestoView.action_edit}">
+							<f:attribute name="selectedGluoDetallePresupuesto"
+								value="#{gluoDetallePresupuesto}" />
+						</p:commandButton>
+
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+			<p:panel id="panelBoton">
+				<div align="center">
+					<p:commandButton id="btnNew" value="New"
+						action="#{gluoDetallePresupuestoView.action_new()}"
+						update=":dialogGluoDetallePresupuesto" />
+				</div>
+			</p:panel>
+		</h:form>
+		<p:dialog id="dialogGluoDetallePresupuesto" appendTo="@(body)"
+			draggable="true" closable="false"
+			visible="#{gluoDetallePresupuestoView.showDialog}" resizable="false"
+			modal="true" width="500">
+			<h:form id="formDialog">
+				<p:messages id="msg" />
+				<p:panel id="panelGluoDetallePresupuesto"
+					header="GluoDetallePresupuesto">
+					<h:panelGrid columns="2" id="panelGrid">
+						<h:outputText id="msgDptoId" value="DptoId" />
+						<p:inputText id="txtDptoId"
+							binding="#{gluoDetallePresupuestoView.txtDptoId}">
+							<p:ajax update=":dialogGluoDetallePresupuesto"
+								listener="#{gluoDetallePresupuestoView.listener_txtId}" />
+						</p:inputText>
+
+						<h:outputText id="msgActivo" value="Activo" />
+					<p:selectOneMenu id="somActivo" value="#{gluoDetallePresupuestoView.somActivo}">
+					 	<f:selectItem itemLabel="Activo" itemValue="A" />
+					 	<f:selectItem itemLabel="Inactivo" itemValue="I" />
+					</p:selectOneMenu>
 					
-		  			<h:form id="frm">								  		
-						
-						<p:panel id="panelDataTableGluoDetallePresupuesto" header="GluoDetallePresupuestoData">
-							<p:growl id="men"/>				
-							<p:dataTable value="#{gluoDetallePresupuestoView.data}" var="gluoDetallePresupuesto"
-								paginator="true" rows="5">
-																										<p:column filterBy="#{gluoDetallePresupuesto.dptoId}" sortBy="#{gluoDetallePresupuesto.dptoId}" >
-										 <f:facet name="header">
-										<h:outputText value="dptoId"/>
-										</f:facet>
-										 <h:outputText value="#{gluoDetallePresupuesto.dptoId}"/>
-										 </p:column>
-			                    																									
-										<p:column filterBy="#{gluoDetallePresupuesto.activo}" sortBy="#{gluoDetallePresupuesto.activo}" >
-										 <f:facet name="header">
-										<h:outputText value="Activo"/>
-										</f:facet>
-										 <h:outputText value="#{gluoDetallePresupuesto.activo}"/>
-										</p:column>   
-			                    									
-										<p:column filterBy="#{gluoDetallePresupuesto.codigoCuenta}" sortBy="#{gluoDetallePresupuesto.codigoCuenta}" >
-										 <f:facet name="header">
-										<h:outputText value="CodigoCuenta"/>
-										</f:facet>
-										 <h:outputText value="#{gluoDetallePresupuesto.codigoCuenta}"/>
-										</p:column>   
-			                    									
-										<p:column filterBy="#{gluoDetallePresupuesto.descripcionCuenta}" sortBy="#{gluoDetallePresupuesto.descripcionCuenta}" >
-										 <f:facet name="header">
-										<h:outputText value="DescripcionCuenta"/>
-										</f:facet>
-										 <h:outputText value="#{gluoDetallePresupuesto.descripcionCuenta}"/>
-										</p:column>   
-			                    									
-										<p:column filterBy="#{gluoDetallePresupuesto.fechaCreacion}" sortBy="#{gluoDetallePresupuesto.fechaCreacion}" >
-										 <f:facet name="header">
-										<h:outputText value="FechaCreacion"/>
-										</f:facet>
-										 <h:outputText value="#{gluoDetallePresupuesto.fechaCreacion}"/>
-										</p:column>   
-			                    									
-										<p:column filterBy="#{gluoDetallePresupuesto.fechaModificacion}" sortBy="#{gluoDetallePresupuesto.fechaModificacion}" >
-										 <f:facet name="header">
-										<h:outputText value="FechaModificacion"/>
-										</f:facet>
-										 <h:outputText value="#{gluoDetallePresupuesto.fechaModificacion}"/>
-										</p:column>   
-			                    									
-										<p:column filterBy="#{gluoDetallePresupuesto.saldoEnCdps}" sortBy="#{gluoDetallePresupuesto.saldoEnCdps}" >
-										 <f:facet name="header">
-										<h:outputText value="SaldoEnCdps"/>
-										</f:facet>
-										 <h:outputText value="#{gluoDetallePresupuesto.saldoEnCdps}"/>
-										</p:column>   
-			                    									
-										<p:column filterBy="#{gluoDetallePresupuesto.sectId}" sortBy="#{gluoDetallePresupuesto.sectId}" >
-										 <f:facet name="header">
-										<h:outputText value="SectId"/>
-										</f:facet>
-										 <h:outputText value="#{gluoDetallePresupuesto.sectId}"/>
-										</p:column>   
-			                    									
-										<p:column filterBy="#{gluoDetallePresupuesto.tipoTransferencia}" sortBy="#{gluoDetallePresupuesto.tipoTransferencia}" >
-										 <f:facet name="header">
-										<h:outputText value="TipoTransferencia"/>
-										</f:facet>
-										 <h:outputText value="#{gluoDetallePresupuesto.tipoTransferencia}"/>
-										</p:column>   
-			                    									
-										<p:column filterBy="#{gluoDetallePresupuesto.usuCreador}" sortBy="#{gluoDetallePresupuesto.usuCreador}" >
-										 <f:facet name="header">
-										<h:outputText value="UsuCreador"/>
-										</f:facet>
-										 <h:outputText value="#{gluoDetallePresupuesto.usuCreador}"/>
-										</p:column>   
-			                    									
-										<p:column filterBy="#{gluoDetallePresupuesto.usuModificador}" sortBy="#{gluoDetallePresupuesto.usuModificador}" >
-										 <f:facet name="header">
-										<h:outputText value="UsuModificador"/>
-										</f:facet>
-										 <h:outputText value="#{gluoDetallePresupuesto.usuModificador}"/>
-										</p:column>   
-			                    									
-										<p:column filterBy="#{gluoDetallePresupuesto.valorAplazado}" sortBy="#{gluoDetallePresupuesto.valorAplazado}" >
-										 <f:facet name="header">
-										<h:outputText value="ValorAplazado"/>
-										</f:facet>
-										 <h:outputText value="#{gluoDetallePresupuesto.valorAplazado}"/>
-										</p:column>   
-			                    									
-										<p:column filterBy="#{gluoDetallePresupuesto.valorDespuesDeModificaciones}" sortBy="#{gluoDetallePresupuesto.valorDespuesDeModificaciones}" >
-										 <f:facet name="header">
-										<h:outputText value="ValorDespuesDeModificaciones"/>
-										</f:facet>
-										 <h:outputText value="#{gluoDetallePresupuesto.valorDespuesDeModificaciones}"/>
-										</p:column>   
-			                    									
-										<p:column filterBy="#{gluoDetallePresupuesto.valorInicial}" sortBy="#{gluoDetallePresupuesto.valorInicial}" >
-										 <f:facet name="header">
-										<h:outputText value="ValorInicial"/>
-										</f:facet>
-										 <h:outputText value="#{gluoDetallePresupuesto.valorInicial}"/>
-										</p:column>   
-			                    									
-										<p:column filterBy="#{gluoDetallePresupuesto.dptoId_GluoDetallePresupuesto}" sortBy="#{gluoDetallePresupuesto.dptoId_GluoDetallePresupuesto}" >
-										 <f:facet name="header">
-										<h:outputText value="DptoId_GluoDetallePresupuesto"/>
-										</f:facet>
-										 <h:outputText value="#{gluoDetallePresupuesto.dptoId_GluoDetallePresupuesto}"/>
-										</p:column>   
-			                    									
-										<p:column filterBy="#{gluoDetallePresupuesto.pptoId_GluoPresupuesto}" sortBy="#{gluoDetallePresupuesto.pptoId_GluoPresupuesto}" >
-										 <f:facet name="header">
-										<h:outputText value="PptoId_GluoPresupuesto"/>
-										</f:facet>
-										 <h:outputText value="#{gluoDetallePresupuesto.pptoId_GluoPresupuesto}"/>
-										</p:column>   
-			                    									
-										<p:column filterBy="#{gluoDetallePresupuesto.tireId_GluoTipoRecurso}" sortBy="#{gluoDetallePresupuesto.tireId_GluoTipoRecurso}" >
-										 <f:facet name="header">
-										<h:outputText value="TireId_GluoTipoRecurso"/>
-										</f:facet>
-										 <h:outputText value="#{gluoDetallePresupuesto.tireId_GluoTipoRecurso}"/>
-										</p:column>   
-			                    			                    
-								<p:column headerText="Options">
-									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
-										update=":dialogGluoDetallePresupuesto"
-										actionListener="#{gluoDetallePresupuestoView.action_edit}">
-										<f:attribute name="selectedGluoDetallePresupuesto" value="#{gluoDetallePresupuesto}" />
-									</p:commandButton>
-									<p:commandButton id="btnDelete"									
-										title="Delete" actionListener="#{gluoDetallePresupuestoView.action_delete_datatable}"
-										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
-										icon="ui-icon-trash" update="@form">
-										<f:attribute name="selectedGluoDetallePresupuesto" value="#{gluoDetallePresupuesto}" />
-									</p:commandButton>
-								</p:column>									                    
-							</p:dataTable>	
-						</p:panel>
-						<p:panel id="panelBoton">
-							<div align="center">
-								<p:commandButton id="btnNew" value="New"
-									action="#{gluoDetallePresupuestoView.action_new()}" update=":dialogGluoDetallePresupuesto" />
-							</div>
-						</p:panel>						
-		   			</h:form>
-					<p:dialog id="dialogGluoDetallePresupuesto" appendTo="@(body)" draggable="true"
-						closable="false" visible="#{gluoDetallePresupuestoView.showDialog}" resizable="false"
-						modal="true" width="500">
-						<h:form id="formDialog">
-							<p:messages id="msg" />
-							<p:panel id="panelGluoDetallePresupuesto" header="GluoDetallePresupuesto">							
-							    <h:panelGrid columns="2" id="panelGrid" >
-																		 <h:outputText id="msgDptoId" value="DptoId"/>
-									 <p:inputText id="txtDptoId" binding="#{gluoDetallePresupuestoView.txtDptoId}">
-									 <p:ajax update=":dialogGluoDetallePresupuesto" listener="#{gluoDetallePresupuestoView.listener_txtId}"/>
-									 </p:inputText>	
-																											
-																		<h:outputText id="msgActivo" value=" Activo"/>
-									<p:inputText id="txtActivo" disabled="true" binding="#{gluoDetallePresupuestoView.txtActivo}"/>
-																		<h:outputText id="msgCodigoCuenta" value=" CodigoCuenta"/>
-									<p:inputText id="txtCodigoCuenta" disabled="true" binding="#{gluoDetallePresupuestoView.txtCodigoCuenta}"/>
-																		<h:outputText id="msgDescripcionCuenta" value=" DescripcionCuenta"/>
-									<p:inputText id="txtDescripcionCuenta" disabled="true" binding="#{gluoDetallePresupuestoView.txtDescripcionCuenta}"/>
-																		<h:outputText id="msgSaldoEnCdps" value=" SaldoEnCdps"/>
-									<p:inputText id="txtSaldoEnCdps" disabled="true" binding="#{gluoDetallePresupuestoView.txtSaldoEnCdps}"/>
-																		<h:outputText id="msgSectId" value=" SectId"/>
-									<p:inputText id="txtSectId" disabled="true" binding="#{gluoDetallePresupuestoView.txtSectId}"/>
-																		<h:outputText id="msgTipoTransferencia" value=" TipoTransferencia"/>
-									<p:inputText id="txtTipoTransferencia" disabled="true" binding="#{gluoDetallePresupuestoView.txtTipoTransferencia}"/>
-																		<h:outputText id="msgUsuCreador" value=" UsuCreador"/>
-									<p:inputText id="txtUsuCreador" disabled="true" binding="#{gluoDetallePresupuestoView.txtUsuCreador}"/>
-																		<h:outputText id="msgUsuModificador" value=" UsuModificador"/>
-									<p:inputText id="txtUsuModificador" disabled="true" binding="#{gluoDetallePresupuestoView.txtUsuModificador}"/>
-																		<h:outputText id="msgValorAplazado" value=" ValorAplazado"/>
-									<p:inputText id="txtValorAplazado" disabled="true" binding="#{gluoDetallePresupuestoView.txtValorAplazado}"/>
-																		<h:outputText id="msgValorDespuesDeModificaciones" value=" ValorDespuesDeModificaciones"/>
-									<p:inputText id="txtValorDespuesDeModificaciones" disabled="true" binding="#{gluoDetallePresupuestoView.txtValorDespuesDeModificaciones}"/>
-																		<h:outputText id="msgValorInicial" value=" ValorInicial"/>
-									<p:inputText id="txtValorInicial" disabled="true" binding="#{gluoDetallePresupuestoView.txtValorInicial}"/>
-																		<h:outputText id="msgDptoId_GluoDetallePresupuesto" value=" DptoId_GluoDetallePresupuesto"/>
-									<p:inputText id="txtDptoId_GluoDetallePresupuesto" disabled="true" binding="#{gluoDetallePresupuestoView.txtDptoId_GluoDetallePresupuesto}"/>
-																		<h:outputText id="msgPptoId_GluoPresupuesto" value=" PptoId_GluoPresupuesto"/>
-									<p:inputText id="txtPptoId_GluoPresupuesto" disabled="true" binding="#{gluoDetallePresupuestoView.txtPptoId_GluoPresupuesto}"/>
-																		<h:outputText id="msgTireId_GluoTipoRecurso" value=" TireId_GluoTipoRecurso"/>
-									<p:inputText id="txtTireId_GluoTipoRecurso" disabled="true" binding="#{gluoDetallePresupuestoView.txtTireId_GluoTipoRecurso}"/>
-																		
-																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
-																				<p:calendar showOn="button" navigator="true" locale="en" 
-										binding="#{gluoDetallePresupuestoView.txtFechaCreacion}" >
-										<p:ajax event="dateSelect" listener="#{gluoDetallePresupuestoView.listener_txtFechaCreacion}" />
-										</p:calendar>
-																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
-																				<p:calendar showOn="button" navigator="true" locale="en" 
-										binding="#{gluoDetallePresupuestoView.txtFechaModificacion}" >
-										<p:ajax event="dateSelect" listener="#{gluoDetallePresupuestoView.listener_txtFechaModificacion}" />
-										</p:calendar>
-																										    </h:panelGrid>
-							</p:panel>						   
-							<p:panel id="panelBotones">
-								<div align="center">					
-									<p:commandButton id="btnSave" binding="#{gluoDetallePresupuestoView.btnSave}" value="Save" action="#{gluoDetallePresupuestoView.action_save()}" update=":dialogGluoDetallePresupuesto :frm:panelDataTableGluoDetallePresupuesto" />
-									<p:commandButton id="btnClear" value="Clear" action="#{gluoDetallePresupuestoView.action_clear()}" update=":dialogGluoDetallePresupuesto" />
-									<p:commandButton id="btnExit" value="Exit" action="#{gluoDetallePresupuestoView.action_closeDialog()}" update=":dialogGluoDetallePresupuesto" />
-								</div>
+						<h:outputText id="msgCodigoCuenta" value=" CodigoCuenta" />
+						<p:inputText id="txtCodigoCuenta" disabled="true"
+							binding="#{gluoDetallePresupuestoView.txtCodigoCuenta}" />
+						<h:outputText id="msgDescripcionCuenta" value=" DescripcionCuenta" />
+						<p:inputTextarea id="txtDescripcionCuenta" disabled="true"
+							binding="#{gluoDetallePresupuestoView.txtAreaDescripcionCuenta}" />
+							
+						<h:outputText id="msgSaldoEnCdps" value=" SaldoEnCdps" />
+						<p:inputText id="txtSaldoEnCdps" disabled="true"
+							binding="#{gluoDetallePresupuestoView.txtSaldoEnCdps}" />
+							
+						<h:outputText id="msgSectId" value=" SectId" />
+						<p:inputText id="txtSectId" disabled="true"
+							binding="#{gluoDetallePresupuestoView.txtSectId}" />
+							
+						<h:outputText id="msgTipoTransferencia" value=" TipoTransferencia" />
+						<p:inputText id="txtTipoTransferencia" disabled="true"
+							binding="#{gluoDetallePresupuestoView.txtTipoTransferencia}" />
+							
+						<h:outputText id="msgUsuCreador" value=" UsuCreador" />
+						<p:inputText id="txtUsuCreador" disabled="true"
+							binding="#{gluoDetallePresupuestoView.txtUsuCreador}" />
+							
+						<h:outputText id="msgUsuModificador" value=" UsuModificador" />
+						<p:inputText id="txtUsuModificador" disabled="true"
+							binding="#{gluoDetallePresupuestoView.txtUsuModificador}" />
+							
+						<h:outputText id="msgValorAplazado" value=" ValorAplazado" />
+						<p:inputText id="txtValorAplazado" disabled="true"
+							binding="#{gluoDetallePresupuestoView.txtValorAplazado}" />
+							
+						<h:outputText id="msgValorDespuesDeModificaciones"
+							value=" ValorDespuesDeModificaciones" />
+						<p:inputText id="txtValorDespuesDeModificaciones" disabled="true"
+							binding="#{gluoDetallePresupuestoView.txtValorDespuesDeModificaciones}" />
+						<h:outputText id="msgValorInicial" value=" ValorInicial" />
+						<p:inputText id="txtValorInicial" disabled="true"
+							binding="#{gluoDetallePresupuestoView.txtValorInicial}" />
+
+						<h:outputText id="msgDptoId_GluoDetallePresupuesto"
+							value=" DptoId_GluoDetallePresupuesto" />
+						<p:selectOneMenu id="somDptoId_GluoDetallePresupuesto"
+							binding="#{gluoDetallePresupuestoView.somDptoId_GluoDetallePresupuesto}">
+							<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+							<f:selectItems
+								value="#{gluoDetallePresupuestoView.losGluoDetallePresupuestoItems}" />
+						</p:selectOneMenu>
+
+						<h:outputText id="msgPptoId_GluoPresupuesto"
+							value=" PptoId_GluoPresupuesto" />
+						<p:selectOneMenu id="txtPptoId_GluoPresupuesto"
+							binding="#{gluoDetallePresupuestoView.somPptoId_GluoPresupuesto}">
+							<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+							<f:selectItems
+								value="#{gluoDetallePresupuestoView.losGluoPresupuestoItems}" />
+						</p:selectOneMenu>
+
+						<h:outputText id="msgTireId_GluoTipoRecurso"
+							value=" TireId_GluoTipoRecurso" />
+						<p:selectOneMenu id="txtTireId_GluoTipoRecurso"
+							binding="#{gluoDetallePresupuestoView.somTireId_GluoTipoRecurso}">
+							<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+							<f:selectItems
+								value="#{gluoDetallePresupuestoView.losGluoTipoRecursoItems}" />
+						</p:selectOneMenu>
+
+						<h:outputText id="msgFechaCreacion" value=" FechaCreacion" />
+						<p:calendar showOn="button" navigator="true" locale="en"
+							binding="#{gluoDetallePresupuestoView.txtFechaCreacion}">
+							<p:ajax event="dateSelect"
+								listener="#{gluoDetallePresupuestoView.listener_txtFechaCreacion}" />
+						</p:calendar>
+						<h:outputText id="msgFechaModificacion" value=" FechaModificacion" />
+						<p:calendar showOn="button" navigator="true" locale="en"
+							binding="#{gluoDetallePresupuestoView.txtFechaModificacion}">
+							<p:ajax event="dateSelect"
+								listener="#{gluoDetallePresupuestoView.listener_txtFechaModificacion}" />
+						</p:calendar>
+					</h:panelGrid>
+				</p:panel>
+				<p:panel id="panelBotones">
+					<div align="center">
+						<p:commandButton id="btnSave"
+							binding="#{gluoDetallePresupuestoView.btnSave}" value="Save"
+							action="#{gluoDetallePresupuestoView.action_save()}"
+							update=":dialogGluoDetallePresupuesto :frm:panelDataTableGluoDetallePresupuesto" />
+						<p:commandButton id="btnClear" value="Clear"
+							action="#{gluoDetallePresupuestoView.action_clear()}"
+							update=":dialogGluoDetallePresupuesto" />
+						<p:commandButton id="btnExit" value="Exit"
+							action="#{gluoDetallePresupuestoView.action_closeDialog()}"
+							update=":dialogGluoDetallePresupuesto" />
+					</div>
 				</p:panel>
 			</h:form>
 		</p:dialog>

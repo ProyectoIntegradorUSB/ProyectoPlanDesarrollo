@@ -97,12 +97,7 @@
 										actionListener="#{gluoPresupuestoView.action_edit}">
 										<f:attribute name="selectedGluoPresupuesto" value="#{gluoPresupuesto}" />
 									</p:commandButton>
-									<p:commandButton id="btnDelete"									
-										title="Delete" actionListener="#{gluoPresupuestoView.action_delete_datatable}"
-										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
-										icon="ui-icon-trash" update="@form">
-										<f:attribute name="selectedGluoPresupuesto" value="#{gluoPresupuesto}" />
-									</p:commandButton>
+									
 								</p:column>									                    
 							</p:dataTable>	
 						</p:panel>
@@ -126,23 +121,40 @@
 									 </p:inputText>	
 																											
 																		<h:outputText id="msgActivo" value=" Activo"/>
-									<p:inputText id="txtActivo" disabled="true" binding="#{gluoPresupuestoView.txtActivo}"/>
+									<p:selectOneMenu id="somActivo" value="#{gluoPresupuestoView.somActivo}">
+										<f:selectItem itemLabel="Activo" itemValue="A"/>
+										<f:selectItem itemLabel="Inactivo" itemValue="I"/>
+									</p:selectOneMenu>
+									
 																		<h:outputText id="msgAprobado" value=" Aprobado"/>
-									<p:inputText id="txtAprobado" disabled="true" binding="#{gluoPresupuestoView.txtAprobado}"/>
+									<p:selectOneMenu id="somAprobado" value="#{gluoPresupuestoView.somAprobado}">
+										<f:selectItem itemLabel="Aprobado" itemValue="A"/>
+										<f:selectItem itemLabel="No aprobado" itemValue="N"/>
+									</p:selectOneMenu>
+									
 																		<h:outputText id="msgContabilizado" value=" Contabilizado"/>
 									<p:inputText id="txtContabilizado" disabled="true" binding="#{gluoPresupuestoView.txtContabilizado}"/>
+									
 																		<h:outputText id="msgTippId" value=" TippId"/>
 									<p:inputText id="txtTippId" disabled="true" binding="#{gluoPresupuestoView.txtTippId}"/>
+									
 																		<h:outputText id="msgUsuAprobador" value=" UsuAprobador"/>
-									<p:inputText id="txtUsuAprobador" disabled="true" binding="#{gluoPresupuestoView.txtUsuAprobador}"/>
+									<p:selectOneMenu id="somUsuAprobador" binding="#{gluoPresupuestoView.somUsuAprobador}">
+										<f:selectItems value="#{gluoPresupuestoView.losUsuAprobadorItems}"/>
+									</p:selectOneMenu>
+									
+																										<h:outputText id="msgAnofId_GluoAnoFiscal" value=" AnofId_GluoAnoFiscal"/>
+									<p:selectOneMenu id="txtAnofId_GluoAnoFiscal" binding="#{gluoPresupuestoView.somAnofId_GluoAnoFiscal}">
+										<f:selectItems value="#{gluoPresupuestoView.losAnofId_Items}"/>
+									</p:selectOneMenu>
+									
 																		<h:outputText id="msgUsuCreador" value=" UsuCreador"/>
 									<p:inputText id="txtUsuCreador" disabled="true" binding="#{gluoPresupuestoView.txtUsuCreador}"/>
+									
 																		<h:outputText id="msgUsuModificador" value=" UsuModificador"/>
 									<p:inputText id="txtUsuModificador" disabled="true" binding="#{gluoPresupuestoView.txtUsuModificador}"/>
-																		<h:outputText id="msgAnofId_GluoAnoFiscal" value=" AnofId_GluoAnoFiscal"/>
-									<p:inputText id="txtAnofId_GluoAnoFiscal" disabled="true" binding="#{gluoPresupuestoView.txtAnofId_GluoAnoFiscal}"/>
-																		
-																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+									
+																											<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
 																				<p:calendar showOn="button" navigator="true" locale="en" 
 										binding="#{gluoPresupuestoView.txtFechaCreacion}" >
 										<p:ajax event="dateSelect" listener="#{gluoPresupuestoView.listener_txtFechaCreacion}" />

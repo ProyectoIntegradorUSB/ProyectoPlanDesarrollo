@@ -91,12 +91,12 @@ public class GluoPlanDesarrolloView implements Serializable {
 
         if (txtAreaDescripcion != null) {
         	txtAreaDescripcion.setValue(null);
-        	txtAreaDescripcion.setDisabled(true);
+        	txtAreaDescripcion.setDisabled(false);
         }
 
         if (txtAreaEslogan != null) {
         	txtAreaEslogan.setValue(null);
-        	txtAreaEslogan.setDisabled(true);
+        	txtAreaEslogan.setDisabled(false);
         }
 
         if (txtNombreAlcalde != null) {
@@ -116,12 +116,12 @@ public class GluoPlanDesarrolloView implements Serializable {
 
         if (txtAnoFin != null) {
             txtAnoFin.setValue(null);
-            txtAnoFin.setDisabled(true);
+            txtAnoFin.setDisabled(false);
         }
 
         if (txtAnoInicio != null) {
             txtAnoInicio.setValue(null);
-            txtAnoInicio.setDisabled(true);
+            txtAnoInicio.setDisabled(false);
         }
 
         if (txtFechaCreacion != null) {
@@ -140,7 +140,7 @@ public class GluoPlanDesarrolloView implements Serializable {
         }
 
         if (btnSave != null) {
-            btnSave.setDisabled(true);
+            btnSave.setDisabled(false);
         }
 
         if (btnDelete != null) {

@@ -100,7 +100,7 @@ public class GluoDetalleProyectoXRubroView implements Serializable {
 
         if (txtAreaDescripcion != null) {
             txtAreaDescripcion.setValue(null);
-            txtAreaDescripcion.setDisabled(true);
+            txtAreaDescripcion.setDisabled(false);
         }
 
         if (txtUsuCreador != null) {
@@ -115,7 +115,7 @@ public class GluoDetalleProyectoXRubroView implements Serializable {
 
         if (txtValor != null) {
             txtValor.setValue(null);
-            txtValor.setDisabled(true);
+            txtValor.setDisabled(false);
         }
 
         if (txtDptoId_GluoDetallePresupuesto != null) {
@@ -144,7 +144,7 @@ public class GluoDetalleProyectoXRubroView implements Serializable {
         }
 
         if (btnSave != null) {
-            btnSave.setDisabled(true);
+            btnSave.setDisabled(false);
         }
 
         if (btnDelete != null) {

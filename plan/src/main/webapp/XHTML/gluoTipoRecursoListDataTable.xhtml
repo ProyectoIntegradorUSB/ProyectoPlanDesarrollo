@@ -76,12 +76,7 @@
 										actionListener="#{gluoTipoRecursoView.action_edit}">
 										<f:attribute name="selectedGluoTipoRecurso" value="#{gluoTipoRecurso}" />
 									</p:commandButton>
-									<p:commandButton id="btnDelete"									
-										title="Delete" actionListener="#{gluoTipoRecursoView.action_delete_datatable}"
-										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
-										icon="ui-icon-trash" update="@form">
-										<f:attribute name="selectedGluoTipoRecurso" value="#{gluoTipoRecurso}" />
-									</p:commandButton>
+									
 								</p:column>									                    
 							</p:dataTable>	
 						</p:panel>
@@ -105,11 +100,16 @@
 									 </p:inputText>	
 																											
 																		<h:outputText id="msgActivo" value=" Activo"/>
-									<p:inputText id="txtActivo" disabled="true" binding="#{gluoTipoRecursoView.txtActivo}"/>
+									<p:selectOneMenu id="txtActivo" value="#{gluoTipoRecursoView.somActivo}">
+										<f:selectItem itemLabel="Seleccion una opcion" itemValue=""/>
+										<f:selectItem itemLabel="A" itemValue="A"/>
+										<f:selectItem itemLabel="I" itemValue="I"/>
+									</p:selectOneMenu>
+									
 																		<h:outputText id="msgCodigo" value=" Codigo"/>
 									<p:inputText id="txtCodigo" disabled="true" binding="#{gluoTipoRecursoView.txtCodigo}"/>
 																		<h:outputText id="msgDescripcion" value=" Descripcion"/>
-									<p:inputText id="txtDescripcion" disabled="true" binding="#{gluoTipoRecursoView.txtDescripcion}"/>
+									<p:inputTextarea id="txtDescripcion" disabled="true" binding="#{gluoTipoRecursoView.txtAreaDescripcion}"/>
 																		<h:outputText id="msgUsuCreador" value=" UsuCreador"/>
 									<p:inputText id="txtUsuCreador" disabled="true" binding="#{gluoTipoRecursoView.txtUsuCreador}"/>
 																		<h:outputText id="msgUsuModificador" value=" UsuModificador"/>

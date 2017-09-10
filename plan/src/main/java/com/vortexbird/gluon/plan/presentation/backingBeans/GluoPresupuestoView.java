@@ -9,7 +9,7 @@ import com.vortexbird.gluon.plan.utilities.*;
 import org.primefaces.component.calendar.*;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
-
+import org.primefaces.component.selectonemenu.SelectOneMenu;
 import org.primefaces.event.RowEditEvent;
 
 import org.slf4j.Logger;
@@ -34,6 +34,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 
 
 /**
@@ -46,15 +47,21 @@ import javax.faces.event.ActionEvent;
 public class GluoPresupuestoView implements Serializable {
     private static final long serialVersionUID = 1L;
     private static final Logger log = LoggerFactory.getLogger(GluoPresupuestoView.class);
-    private InputText txtActivo;
-    private InputText txtAprobado;
-    private InputText txtContabilizado;
-    private InputText txtTippId;
-    private InputText txtUsuAprobador;
+    private String somActivo;
+    private String somAprobado;  // valor de S= si y valor de N=no
+    private InputText txtContabilizado; // valor cualquiera 
+    private InputText txtTippId;  // el id de quien?
+    
+    private SelectOneMenu somUsuAprobador; // puede ser un selectonemenu para especificar alguien usar select
+    private List<SelectItem> losUsuAprobadorItems;
+    
     private InputText txtUsuCreador;
     private InputText txtUsuModificador;
-    private InputText txtAnofId_GluoAnoFiscal;
-    private InputText txtPptoId;
+    
+    private SelectOneMenu somAnofId_GluoAnoFiscal; // usar el select
+    private List<SelectItem> losAnofId_Items;
+    
+    private InputText txtPptoId;  // el id del presupuesto
     private Calendar txtFechaCreacion;
     private Calendar txtFechaModificacion;
     private CommandButton btnSave;
@@ -84,30 +91,30 @@ public class GluoPresupuestoView implements Serializable {
         entity = null;
         selectedGluoPresupuesto = null;
 
-        if (txtActivo != null) {
-            txtActivo.setValue(null);
-            txtActivo.setDisabled(true);
-        }
+//        if (txtActivo != null) {
+//            txtActivo.setValue(null);
+//            txtActivo.setDisabled(true);
+//        }
 
-        if (txtAprobado != null) {
-            txtAprobado.setValue(null);
-            txtAprobado.setDisabled(true);
-        }
+//        if (txtAprobado != null) {
+//            txtAprobado.setValue(null);
+//            txtAprobado.setDisabled(true);
+//        }
 
         if (txtContabilizado != null) {
             txtContabilizado.setValue(null);
-            txtContabilizado.setDisabled(true);
+            txtContabilizado.setDisabled(false);
         }
 
         if (txtTippId != null) {
             txtTippId.setValue(null);
-            txtTippId.setDisabled(true);
+            txtTippId.setDisabled(false);
         }
 
-        if (txtUsuAprobador != null) {
-            txtUsuAprobador.setValue(null);
-            txtUsuAprobador.setDisabled(true);
-        }
+//        if (txtUsuAprobador != null) {
+//            txtUsuAprobador.setValue(null);
+//            txtUsuAprobador.setDisabled(true);
+//        }
 
         if (txtUsuCreador != null) {
             txtUsuCreador.setValue(null);
@@ -119,10 +126,10 @@ public class GluoPresupuestoView implements Serializable {
             txtUsuModificador.setDisabled(true);
         }
 
-        if (txtAnofId_GluoAnoFiscal != null) {
-            txtAnofId_GluoAnoFiscal.setValue(null);
-            txtAnofId_GluoAnoFiscal.setDisabled(true);
-        }
+//        if (txtAnofId_GluoAnoFiscal != null) {
+//            txtAnofId_GluoAnoFiscal.setValue(null);
+//            txtAnofId_GluoAnoFiscal.setDisabled(true);
+//        }
 
         if (txtFechaCreacion != null) {
             txtFechaCreacion.setValue(null);
@@ -140,7 +147,7 @@ public class GluoPresupuestoView implements Serializable {
         }
 
         if (btnSave != null) {
-            btnSave.setDisabled(true);
+            btnSave.setDisabled(false);
         }
 
         if (btnDelete != null) {
@@ -176,23 +183,23 @@ public class GluoPresupuestoView implements Serializable {
         }
 
         if (entity == null) {
-            txtActivo.setDisabled(false);
-            txtAprobado.setDisabled(false);
+//            txtActivo.setDisabled(false);
+//            txtAprobado.setDisabled(false);
             txtContabilizado.setDisabled(false);
             txtTippId.setDisabled(false);
-            txtUsuAprobador.setDisabled(false);
+//            txtUsuAprobador.setDisabled(false);
             txtUsuCreador.setDisabled(false);
             txtUsuModificador.setDisabled(false);
-            txtAnofId_GluoAnoFiscal.setDisabled(false);
+//            txtAnofId_GluoAnoFiscal.setDisabled(false);
             txtFechaCreacion.setDisabled(false);
             txtFechaModificacion.setDisabled(false);
             txtPptoId.setDisabled(false);
             btnSave.setDisabled(false);
         } else {
-            txtActivo.setValue(entity.getActivo());
-            txtActivo.setDisabled(false);
-            txtAprobado.setValue(entity.getAprobado());
-            txtAprobado.setDisabled(false);
+//            txtActivo.setValue(entity.getActivo());
+//            txtActivo.setDisabled(false);
+//            txtAprobado.setValue(entity.getAprobado());
+//            txtAprobado.setDisabled(false);
             txtContabilizado.setValue(entity.getContabilizado());
             txtContabilizado.setDisabled(false);
             txtFechaCreacion.setValue(entity.getFechaCreacion());
@@ -201,15 +208,14 @@ public class GluoPresupuestoView implements Serializable {
             txtFechaModificacion.setDisabled(false);
             txtTippId.setValue(entity.getTippId());
             txtTippId.setDisabled(false);
-            txtUsuAprobador.setValue(entity.getUsuAprobador());
-            txtUsuAprobador.setDisabled(false);
+//            txtUsuAprobador.setValue(entity.getUsuAprobador());
+//            txtUsuAprobador.setDisabled(false);
             txtUsuCreador.setValue(entity.getUsuCreador());
             txtUsuCreador.setDisabled(false);
             txtUsuModificador.setValue(entity.getUsuModificador());
             txtUsuModificador.setDisabled(false);
-            txtAnofId_GluoAnoFiscal.setValue(entity.getGluoAnoFiscal()
-                                                   .getAnofId());
-            txtAnofId_GluoAnoFiscal.setDisabled(false);
+//            txtAnofId_GluoAnoFiscal.setValue(entity.getGluoAnoFiscal().getAnofId());
+//            txtAnofId_GluoAnoFiscal.setDisabled(false);
             txtPptoId.setValue(entity.getPptoId());
             txtPptoId.setDisabled(true);
             btnSave.setDisabled(false);
@@ -224,26 +230,26 @@ public class GluoPresupuestoView implements Serializable {
         selectedGluoPresupuesto = (GluoPresupuestoDTO) (evt.getComponent()
                                                            .getAttributes()
                                                            .get("selectedGluoPresupuesto"));
-        txtActivo.setValue(selectedGluoPresupuesto.getActivo());
-        txtActivo.setDisabled(false);
-        txtAprobado.setValue(selectedGluoPresupuesto.getAprobado());
-        txtAprobado.setDisabled(false);
+//        txtActivo.setValue(selectedGluoPresupuesto.getActivo());
+//        txtActivo.setDisabled(false);
+//        txtAprobado.setValue(selectedGluoPresupuesto.getAprobado());
+//        txtAprobado.setDisabled(false);
         txtContabilizado.setValue(selectedGluoPresupuesto.getContabilizado());
         txtContabilizado.setDisabled(false);
         txtFechaCreacion.setValue(selectedGluoPresupuesto.getFechaCreacion());
-        txtFechaCreacion.setDisabled(false);
+        txtFechaCreacion.setDisabled(true);
         txtFechaModificacion.setValue(selectedGluoPresupuesto.getFechaModificacion());
-        txtFechaModificacion.setDisabled(false);
+        txtFechaModificacion.setDisabled(true);
         txtTippId.setValue(selectedGluoPresupuesto.getTippId());
         txtTippId.setDisabled(false);
-        txtUsuAprobador.setValue(selectedGluoPresupuesto.getUsuAprobador());
-        txtUsuAprobador.setDisabled(false);
+//        txtUsuAprobador.setValue(selectedGluoPresupuesto.getUsuAprobador());
+//        txtUsuAprobador.setDisabled(false);
         txtUsuCreador.setValue(selectedGluoPresupuesto.getUsuCreador());
-        txtUsuCreador.setDisabled(false);
+        txtUsuCreador.setDisabled(true);
         txtUsuModificador.setValue(selectedGluoPresupuesto.getUsuModificador());
-        txtUsuModificador.setDisabled(false);
-        txtAnofId_GluoAnoFiscal.setValue(selectedGluoPresupuesto.getAnofId_GluoAnoFiscal());
-        txtAnofId_GluoAnoFiscal.setDisabled(false);
+        txtUsuModificador.setDisabled(true);
+//        txtAnofId_GluoAnoFiscal.setValue(selectedGluoPresupuesto.getAnofId_GluoAnoFiscal());
+//        txtAnofId_GluoAnoFiscal.setDisabled(false);
         txtPptoId.setValue(selectedGluoPresupuesto.getPptoId());
         txtPptoId.setDisabled(true);
         btnSave.setDisabled(false);
@@ -272,23 +278,37 @@ public class GluoPresupuestoView implements Serializable {
         try {
             entity = new GluoPresupuesto();
 
-            Integer pptoId = FacesUtils.checkInteger(txtPptoId);
+//            Integer pptoId = FacesUtils.checkInteger(txtPptoId);
 
-            entity.setActivo(FacesUtils.checkString(txtActivo));
-            entity.setAprobado(FacesUtils.checkString(txtAprobado));
+            entity.setActivo(somActivo);
+            entity.setAprobado(somAprobado);
             entity.setContabilizado(FacesUtils.checkString(txtContabilizado));
-            entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-            entity.setFechaModificacion(FacesUtils.checkDate(
-                    txtFechaModificacion));
-            entity.setPptoId(pptoId);
+            entity.setFechaCreacion(new Date());
+//            entity.setFechaModificacion(FacesUtils.checkDate(
+//                    txtFechaModificacion));
+//            entity.setPptoId(pptoId);
             entity.setTippId(FacesUtils.checkInteger(txtTippId));
-            entity.setUsuAprobador(FacesUtils.checkInteger(txtUsuAprobador));
-            entity.setUsuCreador(FacesUtils.checkInteger(txtUsuCreador));
-            entity.setUsuModificador(FacesUtils.checkInteger(txtUsuModificador));
-            entity.setGluoAnoFiscal((FacesUtils.checkInteger(
-                    txtAnofId_GluoAnoFiscal) != null)
-                ? businessDelegatorView.getGluoAnoFiscal(
-                    FacesUtils.checkInteger(txtAnofId_GluoAnoFiscal)) : null);
+//            entity.setUsuAprobador(somAprobado);
+            
+            SegUsuario segUsuarios = (SegUsuario) FacesUtils.getfromSession("usuarioEnSession");
+            Integer usuaCreador = Integer.valueOf(segUsuarios.getUsuId());
+            entity.setUsuCreador(usuaCreador);
+            
+//          entity.setUsuModificador(FacesUtils.checkInteger(txtUsuModificador));
+            
+            
+            Integer idAñofiscal = Integer.valueOf(somAnofId_GluoAnoFiscal.getValue().toString());
+            GluoAnoFiscal gluoAnoFiscal = businessDelegatorView.getGluoAnoFiscal(idAñofiscal);
+            entity.setGluoAnoFiscal(gluoAnoFiscal);
+            
+            Integer idUsuarioAprobador = Integer.valueOf(somUsuAprobador.getValue().toString());
+            entity.setUsuAprobador(idUsuarioAprobador);
+            
+//            entity.setGluoAnoFiscal((FacesUtils.checkInteger(
+//                    txtAnofId_GluoAnoFiscal) != null)
+//                ? businessDelegatorView.getGluoAnoFiscal(
+//                    FacesUtils.checkInteger(txtAnofId_GluoAnoFiscal)) : null);
+            
             businessDelegatorView.saveGluoPresupuesto(entity);
             FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
             action_clear();
@@ -307,20 +327,28 @@ public class GluoPresupuestoView implements Serializable {
                 entity = businessDelegatorView.getGluoPresupuesto(pptoId);
             }
 
-            entity.setActivo(FacesUtils.checkString(txtActivo));
-            entity.setAprobado(FacesUtils.checkString(txtAprobado));
+            entity.setActivo(somActivo);
+            entity.setAprobado(somAprobado);
             entity.setContabilizado(FacesUtils.checkString(txtContabilizado));
-            entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-            entity.setFechaModificacion(FacesUtils.checkDate(
-                    txtFechaModificacion));
+//            entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
+            entity.setFechaModificacion(new Date());
             entity.setTippId(FacesUtils.checkInteger(txtTippId));
-            entity.setUsuAprobador(FacesUtils.checkInteger(txtUsuAprobador));
-            entity.setUsuCreador(FacesUtils.checkInteger(txtUsuCreador));
-            entity.setUsuModificador(FacesUtils.checkInteger(txtUsuModificador));
-            entity.setGluoAnoFiscal((FacesUtils.checkInteger(
-                    txtAnofId_GluoAnoFiscal) != null)
-                ? businessDelegatorView.getGluoAnoFiscal(
-                    FacesUtils.checkInteger(txtAnofId_GluoAnoFiscal)) : null);
+            Integer idUsuarioAprobador = Integer.valueOf(somUsuAprobador.getValue().toString());
+            entity.setUsuAprobador(idUsuarioAprobador);
+//            entity.setUsuCreador(FacesUtils.checkInteger(txtUsuCreador));
+            SegUsuario segUsuarios = (SegUsuario) FacesUtils.getfromSession("usuarioEnSession");
+            Integer usuaModificador = Integer.valueOf(segUsuarios.getUsuId());
+            entity.setUsuModificador(usuaModificador);
+            
+            Integer idAñofiscal = Integer.valueOf(somAnofId_GluoAnoFiscal.getValue().toString());
+            GluoAnoFiscal gluoAnoFiscal = businessDelegatorView.getGluoAnoFiscal(idAñofiscal);
+            entity.setGluoAnoFiscal(gluoAnoFiscal);
+            
+//            entity.setGluoAnoFiscal((FacesUtils.checkInteger(
+//                    txtAnofId_GluoAnoFiscal) != null)
+//                ? businessDelegatorView.getGluoAnoFiscal(
+//                    FacesUtils.checkInteger(txtAnofId_GluoAnoFiscal)) : null);
+            
             businessDelegatorView.updateGluoPresupuesto(entity);
             FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
         } catch (Exception e) {
@@ -403,23 +431,92 @@ public class GluoPresupuestoView implements Serializable {
         return "";
     }
 
-    public InputText getTxtActivo() {
-        return txtActivo;
-    }
+//    public InputText getTxtActivo() {
+//        return txtActivo;
+//    }
+//
+//    public void setTxtActivo(InputText txtActivo) {
+//        this.txtActivo = txtActivo;
+//    }
+//    public InputText getTxtAprobado() {
+//        return txtAprobado;
+//    }
+//
+//    public void setTxtAprobado(InputText txtAprobado) {
+//        this.txtAprobado = txtAprobado;
+//    }
 
-    public void setTxtActivo(InputText txtActivo) {
-        this.txtActivo = txtActivo;
-    }
+    public String getSomActivo() {
+		return somActivo;
+	}
 
-    public InputText getTxtAprobado() {
-        return txtAprobado;
-    }
+	public void setSomActivo(String somActivo) {
+		this.somActivo = somActivo;
+	}
 
-    public void setTxtAprobado(InputText txtAprobado) {
-        this.txtAprobado = txtAprobado;
-    }
+	public String getSomAprobado() {
+		return somAprobado;
+	}
 
-    public InputText getTxtContabilizado() {
+	public void setSomAprobado(String somAprobado) {
+		this.somAprobado = somAprobado;
+	}
+
+	public SelectOneMenu getSomUsuAprobador() {
+		return somUsuAprobador;
+	}
+
+	public void setSomUsuAprobador(SelectOneMenu somUsuAprobador) {
+		this.somUsuAprobador = somUsuAprobador;
+	}
+
+	public List<SelectItem> getLosUsuAprobadorItems() {
+		try {
+			if(losUsuAprobadorItems==null) {
+				losUsuAprobadorItems = new ArrayList<SelectItem>();
+				List<SegUsuario> losGluoUsuarios=businessDelegatorView.getSegUsuario();
+				for (SegUsuario segUsuario : losGluoUsuarios) {
+					losUsuAprobadorItems.add(new SelectItem(segUsuario.getUsuId(),segUsuario.getUsuLogin()));
+				}
+			}
+		} catch (Exception e) {
+			FacesUtils.addErrorMessage(e.getMessage());
+		}
+		return losUsuAprobadorItems;
+	}
+
+	public void setLosUsuAprobadorItems(List<SelectItem> losUsuAprobadorItems) {
+		this.losUsuAprobadorItems = losUsuAprobadorItems;
+	}
+
+	public SelectOneMenu getSomAnofId_GluoAnoFiscal() {
+		return somAnofId_GluoAnoFiscal;
+	}
+
+	public void setSomAnofId_GluoAnoFiscal(SelectOneMenu somAnofId_GluoAnoFiscal) {
+		this.somAnofId_GluoAnoFiscal = somAnofId_GluoAnoFiscal;
+	}
+
+	public List<SelectItem> getLosAnofId_Items() {
+		try {
+			if(losAnofId_Items==null) {
+				losAnofId_Items = new ArrayList<SelectItem>();
+				List<GluoAnoFiscal> losGluoAnoFiscal=businessDelegatorView.getGluoAnoFiscal();
+				for (GluoAnoFiscal gluoAnoFiscal : losGluoAnoFiscal) {
+					losAnofId_Items.add(new SelectItem(gluoAnoFiscal.getAnofId(),gluoAnoFiscal.getDescripcion()));
+				}
+			}
+		} catch (Exception e) {
+			FacesUtils.addErrorMessage(e.getMessage());		
+		}
+		return losAnofId_Items;
+	}
+
+	public void setLosAnofId_Items(List<SelectItem> losAnofId_Items) {
+		this.losAnofId_Items = losAnofId_Items;
+	}
+
+	public InputText getTxtContabilizado() {
         return txtContabilizado;
     }
 
@@ -435,13 +532,13 @@ public class GluoPresupuestoView implements Serializable {
         this.txtTippId = txtTippId;
     }
 
-    public InputText getTxtUsuAprobador() {
-        return txtUsuAprobador;
-    }
-
-    public void setTxtUsuAprobador(InputText txtUsuAprobador) {
-        this.txtUsuAprobador = txtUsuAprobador;
-    }
+//    public InputText getTxtUsuAprobador() {
+//        return txtUsuAprobador;
+//    }
+//
+//    public void setTxtUsuAprobador(InputText txtUsuAprobador) {
+//        this.txtUsuAprobador = txtUsuAprobador;
+//    }
 
     public InputText getTxtUsuCreador() {
         return txtUsuCreador;
@@ -459,13 +556,13 @@ public class GluoPresupuestoView implements Serializable {
         this.txtUsuModificador = txtUsuModificador;
     }
 
-    public InputText getTxtAnofId_GluoAnoFiscal() {
-        return txtAnofId_GluoAnoFiscal;
-    }
-
-    public void setTxtAnofId_GluoAnoFiscal(InputText txtAnofId_GluoAnoFiscal) {
-        this.txtAnofId_GluoAnoFiscal = txtAnofId_GluoAnoFiscal;
-    }
+//    public InputText getTxtAnofId_GluoAnoFiscal() {
+//        return txtAnofId_GluoAnoFiscal;
+//    }
+//
+//    public void setTxtAnofId_GluoAnoFiscal(InputText txtAnofId_GluoAnoFiscal) {
+//        this.txtAnofId_GluoAnoFiscal = txtAnofId_GluoAnoFiscal;
+//    }
 
     public Calendar getTxtFechaCreacion() {
         return txtFechaCreacion;

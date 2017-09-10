@@ -6,7 +6,7 @@
     <class name="com.vortexbird.gluon.plan.modelo.GluoTipoRecurso" table="gluo_tipo_recurso" schema="public" optimistic-lock="version">
         <id name="tireId" type="java.lang.Integer">
             <column name="tire_id" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
         <property name="codigo" type="java.lang.String">
             <column name="codigo" not-null="true" />

@@ -142,9 +142,9 @@ public class GluoDetallePresupuestoLogic implements IGluoDetallePresupuestoLogic
 
             validateGluoDetallePresupuesto(entity);
 
-            if (getGluoDetallePresupuesto(entity.getDptoId()) != null) {
-                throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
-            }
+//            if (getGluoDetallePresupuesto(entity.getDptoId()) != null) {
+//                throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
+//            }
 
             gluoDetallePresupuestoDAO.save(entity);
 

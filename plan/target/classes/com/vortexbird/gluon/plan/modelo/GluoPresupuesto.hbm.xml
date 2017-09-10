@@ -6,7 +6,7 @@
     <class name="com.vortexbird.gluon.plan.modelo.GluoPresupuesto" table="gluo_presupuesto" schema="public" optimistic-lock="version">
         <id name="pptoId" type="java.lang.Integer">
             <column name="ppto_id" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
         <many-to-one name="gluoAnoFiscal" class="com.vortexbird.gluon.plan.modelo.GluoAnoFiscal" fetch="select">
             <column name="anof_id" not-null="true" />

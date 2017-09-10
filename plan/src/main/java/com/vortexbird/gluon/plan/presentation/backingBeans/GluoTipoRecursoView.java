@@ -9,7 +9,7 @@ import com.vortexbird.gluon.plan.utilities.*;
 import org.primefaces.component.calendar.*;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
-
+import org.primefaces.component.inputtextarea.InputTextarea;
 import org.primefaces.event.RowEditEvent;
 
 import org.slf4j.Logger;
@@ -46,9 +46,9 @@ import javax.faces.event.ActionEvent;
 public class GluoTipoRecursoView implements Serializable {
     private static final long serialVersionUID = 1L;
     private static final Logger log = LoggerFactory.getLogger(GluoTipoRecursoView.class);
-    private InputText txtActivo;
+    private String somActivo;
     private InputText txtCodigo;
-    private InputText txtDescripcion;
+    private InputTextarea txtAreaDescripcion;
     private InputText txtUsuCreador;
     private InputText txtUsuModificador;
     private InputText txtTireId;
@@ -81,19 +81,19 @@ public class GluoTipoRecursoView implements Serializable {
         entity = null;
         selectedGluoTipoRecurso = null;
 
-        if (txtActivo != null) {
-            txtActivo.setValue(null);
-            txtActivo.setDisabled(true);
-        }
+//        if (txtActivo != null) {
+//            txtActivo.setValue(null);
+//            txtActivo.setDisabled(true);
+//        }
 
         if (txtCodigo != null) {
             txtCodigo.setValue(null);
-            txtCodigo.setDisabled(true);
+            txtCodigo.setDisabled(false);
         }
 
-        if (txtDescripcion != null) {
-            txtDescripcion.setValue(null);
-            txtDescripcion.setDisabled(true);
+        if (txtAreaDescripcion != null) {
+        	txtAreaDescripcion.setValue(null);
+        	txtAreaDescripcion.setDisabled(false);
         }
 
         if (txtUsuCreador != null) {
@@ -122,7 +122,7 @@ public class GluoTipoRecursoView implements Serializable {
         }
 
         if (btnSave != null) {
-            btnSave.setDisabled(true);
+            btnSave.setDisabled(false);
         }
 
         if (btnDelete != null) {
@@ -158,9 +158,9 @@ public class GluoTipoRecursoView implements Serializable {
         }
 
         if (entity == null) {
-            txtActivo.setDisabled(false);
+//            txtActivo.setDisabled(false);
             txtCodigo.setDisabled(false);
-            txtDescripcion.setDisabled(false);
+            txtAreaDescripcion.setDisabled(false);
             txtUsuCreador.setDisabled(false);
             txtUsuModificador.setDisabled(false);
             txtFechaCreacion.setDisabled(false);
@@ -168,12 +168,12 @@ public class GluoTipoRecursoView implements Serializable {
             txtTireId.setDisabled(false);
             btnSave.setDisabled(false);
         } else {
-            txtActivo.setValue(entity.getActivo());
-            txtActivo.setDisabled(false);
+//            txtActivo.setValue(entity.getActivo());
+//            txtActivo.setDisabled(false);
             txtCodigo.setValue(entity.getCodigo());
             txtCodigo.setDisabled(false);
-            txtDescripcion.setValue(entity.getDescripcion());
-            txtDescripcion.setDisabled(false);
+            txtAreaDescripcion.setValue(entity.getDescripcion());
+            txtAreaDescripcion.setDisabled(false);
             txtFechaCreacion.setValue(entity.getFechaCreacion());
             txtFechaCreacion.setDisabled(false);
             txtFechaModificacion.setValue(entity.getFechaModificacion());
@@ -196,20 +196,20 @@ public class GluoTipoRecursoView implements Serializable {
         selectedGluoTipoRecurso = (GluoTipoRecursoDTO) (evt.getComponent()
                                                            .getAttributes()
                                                            .get("selectedGluoTipoRecurso"));
-        txtActivo.setValue(selectedGluoTipoRecurso.getActivo());
-        txtActivo.setDisabled(false);
+//        txtActivo.setValue(selectedGluoTipoRecurso.getActivo());
+//        txtActivo.setDisabled(false);
         txtCodigo.setValue(selectedGluoTipoRecurso.getCodigo());
         txtCodigo.setDisabled(false);
-        txtDescripcion.setValue(selectedGluoTipoRecurso.getDescripcion());
-        txtDescripcion.setDisabled(false);
+        txtAreaDescripcion.setValue(selectedGluoTipoRecurso.getDescripcion());
+        txtAreaDescripcion.setDisabled(false);
         txtFechaCreacion.setValue(selectedGluoTipoRecurso.getFechaCreacion());
-        txtFechaCreacion.setDisabled(false);
+        txtFechaCreacion.setDisabled(true);
         txtFechaModificacion.setValue(selectedGluoTipoRecurso.getFechaModificacion());
-        txtFechaModificacion.setDisabled(false);
+        txtFechaModificacion.setDisabled(true);
         txtUsuCreador.setValue(selectedGluoTipoRecurso.getUsuCreador());
-        txtUsuCreador.setDisabled(false);
+        txtUsuCreador.setDisabled(true);
         txtUsuModificador.setValue(selectedGluoTipoRecurso.getUsuModificador());
-        txtUsuModificador.setDisabled(false);
+        txtUsuModificador.setDisabled(true);
         txtTireId.setValue(selectedGluoTipoRecurso.getTireId());
         txtTireId.setDisabled(true);
         btnSave.setDisabled(false);
@@ -238,17 +238,19 @@ public class GluoTipoRecursoView implements Serializable {
         try {
             entity = new GluoTipoRecurso();
 
-            Integer tireId = FacesUtils.checkInteger(txtTireId);
+//            Integer tireId = FacesUtils.checkInteger(txtTireId);
 
-            entity.setActivo(FacesUtils.checkString(txtActivo));
+            entity.setActivo(somActivo);
             entity.setCodigo(FacesUtils.checkString(txtCodigo));
-            entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
-            entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-            entity.setFechaModificacion(FacesUtils.checkDate(
-                    txtFechaModificacion));
-            entity.setTireId(tireId);
-            entity.setUsuCreador(FacesUtils.checkInteger(txtUsuCreador));
-            entity.setUsuModificador(FacesUtils.checkInteger(txtUsuModificador));
+            entity.setDescripcion(FacesUtils.checkString(txtAreaDescripcion));
+            entity.setFechaCreacion(new Date());
+//            entity.setFechaModificacion(FacesUtils.checkDate(
+//                    txtFechaModificacion));
+//            entity.setTireId(tireId);
+            SegUsuario segUsuario = (SegUsuario) FacesUtils.getfromSession("usuarioEnSession");
+            Integer usuaCreador = Integer.valueOf(segUsuario.getUsuId());
+            entity.setUsuCreador(usuaCreador);
+//            entity.setUsuModificador(FacesUtils.checkInteger(txtUsuModificador));
             businessDelegatorView.saveGluoTipoRecurso(entity);
             FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
             action_clear();
@@ -267,14 +269,15 @@ public class GluoTipoRecursoView implements Serializable {
                 entity = businessDelegatorView.getGluoTipoRecurso(tireId);
             }
 
-            entity.setActivo(FacesUtils.checkString(txtActivo));
+            entity.setActivo(somActivo);
             entity.setCodigo(FacesUtils.checkString(txtCodigo));
-            entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
-            entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-            entity.setFechaModificacion(FacesUtils.checkDate(
-                    txtFechaModificacion));
-            entity.setUsuCreador(FacesUtils.checkInteger(txtUsuCreador));
-            entity.setUsuModificador(FacesUtils.checkInteger(txtUsuModificador));
+            entity.setDescripcion(FacesUtils.checkString(txtAreaDescripcion));
+//            entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
+            entity.setFechaModificacion(new Date());
+//            entity.setUsuCreador(FacesUtils.checkInteger(txtUsuCreador));
+            SegUsuario segUsuario = (SegUsuario) FacesUtils.getfromSession("usuarioEnSession");
+            Integer usuaModificador = Integer.valueOf(segUsuario.getUsuId());
+            entity.setUsuModificador(usuaModificador);
             businessDelegatorView.updateGluoTipoRecurso(entity);
             FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
         } catch (Exception e) {
@@ -354,28 +357,29 @@ public class GluoTipoRecursoView implements Serializable {
         return "";
     }
 
-    public InputText getTxtActivo() {
-        return txtActivo;
-    }
+    
+    public String getSomActivo() {
+		return somActivo;
+	}
 
-    public void setTxtActivo(InputText txtActivo) {
-        this.txtActivo = txtActivo;
-    }
+	public void setSomActivo(String somActivo) {
+		this.somActivo = somActivo;
+	}
 
-    public InputText getTxtCodigo() {
+	public InputTextarea getTxtAreaDescripcion() {
+		return txtAreaDescripcion;
+	}
+
+	public void setTxtAreaDescripcion(InputTextarea txtAreaDescripcion) {
+		this.txtAreaDescripcion = txtAreaDescripcion;
+	}
+
+	public InputText getTxtCodigo() {
         return txtCodigo;
     }
 
     public void setTxtCodigo(InputText txtCodigo) {
         this.txtCodigo = txtCodigo;
-    }
-
-    public InputText getTxtDescripcion() {
-        return txtDescripcion;
-    }
-
-    public void setTxtDescripcion(InputText txtDescripcion) {
-        this.txtDescripcion = txtDescripcion;
     }
 
     public InputText getTxtUsuCreador() {

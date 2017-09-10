@@ -9,7 +9,8 @@ import com.vortexbird.gluon.plan.utilities.*;
 import org.primefaces.component.calendar.*;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
-
+import org.primefaces.component.inputtextarea.InputTextarea;
+import org.primefaces.component.selectonemenu.SelectOneMenu;
 import org.primefaces.event.RowEditEvent;
 
 import org.slf4j.Logger;
@@ -34,6 +35,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 
 
 /**
@@ -46,26 +48,36 @@ import javax.faces.event.ActionEvent;
 public class GluoDetallePresupuestoView implements Serializable {
     private static final long serialVersionUID = 1L;
     private static final Logger log = LoggerFactory.getLogger(GluoDetallePresupuestoView.class);
-    private InputText txtActivo;
+    
+    private String somActivo;
+    
     private InputText txtCodigoCuenta;
-    private InputText txtDescripcionCuenta;
-    private InputText txtSaldoEnCdps;
-    private InputText txtSectId;
-    private InputText txtTipoTransferencia;
-    private InputText txtUsuCreador;
-    private InputText txtUsuModificador;
+    
+    private InputTextarea txtAreaDescripcionCuenta;
+    private InputText txtSaldoEnCdps;  
+    private InputText txtSectId;  // va null
+    private InputText txtTipoTransferencia; //va null
+    private InputText txtUsuCreador; // se oculta
+    private InputText txtUsuModificador; // se oculta
     private InputText txtValorAplazado;
-    private InputText txtValorDespuesDeModificaciones;
+    private InputText txtValorDespuesDeModificaciones; // no se que valor toma si el SaldoEnCdps o Valor Inicial
     private InputText txtValorInicial;
-    private InputText txtDptoId_GluoDetallePresupuesto;
-    private InputText txtPptoId_GluoPresupuesto;
-    private InputText txtTireId_GluoTipoRecurso;
-    private InputText txtDptoId;
-    private Calendar txtFechaCreacion;
-    private Calendar txtFechaModificacion;
+    
+    private List<SelectItem> losGluoDetallePresupuestoItems;
+    private SelectOneMenu somDptoId_GluoDetallePresupuesto; // usar un selectonemenu
+    
+    private List<SelectItem> losGluoPresupuestoItems;
+    private SelectOneMenu somPptoId_GluoPresupuesto; // usar un selectonemenu
+    
+    private List<SelectItem> losGluoTipoRecursoItems;
+    private SelectOneMenu somTireId_GluoTipoRecurso; // usar un selectonemenu
+    
+    private InputText txtDptoId; // se oculta
+    private Calendar txtFechaCreacion; // se ocultan
+    private Calendar txtFechaModificacion; // se ocultan
     private CommandButton btnSave;
     private CommandButton btnModify;
-    private CommandButton btnDelete;
+    private CommandButton btnDelete; // se oculta
     private CommandButton btnClear;
     private List<GluoDetallePresupuestoDTO> data;
     private GluoDetallePresupuestoDTO selectedGluoDetallePresupuesto;
@@ -90,34 +102,34 @@ public class GluoDetallePresupuestoView implements Serializable {
         entity = null;
         selectedGluoDetallePresupuesto = null;
 
-        if (txtActivo != null) {
-            txtActivo.setValue(null);
-            txtActivo.setDisabled(true);
-        }
+//        if (txtActivo != null) {
+//            txtActivo.setValue(null);
+//            txtActivo.setDisabled(true);
+//        }
 
         if (txtCodigoCuenta != null) {
             txtCodigoCuenta.setValue(null);
-            txtCodigoCuenta.setDisabled(true);
+            txtCodigoCuenta.setDisabled(false);
         }
 
-        if (txtDescripcionCuenta != null) {
-            txtDescripcionCuenta.setValue(null);
-            txtDescripcionCuenta.setDisabled(true);
+        if (txtAreaDescripcionCuenta != null) {
+        	txtAreaDescripcionCuenta.setValue(null);
+        	txtAreaDescripcionCuenta.setDisabled(false);
         }
 
         if (txtSaldoEnCdps != null) {
             txtSaldoEnCdps.setValue(null);
-            txtSaldoEnCdps.setDisabled(true);
+            txtSaldoEnCdps.setDisabled(false);
         }
 
         if (txtSectId != null) {
             txtSectId.setValue(null);
-            txtSectId.setDisabled(true);
+            txtSectId.setDisabled(false);
         }
 
         if (txtTipoTransferencia != null) {
             txtTipoTransferencia.setValue(null);
-            txtTipoTransferencia.setDisabled(true);
+            txtTipoTransferencia.setDisabled(false);
         }
 
         if (txtUsuCreador != null) {
@@ -132,33 +144,33 @@ public class GluoDetallePresupuestoView implements Serializable {
 
         if (txtValorAplazado != null) {
             txtValorAplazado.setValue(null);
-            txtValorAplazado.setDisabled(true);
+            txtValorAplazado.setDisabled(false);
         }
 
         if (txtValorDespuesDeModificaciones != null) {
             txtValorDespuesDeModificaciones.setValue(null);
-            txtValorDespuesDeModificaciones.setDisabled(true);
+            txtValorDespuesDeModificaciones.setDisabled(false);
         }
 
         if (txtValorInicial != null) {
             txtValorInicial.setValue(null);
-            txtValorInicial.setDisabled(true);
+            txtValorInicial.setDisabled(false);
         }
 
-        if (txtDptoId_GluoDetallePresupuesto != null) {
-            txtDptoId_GluoDetallePresupuesto.setValue(null);
-            txtDptoId_GluoDetallePresupuesto.setDisabled(true);
-        }
-
-        if (txtPptoId_GluoPresupuesto != null) {
-            txtPptoId_GluoPresupuesto.setValue(null);
-            txtPptoId_GluoPresupuesto.setDisabled(true);
-        }
-
-        if (txtTireId_GluoTipoRecurso != null) {
-            txtTireId_GluoTipoRecurso.setValue(null);
-            txtTireId_GluoTipoRecurso.setDisabled(true);
-        }
+//        if (txtDptoId_GluoDetallePresupuesto != null) {
+//            txtDptoId_GluoDetallePresupuesto.setValue(null);
+//            txtDptoId_GluoDetallePresupuesto.setDisabled(true);
+//        }
+//
+//        if (txtPptoId_GluoPresupuesto != null) {
+//            txtPptoId_GluoPresupuesto.setValue(null);
+//            txtPptoId_GluoPresupuesto.setDisabled(true);
+//        }
+//
+//        if (txtTireId_GluoTipoRecurso != null) {
+//            txtTireId_GluoTipoRecurso.setValue(null);
+//            txtTireId_GluoTipoRecurso.setDisabled(true);
+//        }
 
         if (txtFechaCreacion != null) {
             txtFechaCreacion.setValue(null);
@@ -176,7 +188,7 @@ public class GluoDetallePresupuestoView implements Serializable {
         }
 
         if (btnSave != null) {
-            btnSave.setDisabled(true);
+            btnSave.setDisabled(false);
         }
 
         if (btnDelete != null) {
@@ -212,9 +224,9 @@ public class GluoDetallePresupuestoView implements Serializable {
         }
 
         if (entity == null) {
-            txtActivo.setDisabled(false);
+//            txtActivo.setDisabled(false);
             txtCodigoCuenta.setDisabled(false);
-            txtDescripcionCuenta.setDisabled(false);
+            txtAreaDescripcionCuenta.setDisabled(false);
             txtSaldoEnCdps.setDisabled(false);
             txtSectId.setDisabled(false);
             txtTipoTransferencia.setDisabled(false);
@@ -223,20 +235,20 @@ public class GluoDetallePresupuestoView implements Serializable {
             txtValorAplazado.setDisabled(false);
             txtValorDespuesDeModificaciones.setDisabled(false);
             txtValorInicial.setDisabled(false);
-            txtDptoId_GluoDetallePresupuesto.setDisabled(false);
-            txtPptoId_GluoPresupuesto.setDisabled(false);
-            txtTireId_GluoTipoRecurso.setDisabled(false);
+//            txtDptoId_GluoDetallePresupuesto.setDisabled(false);
+//            txtPptoId_GluoPresupuesto.setDisabled(false);
+//            txtTireId_GluoTipoRecurso.setDisabled(false);
             txtFechaCreacion.setDisabled(false);
             txtFechaModificacion.setDisabled(false);
             txtDptoId.setDisabled(false);
             btnSave.setDisabled(false);
         } else {
-            txtActivo.setValue(entity.getActivo());
-            txtActivo.setDisabled(false);
+//            txtActivo.setValue(entity.getActivo());
+//            txtActivo.setDisabled(false);
             txtCodigoCuenta.setValue(entity.getCodigoCuenta());
             txtCodigoCuenta.setDisabled(false);
-            txtDescripcionCuenta.setValue(entity.getDescripcionCuenta());
-            txtDescripcionCuenta.setDisabled(false);
+            txtAreaDescripcionCuenta.setValue(entity.getDescripcionCuenta());
+            txtAreaDescripcionCuenta.setDisabled(false);
             txtFechaCreacion.setValue(entity.getFechaCreacion());
             txtFechaCreacion.setDisabled(false);
             txtFechaModificacion.setValue(entity.getFechaModificacion());
@@ -257,15 +269,15 @@ public class GluoDetallePresupuestoView implements Serializable {
             txtValorDespuesDeModificaciones.setDisabled(false);
             txtValorInicial.setValue(entity.getValorInicial());
             txtValorInicial.setDisabled(false);
-            txtDptoId_GluoDetallePresupuesto.setValue(entity.getGluoDetallePresupuesto()
-                                                            .getDptoId());
-            txtDptoId_GluoDetallePresupuesto.setDisabled(false);
-            txtPptoId_GluoPresupuesto.setValue(entity.getGluoPresupuesto()
-                                                     .getPptoId());
-            txtPptoId_GluoPresupuesto.setDisabled(false);
-            txtTireId_GluoTipoRecurso.setValue(entity.getGluoTipoRecurso()
-                                                     .getTireId());
-            txtTireId_GluoTipoRecurso.setDisabled(false);
+//            txtDptoId_GluoDetallePresupuesto.setValue(entity.getGluoDetallePresupuesto()
+//                                                            .getDptoId());
+//            txtDptoId_GluoDetallePresupuesto.setDisabled(false);
+//            txtPptoId_GluoPresupuesto.setValue(entity.getGluoPresupuesto()
+//                                                     .getPptoId());
+//            txtPptoId_GluoPresupuesto.setDisabled(false);
+//            txtTireId_GluoTipoRecurso.setValue(entity.getGluoTipoRecurso()
+//                                                     .getTireId());
+//            txtTireId_GluoTipoRecurso.setDisabled(false);
             txtDptoId.setValue(entity.getDptoId());
             txtDptoId.setDisabled(true);
             btnSave.setDisabled(false);
@@ -280,12 +292,12 @@ public class GluoDetallePresupuestoView implements Serializable {
         selectedGluoDetallePresupuesto = (GluoDetallePresupuestoDTO) (evt.getComponent()
                                                                          .getAttributes()
                                                                          .get("selectedGluoDetallePresupuesto"));
-        txtActivo.setValue(selectedGluoDetallePresupuesto.getActivo());
-        txtActivo.setDisabled(false);
+//        txtActivo.setValue(selectedGluoDetallePresupuesto.getActivo());
+//        txtActivo.setDisabled(false);
         txtCodigoCuenta.setValue(selectedGluoDetallePresupuesto.getCodigoCuenta());
         txtCodigoCuenta.setDisabled(false);
-        txtDescripcionCuenta.setValue(selectedGluoDetallePresupuesto.getDescripcionCuenta());
-        txtDescripcionCuenta.setDisabled(false);
+        txtAreaDescripcionCuenta.setValue(selectedGluoDetallePresupuesto.getDescripcionCuenta());
+        txtAreaDescripcionCuenta.setDisabled(false);
         txtFechaCreacion.setValue(selectedGluoDetallePresupuesto.getFechaCreacion());
         txtFechaCreacion.setDisabled(false);
         txtFechaModificacion.setValue(selectedGluoDetallePresupuesto.getFechaModificacion());
@@ -306,12 +318,12 @@ public class GluoDetallePresupuestoView implements Serializable {
         txtValorDespuesDeModificaciones.setDisabled(false);
         txtValorInicial.setValue(selectedGluoDetallePresupuesto.getValorInicial());
         txtValorInicial.setDisabled(false);
-        txtDptoId_GluoDetallePresupuesto.setValue(selectedGluoDetallePresupuesto.getDptoId_GluoDetallePresupuesto());
-        txtDptoId_GluoDetallePresupuesto.setDisabled(false);
-        txtPptoId_GluoPresupuesto.setValue(selectedGluoDetallePresupuesto.getPptoId_GluoPresupuesto());
-        txtPptoId_GluoPresupuesto.setDisabled(false);
-        txtTireId_GluoTipoRecurso.setValue(selectedGluoDetallePresupuesto.getTireId_GluoTipoRecurso());
-        txtTireId_GluoTipoRecurso.setDisabled(false);
+//        txtDptoId_GluoDetallePresupuesto.setValue(selectedGluoDetallePresupuesto.getDptoId_GluoDetallePresupuesto());
+//        txtDptoId_GluoDetallePresupuesto.setDisabled(false);
+//        txtPptoId_GluoPresupuesto.setValue(selectedGluoDetallePresupuesto.getPptoId_GluoPresupuesto());
+//        txtPptoId_GluoPresupuesto.setDisabled(false);
+//        txtTireId_GluoTipoRecurso.setValue(selectedGluoDetallePresupuesto.getTireId_GluoTipoRecurso());
+//        txtTireId_GluoTipoRecurso.setDisabled(false);
         txtDptoId.setValue(selectedGluoDetallePresupuesto.getDptoId());
         txtDptoId.setDisabled(true);
         btnSave.setDisabled(false);
@@ -340,39 +352,59 @@ public class GluoDetallePresupuestoView implements Serializable {
         try {
             entity = new GluoDetallePresupuesto();
 
-            Integer dptoId = FacesUtils.checkInteger(txtDptoId);
+//            Integer dptoId = FacesUtils.checkInteger(txtDptoId);
 
-            entity.setActivo(FacesUtils.checkString(txtActivo));
+            entity.setActivo(somActivo);
             entity.setCodigoCuenta(FacesUtils.checkString(txtCodigoCuenta));
             entity.setDescripcionCuenta(FacesUtils.checkString(
-                    txtDescripcionCuenta));
-            entity.setDptoId(dptoId);
-            entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-            entity.setFechaModificacion(FacesUtils.checkDate(
-                    txtFechaModificacion));
+            		txtAreaDescripcionCuenta));
+//            entity.setDptoId(dptoId);
+            entity.setFechaCreacion(new Date());
+//            entity.setFechaModificacion(FacesUtils.checkDate(
+//                    txtFechaModificacion));
             entity.setSaldoEnCdps(FacesUtils.checkDouble(txtSaldoEnCdps));
             entity.setSectId(FacesUtils.checkInteger(txtSectId));
             entity.setTipoTransferencia(FacesUtils.checkString(
                     txtTipoTransferencia));
-            entity.setUsuCreador(FacesUtils.checkInteger(txtUsuCreador));
-            entity.setUsuModificador(FacesUtils.checkInteger(txtUsuModificador));
+            
+            SegUsuario segUsuario = (SegUsuario) FacesUtils.getfromSession("usuarioEnSession");
+			Integer usuaCreador = Integer.valueOf(segUsuario.getUsuId());
+            entity.setUsuCreador(usuaCreador);
+            
+//            entity.setUsuModificador(FacesUtils.checkInteger(txtUsuModificador));
             entity.setValorAplazado(FacesUtils.checkDouble(txtValorAplazado));
             entity.setValorDespuesDeModificaciones(FacesUtils.checkDouble(
                     txtValorDespuesDeModificaciones));
             entity.setValorInicial(FacesUtils.checkDouble(txtValorInicial));
-            entity.setGluoDetallePresupuesto((FacesUtils.checkInteger(
-                    txtDptoId_GluoDetallePresupuesto) != null)
-                ? businessDelegatorView.getGluoDetallePresupuesto(
-                    FacesUtils.checkInteger(txtDptoId_GluoDetallePresupuesto))
-                : null);
-            entity.setGluoPresupuesto((FacesUtils.checkInteger(
-                    txtPptoId_GluoPresupuesto) != null)
-                ? businessDelegatorView.getGluoPresupuesto(
-                    FacesUtils.checkInteger(txtPptoId_GluoPresupuesto)) : null);
-            entity.setGluoTipoRecurso((FacesUtils.checkInteger(
-                    txtTireId_GluoTipoRecurso) != null)
-                ? businessDelegatorView.getGluoTipoRecurso(
-                    FacesUtils.checkInteger(txtTireId_GluoTipoRecurso)) : null);
+            
+            Integer idGluoDetallePre = Integer.valueOf(somDptoId_GluoDetallePresupuesto.getValue().toString());
+            GluoDetallePresupuesto gluoDetallePresupuesto = businessDelegatorView.getGluoDetallePresupuesto(idGluoDetallePre);
+            entity.setGluoDetallePresupuesto(gluoDetallePresupuesto);
+            
+            Integer idGluoPresupuesto = Integer.valueOf(somPptoId_GluoPresupuesto.getValue().toString());
+            GluoPresupuesto gluoPresupuesto = businessDelegatorView.getGluoPresupuesto(idGluoPresupuesto);
+            entity.setGluoPresupuesto(gluoPresupuesto);
+            
+            Integer idTipoRecurso = Integer.valueOf(somTireId_GluoTipoRecurso.getValue().toString());
+            GluoTipoRecurso gluoTipoRecurso = businessDelegatorView.getGluoTipoRecurso(idTipoRecurso);
+            entity.setGluoTipoRecurso(gluoTipoRecurso);
+            
+//            entity.setGluoDetallePresupuesto((FacesUtils.checkInteger(
+//                    txtDptoId_GluoDetallePresupuesto) != null)
+//                ? businessDelegatorView.getGluoDetallePresupuesto(
+//                    FacesUtils.checkInteger(txtDptoId_GluoDetallePresupuesto))
+//                : null);
+//            
+//            entity.setGluoPresupuesto((FacesUtils.checkInteger(
+//                    txtPptoId_GluoPresupuesto) != null)
+//                ? businessDelegatorView.getGluoPresupuesto(
+//                    FacesUtils.checkInteger(txtPptoId_GluoPresupuesto)) : null);
+//            
+//            entity.setGluoTipoRecurso((FacesUtils.checkInteger(
+//                    txtTireId_GluoTipoRecurso) != null)
+//                ? businessDelegatorView.getGluoTipoRecurso(
+//                    FacesUtils.checkInteger(txtTireId_GluoTipoRecurso)) : null);
+            
             businessDelegatorView.saveGluoDetallePresupuesto(entity);
             FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
             action_clear();
@@ -391,36 +423,55 @@ public class GluoDetallePresupuestoView implements Serializable {
                 entity = businessDelegatorView.getGluoDetallePresupuesto(dptoId);
             }
 
-            entity.setActivo(FacesUtils.checkString(txtActivo));
+            entity.setActivo(somActivo);
             entity.setCodigoCuenta(FacesUtils.checkString(txtCodigoCuenta));
             entity.setDescripcionCuenta(FacesUtils.checkString(
-                    txtDescripcionCuenta));
-            entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-            entity.setFechaModificacion(FacesUtils.checkDate(
-                    txtFechaModificacion));
+            		txtAreaDescripcionCuenta));
+//            entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
+            entity.setFechaModificacion(new Date());
             entity.setSaldoEnCdps(FacesUtils.checkDouble(txtSaldoEnCdps));
             entity.setSectId(FacesUtils.checkInteger(txtSectId));
             entity.setTipoTransferencia(FacesUtils.checkString(
                     txtTipoTransferencia));
-            entity.setUsuCreador(FacesUtils.checkInteger(txtUsuCreador));
-            entity.setUsuModificador(FacesUtils.checkInteger(txtUsuModificador));
+//            entity.setUsuCreador(FacesUtils.checkInteger(txtUsuCreador));
+            
+            SegUsuario segUsuario = (SegUsuario) FacesUtils.getfromSession("usuarioEnSession");
+			Integer usuaModificador = Integer.valueOf(segUsuario.getUsuId());
+            entity.setUsuModificador(usuaModificador);
+            
             entity.setValorAplazado(FacesUtils.checkDouble(txtValorAplazado));
             entity.setValorDespuesDeModificaciones(FacesUtils.checkDouble(
                     txtValorDespuesDeModificaciones));
             entity.setValorInicial(FacesUtils.checkDouble(txtValorInicial));
-            entity.setGluoDetallePresupuesto((FacesUtils.checkInteger(
-                    txtDptoId_GluoDetallePresupuesto) != null)
-                ? businessDelegatorView.getGluoDetallePresupuesto(
-                    FacesUtils.checkInteger(txtDptoId_GluoDetallePresupuesto))
-                : null);
-            entity.setGluoPresupuesto((FacesUtils.checkInteger(
-                    txtPptoId_GluoPresupuesto) != null)
-                ? businessDelegatorView.getGluoPresupuesto(
-                    FacesUtils.checkInteger(txtPptoId_GluoPresupuesto)) : null);
-            entity.setGluoTipoRecurso((FacesUtils.checkInteger(
-                    txtTireId_GluoTipoRecurso) != null)
-                ? businessDelegatorView.getGluoTipoRecurso(
-                    FacesUtils.checkInteger(txtTireId_GluoTipoRecurso)) : null);
+            
+            Integer idGluoDetallePre = Integer.valueOf(somDptoId_GluoDetallePresupuesto.getValue().toString());
+            GluoDetallePresupuesto gluoDetallePresupuesto = businessDelegatorView.getGluoDetallePresupuesto(idGluoDetallePre);
+            entity.setGluoDetallePresupuesto(gluoDetallePresupuesto);
+            
+            Integer idGluoPresupuesto = Integer.valueOf(somPptoId_GluoPresupuesto.getValue().toString());
+            GluoPresupuesto gluoPresupuesto = businessDelegatorView.getGluoPresupuesto(idGluoPresupuesto);
+            entity.setGluoPresupuesto(gluoPresupuesto);
+            
+            Integer idTipoRecurso = Integer.valueOf(somTireId_GluoTipoRecurso.getValue().toString());
+            GluoTipoRecurso gluoTipoRecurso = businessDelegatorView.getGluoTipoRecurso(idTipoRecurso);
+            entity.setGluoTipoRecurso(gluoTipoRecurso);
+            
+//            entity.setGluoDetallePresupuesto((FacesUtils.checkInteger(
+//                    txtDptoId_GluoDetallePresupuesto) != null)
+//                ? businessDelegatorView.getGluoDetallePresupuesto(
+//                    FacesUtils.checkInteger(txtDptoId_GluoDetallePresupuesto))
+//                : null);
+//            
+//            entity.setGluoPresupuesto((FacesUtils.checkInteger(
+//                    txtPptoId_GluoPresupuesto) != null)
+//                ? businessDelegatorView.getGluoPresupuesto(
+//                    FacesUtils.checkInteger(txtPptoId_GluoPresupuesto)) : null);
+//            
+//            entity.setGluoTipoRecurso((FacesUtils.checkInteger(
+//                    txtTireId_GluoTipoRecurso) != null)
+//                ? businessDelegatorView.getGluoTipoRecurso(
+//                    FacesUtils.checkInteger(txtTireId_GluoTipoRecurso)) : null);
+            
             businessDelegatorView.updateGluoDetallePresupuesto(entity);
             FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
         } catch (Exception e) {
@@ -513,15 +564,23 @@ public class GluoDetallePresupuestoView implements Serializable {
         return "";
     }
 
-    public InputText getTxtActivo() {
-        return txtActivo;
-    }
+//    public InputText getTxtActivo() {
+//        return txtActivo;
+//    }
+//
+//    public void setTxtActivo(InputText txtActivo) {
+//        this.txtActivo = txtActivo;
+//    }
 
-    public void setTxtActivo(InputText txtActivo) {
-        this.txtActivo = txtActivo;
-    }
+    public String getSomActivo() {
+		return somActivo;
+	}
 
-    public InputText getTxtCodigoCuenta() {
+	public void setSomActivo(String somActivo) {
+		this.somActivo = somActivo;
+	}
+
+	public InputText getTxtCodigoCuenta() {
         return txtCodigoCuenta;
     }
 
@@ -529,19 +588,114 @@ public class GluoDetallePresupuestoView implements Serializable {
         this.txtCodigoCuenta = txtCodigoCuenta;
     }
 
-    public InputText getTxtDescripcionCuenta() {
-        return txtDescripcionCuenta;
-    }
-
-    public void setTxtDescripcionCuenta(InputText txtDescripcionCuenta) {
-        this.txtDescripcionCuenta = txtDescripcionCuenta;
-    }
+//    public InputText getTxtDescripcionCuenta() {
+//        return txtDescripcionCuenta;
+//    }
+//
+//    public void setTxtDescripcionCuenta(InputText txtDescripcionCuenta) {
+//        this.txtDescripcionCuenta = txtDescripcionCuenta;
+//    }
 
     public InputText getTxtSaldoEnCdps() {
         return txtSaldoEnCdps;
     }
 
-    public void setTxtSaldoEnCdps(InputText txtSaldoEnCdps) {
+	public List<SelectItem> getLosGluoDetallePresupuestoItems() {
+		try {
+			
+			if (losGluoDetallePresupuestoItems==null) {
+				losGluoDetallePresupuestoItems = new ArrayList<SelectItem>();
+				List<GluoDetallePresupuesto> losGluoDetallePresupuesto = businessDelegatorView.getGluoDetallePresupuesto();
+				
+				for (GluoDetallePresupuesto gluoDetallePresupuesto : losGluoDetallePresupuesto) {
+					losGluoDetallePresupuestoItems.add(new SelectItem(gluoDetallePresupuesto.getDptoId(),gluoDetallePresupuesto.getDptoId().toString()));
+				}
+			}
+		} catch (Exception e) {
+			FacesUtils.addErrorMessage(e.getMessage());
+		}
+		return losGluoDetallePresupuestoItems;
+	}
+
+	public void setLosGluoDetallePresupuestoItems(List<SelectItem> losGluoDetallePresupuestoItems) {
+		this.losGluoDetallePresupuestoItems = losGluoDetallePresupuestoItems;
+	}
+
+	public SelectOneMenu getSomDptoId_GluoDetallePresupuesto() {
+		return somDptoId_GluoDetallePresupuesto;
+	}
+
+	public void setSomDptoId_GluoDetallePresupuesto(SelectOneMenu somDptoId_GluoDetallePresupuesto) {
+		this.somDptoId_GluoDetallePresupuesto = somDptoId_GluoDetallePresupuesto;
+	}
+
+	public List<SelectItem> getLosGluoPresupuestoItems() {
+	try {
+		
+		if (losGluoPresupuestoItems== null) {
+			losGluoPresupuestoItems = new ArrayList<SelectItem>();
+			List<GluoPresupuesto> losGluoPresupuesto = businessDelegatorView.getGluoPresupuesto();
+			
+			for (GluoPresupuesto gluoPresupuesto : losGluoPresupuesto) {
+				losGluoPresupuestoItems.add(new SelectItem(gluoPresupuesto.getPptoId(),gluoPresupuesto.getFechaCreacion().toString()));
+			}
+		}
+		} catch (Exception e) {
+			FacesUtils.addErrorMessage(e.getMessage());
+		}
+		return losGluoPresupuestoItems;
+	}
+
+	public void setLosGluoPresupuestoItems(List<SelectItem> losGluoPresupuestoItems) {
+		this.losGluoPresupuestoItems = losGluoPresupuestoItems;
+	}
+
+	public SelectOneMenu getSomPptoId_GluoPresupuesto() {
+		return somPptoId_GluoPresupuesto;
+	}
+
+	public void setSomPptoId_GluoPresupuesto(SelectOneMenu somPptoId_GluoPresupuesto) {
+		this.somPptoId_GluoPresupuesto = somPptoId_GluoPresupuesto;
+	}
+
+	public List<SelectItem> getLosGluoTipoRecursoItems() {
+	try {
+		
+		if (losGluoTipoRecursoItems==null) {
+			losGluoTipoRecursoItems = new ArrayList<SelectItem>();
+			List<GluoTipoRecurso> losGluoTipoRecurso = businessDelegatorView.getGluoTipoRecurso();
+			
+			for (GluoTipoRecurso gluoTipoRecurso : losGluoTipoRecurso) {
+				losGluoTipoRecursoItems.add(new SelectItem(gluoTipoRecurso.getTireId(),gluoTipoRecurso.getDescripcion()));
+			}
+		}
+		} catch (Exception e) {
+			FacesUtils.addErrorMessage(e.getMessage());
+		}
+		return losGluoTipoRecursoItems;
+	}
+
+	public void setLosGluoTipoRecursoItems(List<SelectItem> losGluoTipoRecursoItems) {
+		this.losGluoTipoRecursoItems = losGluoTipoRecursoItems;
+	}
+
+	public SelectOneMenu getSomTireId_GluoTipoRecurso() {
+		return somTireId_GluoTipoRecurso;
+	}
+
+	public void setSomTireId_GluoTipoRecurso(SelectOneMenu somTireId_GluoTipoRecurso) {
+		this.somTireId_GluoTipoRecurso = somTireId_GluoTipoRecurso;
+	}
+
+	public InputTextarea getTxtAreaDescripcionCuenta() {
+		return txtAreaDescripcionCuenta;
+	}
+
+	public void setTxtAreaDescripcionCuenta(InputTextarea txtAreaDescripcionCuenta) {
+		this.txtAreaDescripcionCuenta = txtAreaDescripcionCuenta;
+	}
+
+	public void setTxtSaldoEnCdps(InputText txtSaldoEnCdps) {
         this.txtSaldoEnCdps = txtSaldoEnCdps;
     }
 
@@ -602,32 +756,32 @@ public class GluoDetallePresupuestoView implements Serializable {
         this.txtValorInicial = txtValorInicial;
     }
 
-    public InputText getTxtDptoId_GluoDetallePresupuesto() {
-        return txtDptoId_GluoDetallePresupuesto;
-    }
-
-    public void setTxtDptoId_GluoDetallePresupuesto(
-        InputText txtDptoId_GluoDetallePresupuesto) {
-        this.txtDptoId_GluoDetallePresupuesto = txtDptoId_GluoDetallePresupuesto;
-    }
-
-    public InputText getTxtPptoId_GluoPresupuesto() {
-        return txtPptoId_GluoPresupuesto;
-    }
-
-    public void setTxtPptoId_GluoPresupuesto(
-        InputText txtPptoId_GluoPresupuesto) {
-        this.txtPptoId_GluoPresupuesto = txtPptoId_GluoPresupuesto;
-    }
-
-    public InputText getTxtTireId_GluoTipoRecurso() {
-        return txtTireId_GluoTipoRecurso;
-    }
-
-    public void setTxtTireId_GluoTipoRecurso(
-        InputText txtTireId_GluoTipoRecurso) {
-        this.txtTireId_GluoTipoRecurso = txtTireId_GluoTipoRecurso;
-    }
+//    public InputText getTxtDptoId_GluoDetallePresupuesto() {
+//        return txtDptoId_GluoDetallePresupuesto;
+//    }
+//
+//    public void setTxtDptoId_GluoDetallePresupuesto(
+//        InputText txtDptoId_GluoDetallePresupuesto) {
+//        this.txtDptoId_GluoDetallePresupuesto = txtDptoId_GluoDetallePresupuesto;
+//    }
+//
+//    public InputText getTxtPptoId_GluoPresupuesto() {
+//        return txtPptoId_GluoPresupuesto;
+//    }
+//
+//    public void setTxtPptoId_GluoPresupuesto(
+//        InputText txtPptoId_GluoPresupuesto) {
+//        this.txtPptoId_GluoPresupuesto = txtPptoId_GluoPresupuesto;
+//    }
+//
+//    public InputText getTxtTireId_GluoTipoRecurso() {
+//        return txtTireId_GluoTipoRecurso;
+//    }
+//
+//    public void setTxtTireId_GluoTipoRecurso(
+//        InputText txtTireId_GluoTipoRecurso) {
+//        this.txtTireId_GluoTipoRecurso = txtTireId_GluoTipoRecurso;
+//    }
 
     public Calendar getTxtFechaCreacion() {
         return txtFechaCreacion;

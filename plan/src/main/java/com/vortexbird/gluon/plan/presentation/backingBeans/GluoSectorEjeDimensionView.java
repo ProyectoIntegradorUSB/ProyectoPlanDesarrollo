@@ -94,7 +94,7 @@ public class GluoSectorEjeDimensionView implements Serializable {
 
         if (txtAreaDescripcion != null) {
         	txtAreaDescripcion.setValue(null);
-        	txtAreaDescripcion.setDisabled(true);
+        	txtAreaDescripcion.setDisabled(false);
         }
 
         if (txtUsuCreador != null) {
@@ -128,7 +128,7 @@ public class GluoSectorEjeDimensionView implements Serializable {
         }
 
         if (btnSave != null) {
-            btnSave.setDisabled(true);
+            btnSave.setDisabled(false);
         }
 
         if (btnDelete != null) {
@@ -249,16 +249,26 @@ public class GluoSectorEjeDimensionView implements Serializable {
 
             entity.setActivo(somActivo);
             entity.setDescripcion(FacesUtils.checkString(txtAreaDescripcion));
-            entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-            entity.setFechaModificacion(FacesUtils.checkDate(
-                    txtFechaModificacion));
+            entity.setFechaCreacion(new Date());
+//            entity.setFechaModificacion(FacesUtils.checkDate(
+//                    txtFechaModificacion));
 //            entity.setSediId(sediId);
-            entity.setUsuCreador(FacesUtils.checkInteger(txtUsuCreador));
-            entity.setUsuModificador(FacesUtils.checkInteger(txtUsuModificador));
-            entity.setGluoPlanDesarrollo((FacesUtils.checkInteger(
-                    txtPlanId_GluoPlanDesarrollo) != null)
-                ? businessDelegatorView.getGluoPlanDesarrollo(
-                    FacesUtils.checkInteger(txtPlanId_GluoPlanDesarrollo)) : null);
+            
+            SegUsuario segUsuario = (SegUsuario) FacesUtils.getfromSession("usuarioEnSession");
+			Integer usuaCreador = Integer.valueOf(segUsuario.getUsuId());
+			
+            entity.setUsuCreador(usuaCreador);
+//            entity.setUsuModificador(FacesUtils.checkInteger(txtUsuModificador));
+            
+            Integer idPlanDesarrollo = Integer.valueOf(somPlanDesarrollo.getValue().toString());
+			GluoPlanDesarrollo gluoPlanDesarrollo = businessDelegatorView.getGluoPlanDesarrollo(idPlanDesarrollo);
+			entity.setGluoPlanDesarrollo(gluoPlanDesarrollo);
+			
+//            entity.setGluoPlanDesarrollo((FacesUtils.checkInteger(
+//                    txtPlanId_GluoPlanDesarrollo) != null)
+//                ? businessDelegatorView.getGluoPlanDesarrollo(
+//                    FacesUtils.checkInteger(txtPlanId_GluoPlanDesarrollo)) : null);
+            
             businessDelegatorView.saveGluoSectorEjeDimension(entity);
             FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
             action_clear();
@@ -291,6 +301,7 @@ public class GluoSectorEjeDimensionView implements Serializable {
 //                    txtPlanId_GluoPlanDesarrollo) != null)
 //                ? businessDelegatorView.getGluoPlanDesarrollo(
 //                    FacesUtils.checkInteger(txtPlanId_GluoPlanDesarrollo)) : null);
+            
             Integer idPlanDesarrollo = Integer.valueOf(somPlanDesarrollo.getValue().toString());
             GluoPlanDesarrollo gluoplan = businessDelegatorView.getGluoPlanDesarrollo(idPlanDesarrollo);
             entity.setGluoPlanDesarrollo(gluoplan);

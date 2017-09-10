@@ -89,7 +89,7 @@ public class GluoSubprogramaView implements Serializable {
 
 		if (txtAreaDescripcion != null) {
 			txtAreaDescripcion.setValue(null);
-			txtAreaDescripcion.setDisabled(true);
+			txtAreaDescripcion.setDisabled(false);
 		}
 
 		if (txtUsuCreador != null) {
@@ -123,7 +123,7 @@ public class GluoSubprogramaView implements Serializable {
 		}
 
 		if (btnSave != null) {
-			btnSave.setDisabled(true);
+			btnSave.setDisabled(false);
 		}
 
 		if (btnDelete != null) {

@@ -118,11 +118,12 @@ public class GluoIndicadorLogic implements IGluoIndicadorLogic {
             }
 
             validateGluoIndicador(entity);
-
+            
+            /*
             if (getGluoIndicador(entity.getIndiId()) != null) {
                 throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
             }
-
+            */
             gluoIndicadorDAO.save(entity);
 
             log.debug("save GluoIndicador successful");

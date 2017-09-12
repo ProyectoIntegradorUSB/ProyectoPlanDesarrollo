@@ -1,165 +1,195 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-                template="/WEB-INF/template.xhtml">
-		 
-	<ui:define name="content">		
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
 
+	<ui:define name="content">
+
+
+		<h:form id="frm">
+
+			<p:panel id="panelDataTableGluoIndicador" header="GluoIndicadorData">
+				<p:growl id="men" />
+				<p:dataTable value="#{gluoIndicadorView.data}" var="gluoIndicador"
+					paginator="true" rows="5">
+					<p:column filterBy="#{gluoIndicador.indiId}"
+						sortBy="#{gluoIndicador.indiId}">
+						<f:facet name="header">
+							<h:outputText value="indiId" />
+						</f:facet>
+						<h:outputText value="#{gluoIndicador.indiId}" />
+					</p:column>
+
+					<p:column filterBy="#{gluoIndicador.activo}"
+						sortBy="#{gluoIndicador.activo}">
+						<f:facet name="header">
+							<h:outputText value="Activo" />
+						</f:facet>
+						<h:outputText value="#{gluoIndicador.activo}" />
+					</p:column>
+
+					<p:column filterBy="#{gluoIndicador.descripcionIndicador}"
+						sortBy="#{gluoIndicador.descripcionIndicador}">
+						<f:facet name="header">
+							<h:outputText value="DescripcionIndicador" />
+						</f:facet>
+						<h:outputText value="#{gluoIndicador.descripcionIndicador}" />
+					</p:column>
+
+					<p:column filterBy="#{gluoIndicador.descripcionLineaBase}"
+						sortBy="#{gluoIndicador.descripcionLineaBase}">
+						<f:facet name="header">
+							<h:outputText value="DescripcionLineaBase" />
+						</f:facet>
+						<h:outputText value="#{gluoIndicador.descripcionLineaBase}" />
+					</p:column>
+
+					<p:column filterBy="#{gluoIndicador.descripcionMeta}"
+						sortBy="#{gluoIndicador.descripcionMeta}">
+						<f:facet name="header">
+							<h:outputText value="DescripcionMeta" />
+						</f:facet>
+						<h:outputText value="#{gluoIndicador.descripcionMeta}" />
+					</p:column>
+
+					<p:column filterBy="#{gluoIndicador.fechaCreacion}"
+						sortBy="#{gluoIndicador.fechaCreacion}">
+						<f:facet name="header">
+							<h:outputText value="FechaCreacion" />
+						</f:facet>
+						<h:outputText value="#{gluoIndicador.fechaCreacion}" />
+					</p:column>
+
+					<p:column filterBy="#{gluoIndicador.fechaModificacion}"
+						sortBy="#{gluoIndicador.fechaModificacion}">
+						<f:facet name="header">
+							<h:outputText value="FechaModificacion" />
+						</f:facet>
+						<h:outputText value="#{gluoIndicador.fechaModificacion}" />
+					</p:column>
+
+					<p:column filterBy="#{gluoIndicador.usuCreador}"
+						sortBy="#{gluoIndicador.usuCreador}">
+						<f:facet name="header">
+							<h:outputText value="UsuCreador" />
+						</f:facet>
+						<h:outputText value="#{gluoIndicador.usuCreador}" />
+					</p:column>
+
+					<p:column filterBy="#{gluoIndicador.usuModificador}"
+						sortBy="#{gluoIndicador.usuModificador}">
+						<f:facet name="header">
+							<h:outputText value="UsuModificador" />
+						</f:facet>
+						<h:outputText value="#{gluoIndicador.usuModificador}" />
+					</p:column>
+
+					<p:column filterBy="#{gluoIndicador.valorMeta}"
+						sortBy="#{gluoIndicador.valorMeta}">
+						<f:facet name="header">
+							<h:outputText value="ValorMeta" />
+						</f:facet>
+						<h:outputText value="#{gluoIndicador.valorMeta}" />
+					</p:column>
+
+					<p:column filterBy="#{gluoIndicador.proyId_GluoProyecto}"
+						sortBy="#{gluoIndicador.proyId_GluoProyecto}">
+						<f:facet name="header">
+							<h:outputText value="ProyId_GluoProyecto" />
+						</f:facet>
+						<h:outputText value="#{gluoIndicador.proyId_GluoProyecto}" />
+					</p:column>
+
+					<p:column headerText="Options">
+						<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+							update=":dialogGluoIndicador"
+							actionListener="#{gluoIndicadorView.action_edit}">
+							<f:attribute name="selectedGluoIndicador"
+								value="#{gluoIndicador}" />
+						</p:commandButton>
+						<p:commandButton id="btnDelete" title="Delete"
+							actionListener="#{gluoIndicadorView.action_delete_datatable}"
+							onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+							icon="ui-icon-trash" update="@form">
+							<f:attribute name="selectedGluoIndicador"
+								value="#{gluoIndicador}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+			<p:panel id="panelBoton">
+				<div align="center">
+					<p:commandButton id="btnNew" value="New"
+						action="#{gluoIndicadorView.action_new()}"
+						update=":dialogGluoIndicador" />
+				</div>
+			</p:panel>
+		</h:form>
+		<p:dialog id="dialogGluoIndicador" appendTo="@(body)" draggable="true"
+			closable="false" visible="#{gluoIndicadorView.showDialog}"
+			resizable="false" modal="true" width="500">
+			<h:form id="formDialog">
+				<p:messages id="msg" />
+				<p:panel id="panelGluoIndicador" header="GluoIndicador">
+					<h:panelGrid columns="2" id="panelGrid">
+						<h:outputText id="msgIndiId" value="IndiId" />
+						<p:inputText id="txtIndiId"
+							binding="#{gluoIndicadorView.txtIndiId}">
+							<p:ajax update=":dialogGluoIndicador"
+								listener="#{gluoIndicadorView.listener_txtId}" />
+						</p:inputText>
+
+						<h:outputText id="msgActivo" value=" Activo" />
+					<p:selectOneMenu id="Activo" value="#{gluoIndicador.somActivo}"
+						style="width:135px">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItem itemLabel="A" itemValue="A" />
+						<f:selectItem itemLabel="I" itemValue="I" />
+					</p:selectOneMenu>
 					
-		  			<h:form id="frm">								  		
-						
-						<p:panel id="panelDataTableGluoIndicador" header="GluoIndicadorData">
-							<p:growl id="men"/>				
-							<p:dataTable value="#{gluoIndicadorView.data}" var="gluoIndicador"
-								paginator="true" rows="5">
-																										<p:column filterBy="#{gluoIndicador.indiId}" sortBy="#{gluoIndicador.indiId}" >
-										 <f:facet name="header">
-										<h:outputText value="indiId"/>
-										</f:facet>
-										 <h:outputText value="#{gluoIndicador.indiId}"/>
-										 </p:column>
-			                    																									
-										<p:column filterBy="#{gluoIndicador.activo}" sortBy="#{gluoIndicador.activo}" >
-										 <f:facet name="header">
-										<h:outputText value="Activo"/>
-										</f:facet>
-										 <h:outputText value="#{gluoIndicador.activo}"/>
-										</p:column>   
-			                    									
-										<p:column filterBy="#{gluoIndicador.descripcionIndicador}" sortBy="#{gluoIndicador.descripcionIndicador}" >
-										 <f:facet name="header">
-										<h:outputText value="DescripcionIndicador"/>
-										</f:facet>
-										 <h:outputText value="#{gluoIndicador.descripcionIndicador}"/>
-										</p:column>   
-			                    									
-										<p:column filterBy="#{gluoIndicador.descripcionLineaBase}" sortBy="#{gluoIndicador.descripcionLineaBase}" >
-										 <f:facet name="header">
-										<h:outputText value="DescripcionLineaBase"/>
-										</f:facet>
-										 <h:outputText value="#{gluoIndicador.descripcionLineaBase}"/>
-										</p:column>   
-			                    									
-										<p:column filterBy="#{gluoIndicador.descripcionMeta}" sortBy="#{gluoIndicador.descripcionMeta}" >
-										 <f:facet name="header">
-										<h:outputText value="DescripcionMeta"/>
-										</f:facet>
-										 <h:outputText value="#{gluoIndicador.descripcionMeta}"/>
-										</p:column>   
-			                    									
-										<p:column filterBy="#{gluoIndicador.fechaCreacion}" sortBy="#{gluoIndicador.fechaCreacion}" >
-										 <f:facet name="header">
-										<h:outputText value="FechaCreacion"/>
-										</f:facet>
-										 <h:outputText value="#{gluoIndicador.fechaCreacion}"/>
-										</p:column>   
-			                    									
-										<p:column filterBy="#{gluoIndicador.fechaModificacion}" sortBy="#{gluoIndicador.fechaModificacion}" >
-										 <f:facet name="header">
-										<h:outputText value="FechaModificacion"/>
-										</f:facet>
-										 <h:outputText value="#{gluoIndicador.fechaModificacion}"/>
-										</p:column>   
-			                    									
-										<p:column filterBy="#{gluoIndicador.usuCreador}" sortBy="#{gluoIndicador.usuCreador}" >
-										 <f:facet name="header">
-										<h:outputText value="UsuCreador"/>
-										</f:facet>
-										 <h:outputText value="#{gluoIndicador.usuCreador}"/>
-										</p:column>   
-			                    									
-										<p:column filterBy="#{gluoIndicador.usuModificador}" sortBy="#{gluoIndicador.usuModificador}" >
-										 <f:facet name="header">
-										<h:outputText value="UsuModificador"/>
-										</f:facet>
-										 <h:outputText value="#{gluoIndicador.usuModificador}"/>
-										</p:column>   
-			                    									
-										<p:column filterBy="#{gluoIndicador.valorMeta}" sortBy="#{gluoIndicador.valorMeta}" >
-										 <f:facet name="header">
-										<h:outputText value="ValorMeta"/>
-										</f:facet>
-										 <h:outputText value="#{gluoIndicador.valorMeta}"/>
-										</p:column>   
-			                    									
-										<p:column filterBy="#{gluoIndicador.proyId_GluoProyecto}" sortBy="#{gluoIndicador.proyId_GluoProyecto}" >
-										 <f:facet name="header">
-										<h:outputText value="ProyId_GluoProyecto"/>
-										</f:facet>
-										 <h:outputText value="#{gluoIndicador.proyId_GluoProyecto}"/>
-										</p:column>   
-			                    			                    
-								<p:column headerText="Options">
-									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
-										update=":dialogGluoIndicador"
-										actionListener="#{gluoIndicadorView.action_edit}">
-										<f:attribute name="selectedGluoIndicador" value="#{gluoIndicador}" />
-									</p:commandButton>
-									<p:commandButton id="btnDelete"									
-										title="Delete" actionListener="#{gluoIndicadorView.action_delete_datatable}"
-										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
-										icon="ui-icon-trash" update="@form">
-										<f:attribute name="selectedGluoIndicador" value="#{gluoIndicador}" />
-									</p:commandButton>
-								</p:column>									                    
-							</p:dataTable>	
-						</p:panel>
-						<p:panel id="panelBoton">
-							<div align="center">
-								<p:commandButton id="btnNew" value="New"
-									action="#{gluoIndicadorView.action_new()}" update=":dialogGluoIndicador" />
-							</div>
-						</p:panel>						
-		   			</h:form>
-					<p:dialog id="dialogGluoIndicador" appendTo="@(body)" draggable="true"
-						closable="false" visible="#{gluoIndicadorView.showDialog}" resizable="false"
-						modal="true" width="500">
-						<h:form id="formDialog">
-							<p:messages id="msg" />
-							<p:panel id="panelGluoIndicador" header="GluoIndicador">							
-							    <h:panelGrid columns="2" id="panelGrid" >
-																		 <h:outputText id="msgIndiId" value="IndiId"/>
-									 <p:inputText id="txtIndiId" binding="#{gluoIndicadorView.txtIndiId}">
-									 <p:ajax update=":dialogGluoIndicador" listener="#{gluoIndicadorView.listener_txtId}"/>
-									 </p:inputText>	
-																											
-																		<h:outputText id="msgActivo" value=" Activo"/>
-									<p:inputText id="txtActivo" disabled="true" binding="#{gluoIndicadorView.txtActivo}"/>
-																		<h:outputText id="msgDescripcionIndicador" value=" DescripcionIndicador"/>
-									<p:inputText id="txtDescripcionIndicador" disabled="true" binding="#{gluoIndicadorView.txtDescripcionIndicador}"/>
-																		<h:outputText id="msgDescripcionLineaBase" value=" DescripcionLineaBase"/>
-									<p:inputText id="txtDescripcionLineaBase" disabled="true" binding="#{gluoIndicadorView.txtDescripcionLineaBase}"/>
-																		<h:outputText id="msgDescripcionMeta" value=" DescripcionMeta"/>
-									<p:inputText id="txtDescripcionMeta" disabled="true" binding="#{gluoIndicadorView.txtDescripcionMeta}"/>
-																		<h:outputText id="msgUsuCreador" value=" UsuCreador"/>
-									<p:inputText id="txtUsuCreador" disabled="true" binding="#{gluoIndicadorView.txtUsuCreador}"/>
-																		<h:outputText id="msgUsuModificador" value=" UsuModificador"/>
-									<p:inputText id="txtUsuModificador" disabled="true" binding="#{gluoIndicadorView.txtUsuModificador}"/>
-																		<h:outputText id="msgValorMeta" value=" ValorMeta"/>
-									<p:inputText id="txtValorMeta" disabled="true" binding="#{gluoIndicadorView.txtValorMeta}"/>
-																		<h:outputText id="msgProyId_GluoProyecto" value=" ProyId_GluoProyecto"/>
-									<p:inputText id="txtProyId_GluoProyecto" disabled="true" binding="#{gluoIndicadorView.txtProyId_GluoProyecto}"/>
-																		
-																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
-																				<p:calendar showOn="button" navigator="true" locale="en" 
-										binding="#{gluoIndicadorView.txtFechaCreacion}" >
-										<p:ajax event="dateSelect" listener="#{gluoIndicadorView.listener_txtFechaCreacion}" />
-										</p:calendar>
-																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
-																				<p:calendar showOn="button" navigator="true" locale="en" 
-										binding="#{gluoIndicadorView.txtFechaModificacion}" >
-										<p:ajax event="dateSelect" listener="#{gluoIndicadorView.listener_txtFechaModificacion}" />
-										</p:calendar>
-																										    </h:panelGrid>
-							</p:panel>						   
-							<p:panel id="panelBotones">
-								<div align="center">					
-									<p:commandButton id="btnSave" binding="#{gluoIndicadorView.btnSave}" value="Save" action="#{gluoIndicadorView.action_save()}" update=":dialogGluoIndicador :frm:panelDataTableGluoIndicador" />
-									<p:commandButton id="btnClear" value="Clear" action="#{gluoIndicadorView.action_clear()}" update=":dialogGluoIndicador" />
-									<p:commandButton id="btnExit" value="Exit" action="#{gluoIndicadorView.action_closeDialog()}" update=":dialogGluoIndicador" />
-								</div>
+					<h:outputText value="Proyecto" />
+					<p:selectOneMenu id="somProyecto"
+						binding="#{gluoIndicadorView.somProyecto}">
+						<f:selectItems value="#{gluoIndicadorView.losProyectosItems}" />
+					</p:selectOneMenu>
+					
+						<h:outputText id="msgDescripcionIndicador"
+							value=" DescripcionIndicador" />
+						<p:inputTextarea id="txtDescripcionIndicador" disabled="false"
+							binding="#{gluoIndicadorView.txtAreaDescripcionIndicador}" />
+						<h:outputText id="msgDescripcionLineaBase"
+							value=" DescripcionLineaBase" />
+						<p:inputTextarea id="txtDescripcionLineaBase" disabled="false"
+							binding="#{gluoIndicadorView.txtAreaDescripcionLineaBase}" />
+						<h:outputText id="msgDescripcionMeta" value=" DescripcionMeta" />
+						<p:inputTextarea id="txtDescripcionMeta" disabled="false"
+							binding="#{gluoIndicadorView.txtAreaDescripcionMeta}" />
+						<h:outputText id="msgUsuCreador" value=" UsuCreador" />
+						<p:inputText id="txtUsuCreador" disabled="true"
+							binding="#{gluoIndicadorView.txtUsuCreador}" />
+						<h:outputText id="msgUsuModificador" value=" UsuModificador" />
+						<p:inputText id="txtUsuModificador" disabled="true"
+							binding="#{gluoIndicadorView.txtUsuModificador}" />
+						<h:outputText id="msgValorMeta" value=" ValorMeta" />
+						<p:inputText id="txtValorMeta" disabled="false"
+							binding="#{gluoIndicadorView.txtValorMeta}" />
+							
+					</h:panelGrid>
+				</p:panel>
+				<p:panel id="panelBotones">
+					<div align="center">
+						<p:commandButton id="btnSave"
+							binding="#{gluoIndicadorView.btnSave}" value="Save"
+							action="#{gluoIndicadorView.action_save()}"
+							update=":dialogGluoIndicador :frm:panelDataTableGluoIndicador" />
+						<p:commandButton id="btnClear" value="Clear"
+							action="#{gluoIndicadorView.action_clear()}"
+							update=":dialogGluoIndicador" />
+						<p:commandButton id="btnExit" value="Exit"
+							action="#{gluoIndicadorView.action_closeDialog()}"
+							update=":dialogGluoIndicador" />
+					</div>
 				</p:panel>
 			</h:form>
 		</p:dialog>

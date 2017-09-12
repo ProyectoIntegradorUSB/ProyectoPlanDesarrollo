@@ -1,65 +1,69 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-                template="/WEB-INF/template.xhtml">
-		 
-	<ui:define name="content">	
-			
-			
-			<h:form id="formDialog">
-				<p:messages id="msg" />
-				<p:growl id="men"/>
-					<p:panel id="panelGluoAnoFiscal" header="GluoAnoFiscal">							
-						<h:panelGrid columns="2" id="panelGrid" >
-												 	<h:outputText id="msgAnofId" value="AnofId"/>
-						 	<p:inputText id="txtAnofId" binding="#{gluoAnoFiscalView.txtAnofId}">
-						 		<p:ajax update="panelGluoAnoFiscal,msg,panelBotones" listener="#{gluoAnoFiscalView.listener_txtId}"/>
-						 	</p:inputText>	
-																		
-													<h:outputText id="msgActivo" value=" Activo"/>
-							<p:inputText id="txtActivo" disabled="true" binding="#{gluoAnoFiscalView.txtActivo}"/>
-													<h:outputText id="msgAnoFiscal" value=" AnoFiscal"/>
-							<p:inputText id="txtAnoFiscal" disabled="true" binding="#{gluoAnoFiscalView.txtAnoFiscal}"/>
-													<h:outputText id="msgDescripcion" value=" Descripcion"/>
-							<p:inputText id="txtDescripcion" disabled="true" binding="#{gluoAnoFiscalView.txtDescripcion}"/>
-													<h:outputText id="msgEmprId" value=" EmprId"/>
-							<p:inputText id="txtEmprId" disabled="true" binding="#{gluoAnoFiscalView.txtEmprId}"/>
-													<h:outputText id="msgEstado" value=" Estado"/>
-							<p:inputText id="txtEstado" disabled="true" binding="#{gluoAnoFiscalView.txtEstado}"/>
-													<h:outputText id="msgUsuCreador" value=" UsuCreador"/>
-							<p:inputText id="txtUsuCreador" disabled="true" binding="#{gluoAnoFiscalView.txtUsuCreador}"/>
-													<h:outputText id="msgUsuModificador" value=" UsuModificador"/>
-							<p:inputText id="txtUsuModificador" disabled="true" binding="#{gluoAnoFiscalView.txtUsuModificador}"/>
-													<h:outputText id="msgValorSalarioMinimo" value=" ValorSalarioMinimo"/>
-							<p:inputText id="txtValorSalarioMinimo" disabled="true" binding="#{gluoAnoFiscalView.txtValorSalarioMinimo}"/>
-												
-																				<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
-														<p:calendar showOn="button" navigator="true" locale="en" 
-							binding="#{gluoAnoFiscalView.txtFechaCreacion}" >
-								<p:ajax event="dateSelect" listener="#{gluoAnoFiscalView.listener_txtFechaCreacion}"  />
-							</p:calendar>
-														<h:outputText id="msgFechaIncioAnoFiscal" value=" FechaIncioAnoFiscal"/>
-														<p:calendar showOn="button" navigator="true" locale="en" 
-							binding="#{gluoAnoFiscalView.txtFechaIncioAnoFiscal}" >
-								<p:ajax event="dateSelect" listener="#{gluoAnoFiscalView.listener_txtFechaIncioAnoFiscal}"  />
-							</p:calendar>
-														<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
-														<p:calendar showOn="button" navigator="true" locale="en" 
-							binding="#{gluoAnoFiscalView.txtFechaModificacion}" >
-								<p:ajax event="dateSelect" listener="#{gluoAnoFiscalView.listener_txtFechaModificacion}"  />
-							</p:calendar>
-																	   </h:panelGrid>
-				</p:panel>
-	   			<p:panel id="panelBotones">
-					<div align="center">					
-						<p:commandButton id="btnSave" binding="#{gluoAnoFiscalView.btnSave}" disabled="true" value="Save" action="#{gluoAnoFiscalView.action_save()}" update="panelGluoAnoFiscal, msg, panelBotones, men" />
-						<p:commandButton id="btnDelete" binding="#{gluoAnoFiscalView.btnDelete}" disabled="true" value="Delete" action="#{gluoAnoFiscalView.action_delete_master()}" onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}" update="panelGluoAnoFiscal, msg, panelBotones, men" />
-						<p:commandButton id="btnClear" value="Clear" action="#{gluoAnoFiscalView.action_clear()}" update="panelGluoAnoFiscal, msg, panelBotones, men" />
-					</div>
-				</p:panel>			
-			</h:form>
-			
-  </ui:define>
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+
+
+		<h:form id="formDialog">
+			<p:messages id="msg" />
+			<p:growl id="men" />
+			<p:panel id="panelGluoAnoFiscal" header="GluoAnoFiscal">
+				<h:panelGrid columns="2" id="panelGrid">
+				
+					<h:outputText id="msgActivo" value=" Activo" />
+					<p:selectOneMenu id="Activo" value="#{gluoAnoFiscalView.somActivo}"
+						style="width:135px">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItem itemLabel="A" itemValue="A" />
+						<f:selectItem itemLabel="I" itemValue="I" />
+					</p:selectOneMenu>
+
+					
+					<h:outputText id="msgAnoFiscal" value=" AnoFiscal" />
+					<p:inputText id="txtAnoFiscal" disabled="false"
+						binding="#{gluoAnoFiscalView.txtAnoFiscal}" />
+					<h:outputText id="msgDescripcion" value=" Descripcion" />
+					<p:inputTextarea id="txtDescripcion" disabled="false"
+						binding="#{gluoAnoFiscalView.txtAreaDescripcion}" />
+					<h:outputText id="msgEmprId" value=" EmprId" />
+					<p:inputText id="txtEmprId" disabled="false"
+						binding="#{gluoAnoFiscalView.txtEmprId}" />
+					<h:outputText id="msgEstado" value=" Estado" />
+					<p:inputText id="txtEstado" disabled="false"
+						binding="#{gluoAnoFiscalView.txtEstado}" />
+					<h:outputText id="msgUsuCreador" value=" UsuCreador" />
+					<p:inputText id="txtUsuCreador" disabled="true"
+						binding="#{gluoAnoFiscalView.txtUsuCreador}" />
+					<h:outputText id="msgValorSalarioMinimo"
+						value=" ValorSalarioMinimo" />
+					<p:inputText id="txtValorSalarioMinimo" disabled="false"
+						binding="#{gluoAnoFiscalView.txtValorSalarioMinimo}" />
+
+					<h:outputText id="msgFechaInicioAnoFiscal"
+						value=" Fecha de Inicio de Año Fiscal" />
+					<p:calendar showOn="button" navigator="true" locale="en"
+						binding="#{gluoAnoFiscalView.txtFechaIncioAnoFiscal}">
+						<p:ajax event="dateSelect"
+							listener="#{gluoAnoFiscalView.listener_txtFechaIncioAnoFiscal}" />
+					</p:calendar>
+					
+				</h:panelGrid>
+			</p:panel>
+			<p:panel id="panelBotones">
+				<div align="center">
+					<p:commandButton id="btnGuardar"
+						binding="#{gluoAnoFiscalView.btnSave}" disabled="false"
+						value="Guardar" action="#{gluoAnoFiscalView.action_save()}"
+						update="panelGluoAnoFiscal, msg, panelBotones, men" />
+					<p:commandButton id="btnLimpiar" value="Limpiar"
+						action="#{gluoAnoFiscalView.action_clear()}"
+						update="panelGluoAnoFiscal, msg, panelBotones, men" />
+				</div>
+			</p:panel>
+		</h:form>
+
+	</ui:define>
 </ui:composition>

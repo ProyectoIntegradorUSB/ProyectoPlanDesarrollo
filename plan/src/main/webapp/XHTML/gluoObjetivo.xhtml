@@ -30,7 +30,7 @@
 					<p:selectOneMenu id="somObjetivos"
 						binding="#{gluoObjetivoView.somSectorEje}">
 						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
-						<f:selectItems value="#{gluoObjetivoView.losObjetivosItems}" />
+						<f:selectItems value="#{gluoObjetivoView.losSectorEjeItems}" />
 					</p:selectOneMenu>
 				</h:panelGrid>
 			</p:panel>
@@ -67,7 +67,7 @@
 					</p:selectOneMenu>
 					<h:outputText id="msgDescripcion" value=" Descripcion" />
 					<p:inputText id="txtDescripcion" disabled="false"
-						binding="#{gluoObjetivoView.txtDescripcion}" />
+						binding="#{gluoObjetivoView.txtAreaDescripcion}" />
 
 
 					<h:outputText id="msgSediId_GluoSectorEjeDimension"

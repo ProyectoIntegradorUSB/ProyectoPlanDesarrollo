@@ -304,7 +304,8 @@ public class GluoPlanDesarrolloView implements Serializable {
             entity.setUsuCreador(usuaCreador);
 //            entity.setUsuModificador(FacesUtils.checkInteger(txtUsuModificador));
             businessDelegatorView.saveGluoPlanDesarrollo(entity);
-            FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
+            FacesContext.getCurrentInstance().addMessage("", 
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Plan de Desarrollo creado con exito", ""));
             action_clear();
         } catch (Exception e) {
             entity = null;

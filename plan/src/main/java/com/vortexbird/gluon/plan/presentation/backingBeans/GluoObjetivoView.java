@@ -330,7 +330,7 @@ public class GluoObjetivoView implements Serializable {
 		try {
 			if (losSectorEjeItems == null) {
 				losSectorEjeItems = new ArrayList<SelectItem>();
-				List<GluoSectorEjeDimension> losgluoSector = businessDelegatorView.getGluoSectorEjeDimension();
+				List<GluoSectorEjeDimension> losgluoSector = businessDelegatorView.findSectorEjeDimensionActivo();
 
 				for (GluoSectorEjeDimension gluoSectorEjeDimension : losgluoSector) {
 					losSectorEjeItems.add(new SelectItem(gluoSectorEjeDimension.getSediId(),

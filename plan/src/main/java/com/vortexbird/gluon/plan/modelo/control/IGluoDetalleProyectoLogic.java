@@ -1,5 +1,6 @@
 package com.vortexbird.gluon.plan.modelo.control;
 
+import com.vortexbird.gluon.plan.modelo.GluoAnoFiscal;
 import com.vortexbird.gluon.plan.modelo.GluoDetalleProyecto;
 import com.vortexbird.gluon.plan.modelo.dto.GluoDetalleProyectoDTO;
 
@@ -46,6 +47,8 @@ public interface IGluoDetalleProyectoLogic {
          */
     public GluoDetalleProyecto getGluoDetalleProyecto(Integer dproId)
         throws Exception;
+    
+    public List <GluoDetalleProyecto> findDetalleProyectoActivo()throws Exception;
 
     public List<GluoDetalleProyecto> findByCriteria(Object[] variables,
         Object[] variablesBetween, Object[] variablesBetweenDates)

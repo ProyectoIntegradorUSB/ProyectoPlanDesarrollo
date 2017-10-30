@@ -1,5 +1,6 @@
 package com.vortexbird.gluon.plan.modelo.control;
 
+import com.vortexbird.gluon.plan.modelo.GluoAnoFiscal;
 import com.vortexbird.gluon.plan.modelo.GluoHistorialIndicador;
 import com.vortexbird.gluon.plan.modelo.dto.GluoHistorialIndicadorDTO;
 
@@ -57,6 +58,8 @@ public interface IGluoHistorialIndicadorLogic {
 
     public Long findTotalNumberGluoHistorialIndicador()
         throws Exception;
+    
+    public List <GluoHistorialIndicador> findHistorialIndicadorActivo()throws Exception;
 
     public List<GluoHistorialIndicadorDTO> getDataGluoHistorialIndicador()
         throws Exception;

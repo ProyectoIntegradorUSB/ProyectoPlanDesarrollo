@@ -3,6 +3,7 @@ package com.vortexbird.gluon.plan.modelo.control;
 import com.vortexbird.gluon.plan.dataaccess.dao.*;
 import com.vortexbird.gluon.plan.dto.mapper.IGluoSectorEjeDimensionMapper;
 import com.vortexbird.gluon.plan.exceptions.*;
+import com.vortexbird.gluon.plan.exceptions.ZMessManager.GettingException;
 import com.vortexbird.gluon.plan.modelo.*;
 import com.vortexbird.gluon.plan.modelo.dto.GluoSectorEjeDimensionDTO;
 import com.vortexbird.gluon.plan.utilities.Utilities;
@@ -108,6 +109,24 @@ public class GluoSectorEjeDimensionLogic implements IGluoSectorEjeDimensionLogic
 
         return list;
     }
+    
+    @Transactional(readOnly=true)
+	public List<GluoSectorEjeDimension> findSectorEjeDimensionActivo() throws Exception {
+          List<GluoSectorEjeDimension> listaActivos= new ArrayList<GluoSectorEjeDimension>();
+    	
+    	try {
+    		listaActivos=gluoSectorEjeDimensionDAO.find("FROM GluoSectorEjeDimension se WHERE se.activo='A'");
+    	}catch(Exception e) {
+    		
+    		log.error("finding all GluoSectorEjeDimension failed", e);
+    		
+    		throw new ZMessManager().new GettingException(ZMessManager.ALL + "GluoSectorEjeDimension");
+    	}finally {
+    		
+    	}
+    	
+    	return listaActivos;
+	}
 
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     public void saveGluoSectorEjeDimension(GluoSectorEjeDimension entity)
@@ -431,4 +450,6 @@ public class GluoSectorEjeDimensionLogic implements IGluoSectorEjeDimensionLogic
 
         return list;
     }
+
+	
 }

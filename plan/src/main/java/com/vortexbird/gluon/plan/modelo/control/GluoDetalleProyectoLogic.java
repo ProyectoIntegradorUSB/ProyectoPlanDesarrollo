@@ -3,6 +3,7 @@ package com.vortexbird.gluon.plan.modelo.control;
 import com.vortexbird.gluon.plan.dataaccess.dao.*;
 import com.vortexbird.gluon.plan.dto.mapper.IGluoDetalleProyectoMapper;
 import com.vortexbird.gluon.plan.exceptions.*;
+import com.vortexbird.gluon.plan.exceptions.ZMessManager.GettingException;
 import com.vortexbird.gluon.plan.modelo.*;
 import com.vortexbird.gluon.plan.modelo.dto.GluoDetalleProyectoDTO;
 import com.vortexbird.gluon.plan.utilities.Utilities;
@@ -112,6 +113,25 @@ public class GluoDetalleProyectoLogic implements IGluoDetalleProyectoLogic {
         }
 
         return list;
+    }
+    
+    @Transactional(readOnly=true)
+    public List <GluoDetalleProyecto> findDetalleProyectoActivo()throws Exception{
+    	
+    	List<GluoDetalleProyecto> listaActivos= new ArrayList<GluoDetalleProyecto>();
+    	
+    	try {
+    		listaActivos=gluoDetalleProyectoDAO.find("FROM GluoDetalleProyecto dp WHERE dp.activo='A'");
+    	}catch(Exception e) {
+    		
+    		log.error("finding all GluoAnoFiscal failed", e);
+    		
+    		throw new ZMessManager().new GettingException(ZMessManager.ALL + "GluoAnoFiscal");
+    	}finally {
+    		
+    	}
+    	
+    	return listaActivos;
     }
 
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)

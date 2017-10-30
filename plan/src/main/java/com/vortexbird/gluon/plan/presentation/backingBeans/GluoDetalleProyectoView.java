@@ -420,7 +420,7 @@ public class GluoDetalleProyectoView implements Serializable {
     	try {
 			if (losProyectosItems == null) {
 				losProyectosItems = new ArrayList<SelectItem>();
-				List<GluoProyecto> losGluoProyecto= businessDelegatorView.getGluoProyecto();
+				List<GluoProyecto> losGluoProyecto= businessDelegatorView.findProyectoActivo();
 				for (GluoProyecto gluoProyecto: losGluoProyecto) {
 					losProyectosItems.add(new SelectItem(gluoProyecto.getProyId(), gluoProyecto.getDescripcion()));
 				}
@@ -435,7 +435,7 @@ public class GluoDetalleProyectoView implements Serializable {
     	try {
 			if (AnoFiscalItems == null) {
 				AnoFiscalItems = new ArrayList<SelectItem>();
-				List<GluoAnoFiscal> losGluoAnoFiscal= businessDelegatorView.getGluoAnoFiscal();
+				List<GluoAnoFiscal> losGluoAnoFiscal= businessDelegatorView.findAnoFiscalActivo();
 				for (GluoAnoFiscal gluoAnoFiscal: losGluoAnoFiscal) {
 					AnoFiscalItems.add(new SelectItem(gluoAnoFiscal.getAnofId(),gluoAnoFiscal.getDescripcion()));
 				}

@@ -59,6 +59,9 @@ public interface IGluoPlanDesarrolloLogic {
 
     public List<GluoPlanDesarrolloDTO> getDataGluoPlanDesarrollo()
         throws Exception;
+    
+    public List <GluoPlanDesarrollo> findPlanDesarrolloActivo()
+    		throws Exception;
 
     public void validateGluoPlanDesarrollo(
         GluoPlanDesarrollo gluoPlanDesarrollo) throws Exception;

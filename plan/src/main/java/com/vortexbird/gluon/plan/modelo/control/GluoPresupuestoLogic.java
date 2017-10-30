@@ -3,6 +3,7 @@ package com.vortexbird.gluon.plan.modelo.control;
 import com.vortexbird.gluon.plan.dataaccess.dao.*;
 import com.vortexbird.gluon.plan.dto.mapper.IGluoPresupuestoMapper;
 import com.vortexbird.gluon.plan.exceptions.*;
+import com.vortexbird.gluon.plan.exceptions.ZMessManager.GettingException;
 import com.vortexbird.gluon.plan.modelo.*;
 import com.vortexbird.gluon.plan.modelo.dto.GluoPresupuestoDTO;
 import com.vortexbird.gluon.plan.utilities.Utilities;
@@ -105,6 +106,24 @@ public class GluoPresupuestoLogic implements IGluoPresupuestoLogic {
 
         return list;
     }
+    
+    @Transactional(readOnly=true)
+	public List<GluoPresupuesto> findPresupuestoActivo() throws Exception {
+      List<GluoPresupuesto> listaActivos= new ArrayList<GluoPresupuesto>();
+    	
+    	try {
+    		listaActivos=gluoPresupuestoDAO.find("FROM GluoPresupuesto p WHERE p.activo='A'");
+    	}catch(Exception e) {
+    		
+    		log.error("finding all GluoPresupuesto failed", e);
+    		
+    		throw new ZMessManager().new GettingException(ZMessManager.ALL + "GluoPresupuesto");
+    	}finally {
+    		
+    	}
+    	
+    	return listaActivos;
+	}
 
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     public void saveGluoPresupuesto(GluoPresupuesto entity)
@@ -426,4 +445,6 @@ public class GluoPresupuestoLogic implements IGluoPresupuestoLogic {
 
         return list;
     }
+
+	
 }

@@ -203,6 +203,27 @@ public class GluoPlanDesarrolloLogic implements IGluoPlanDesarrolloLogic {
             throw e;
         }
     }
+    
+    @Transactional(readOnly=true)
+    public List <GluoPlanDesarrollo> findPlanDesarrolloActivo()throws Exception{
+    	
+    	List<GluoPlanDesarrollo> listaActivos= new ArrayList<GluoPlanDesarrollo>();
+    	
+    	try {
+    		listaActivos=gluoPlanDesarrolloDAO.find("FROM GluoPlanDesarrollo p WHERE p.activo='A'");
+    	}catch(Exception e) {
+    		
+    		log.error("finding all GluoPlanDesarrollo failed", e);
+    		
+    		throw new ZMessManager().new GettingException(ZMessManager.ALL + "GluoPlanDesarrollo");
+    	}finally {
+    		
+    	}
+    	
+    	return listaActivos;
+    }
+    
+    
 
     @Transactional(readOnly = true)
     public GluoPlanDesarrollo getGluoPlanDesarrollo(Integer planId)

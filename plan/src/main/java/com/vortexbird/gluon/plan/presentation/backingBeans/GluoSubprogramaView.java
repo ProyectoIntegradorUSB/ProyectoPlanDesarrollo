@@ -370,7 +370,7 @@ public class GluoSubprogramaView implements Serializable {
 		try {
 			if (losProgramasItems == null) {
 				losProgramasItems = new ArrayList<SelectItem>();
-				List<GluoPrograma> losGluoPrograma = businessDelegatorView.getGluoPrograma();
+				List<GluoPrograma> losGluoPrograma = businessDelegatorView.findProgramaActivo();
 				for (GluoPrograma gluoPrograma : losGluoPrograma) {
 					losProgramasItems.add(new SelectItem(gluoPrograma.getProgId(), gluoPrograma.getDescripcion()));
 				}

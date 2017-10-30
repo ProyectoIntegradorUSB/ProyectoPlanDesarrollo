@@ -3,6 +3,7 @@ package com.vortexbird.gluon.plan.modelo.control;
 import com.vortexbird.gluon.plan.dataaccess.dao.*;
 import com.vortexbird.gluon.plan.dto.mapper.IGluoSubprogramaMapper;
 import com.vortexbird.gluon.plan.exceptions.*;
+import com.vortexbird.gluon.plan.exceptions.ZMessManager.GettingException;
 import com.vortexbird.gluon.plan.modelo.*;
 import com.vortexbird.gluon.plan.modelo.dto.GluoSubprogramaDTO;
 import com.vortexbird.gluon.plan.utilities.Utilities;
@@ -105,6 +106,24 @@ public class GluoSubprogramaLogic implements IGluoSubprogramaLogic {
 
         return list;
     }
+    
+    @Transactional(readOnly=true)
+	public List<GluoSubprograma> findSubprogramaActivo() throws Exception {
+       List<GluoSubprograma> listaActivos= new ArrayList<GluoSubprograma>();
+    	
+    	try {
+    		listaActivos=gluoSubprogramaDAO.find("FROM GluoSubprograma sp WHERE sp.activo='A'");
+    	}catch(Exception e) {
+    		
+    		log.error("finding all GluoAnoFiscal failed", e);
+    		
+    		throw new ZMessManager().new GettingException(ZMessManager.ALL + "GluoSubprograma");
+    	}finally {
+    		
+    	}
+    	
+    	return listaActivos;
+	}
 
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     public void saveGluoSubprograma(GluoSubprograma entity)
@@ -426,4 +445,6 @@ public class GluoSubprogramaLogic implements IGluoSubprogramaLogic {
 
         return list;
     }
+
+	
 }

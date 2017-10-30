@@ -1,5 +1,6 @@
 package com.vortexbird.gluon.plan.modelo.control;
 
+import com.vortexbird.gluon.plan.modelo.GluoAnoFiscal;
 import com.vortexbird.gluon.plan.modelo.GluoSubprograma;
 import com.vortexbird.gluon.plan.modelo.dto.GluoSubprogramaDTO;
 
@@ -45,6 +46,8 @@ public interface IGluoSubprogramaLogic {
          */
     public GluoSubprograma getGluoSubprograma(Integer subpId)
         throws Exception;
+    
+    public List <GluoSubprograma> findSubprogramaActivo()throws Exception;
 
     public List<GluoSubprograma> findByCriteria(Object[] variables,
         Object[] variablesBetween, Object[] variablesBetweenDates)

@@ -1,5 +1,6 @@
 package com.vortexbird.gluon.plan.modelo.control;
 
+import com.vortexbird.gluon.plan.modelo.GluoAnoFiscal;
 import com.vortexbird.gluon.plan.modelo.GluoSectorEjeDimension;
 import com.vortexbird.gluon.plan.modelo.dto.GluoSectorEjeDimensionDTO;
 
@@ -46,6 +47,8 @@ public interface IGluoSectorEjeDimensionLogic {
          */
     public GluoSectorEjeDimension getGluoSectorEjeDimension(Integer sediId)
         throws Exception;
+    
+    public List <GluoSectorEjeDimension> findSectorEjeDimensionActivo()throws Exception;
 
     public List<GluoSectorEjeDimension> findByCriteria(Object[] variables,
         Object[] variablesBetween, Object[] variablesBetweenDates)

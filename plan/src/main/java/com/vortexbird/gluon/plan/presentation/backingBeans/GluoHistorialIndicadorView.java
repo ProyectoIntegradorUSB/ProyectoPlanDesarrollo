@@ -406,7 +406,7 @@ public class GluoHistorialIndicadorView implements Serializable {
     	try {
 			if (losIndicadoresItems == null) {
 				losIndicadoresItems = new ArrayList<SelectItem>();
-				List<GluoIndicador> losgluoIndicador = businessDelegatorView.getGluoIndicador();
+				List<GluoIndicador> losgluoIndicador = businessDelegatorView.findIndicadorActivo();
 
 				for (GluoIndicador gluoIndicador : losgluoIndicador) {
 					losIndicadoresItems.add(new SelectItem(gluoIndicador.getIndiId(),

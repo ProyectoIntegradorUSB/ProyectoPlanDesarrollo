@@ -3,6 +3,7 @@ package com.vortexbird.gluon.plan.modelo.control;
 import com.vortexbird.gluon.plan.dataaccess.dao.*;
 import com.vortexbird.gluon.plan.dto.mapper.IGluoObjetivoMapper;
 import com.vortexbird.gluon.plan.exceptions.*;
+import com.vortexbird.gluon.plan.exceptions.ZMessManager.GettingException;
 import com.vortexbird.gluon.plan.modelo.*;
 import com.vortexbird.gluon.plan.modelo.dto.GluoObjetivoDTO;
 import com.vortexbird.gluon.plan.utilities.Utilities;
@@ -105,6 +106,24 @@ public class GluoObjetivoLogic implements IGluoObjetivoLogic {
 
         return list;
     }
+    
+    @Transactional(readOnly=true)
+	public List<GluoObjetivo> findObjetivoActivo() throws Exception {
+     List<GluoObjetivo> listaActivos= new ArrayList<GluoObjetivo>();
+    	
+    	try {
+    		listaActivos=gluoObjetivoDAO.find("FROM GluoObjetivo o WHERE o.activo='A'");
+    	}catch(Exception e) {
+    		
+    		log.error("finding all GluoObjetivo failed", e);
+    		
+    		throw new ZMessManager().new GettingException(ZMessManager.ALL + "GluoObjetivo");
+    	}finally {
+    		
+    	}
+    	
+    	return listaActivos;
+	}
 
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     public void saveGluoObjetivo(GluoObjetivo entity) throws Exception {
@@ -425,4 +444,6 @@ public class GluoObjetivoLogic implements IGluoObjetivoLogic {
 	public List<GluoObjetivo> consultarTodoObjetivo() throws Exception {
 		return gluoObjetivoDAO.consultarTodoObjetivo();
 	}
+
+	
 }

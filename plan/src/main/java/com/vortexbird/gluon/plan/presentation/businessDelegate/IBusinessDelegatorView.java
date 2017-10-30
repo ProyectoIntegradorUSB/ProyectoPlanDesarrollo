@@ -126,6 +126,8 @@ public interface IBusinessDelegatorView {
     public List<GluoAnoFiscalDTO> getDataGluoAnoFiscal()
         throws Exception;
 
+    public List <GluoAnoFiscal> findAnoFiscalActivo()throws Exception;
+    
     public void validateGluoAnoFiscal(GluoAnoFiscal gluoAnoFiscal)
         throws Exception;
 
@@ -164,6 +166,8 @@ public interface IBusinessDelegatorView {
 
     public List<GluoDetalleProyecto> getGluoDetalleProyecto()
         throws Exception;
+    
+    public List <GluoDetalleProyecto> findDetalleProyectoActivo()throws Exception;
 
     public void saveGluoDetalleProyecto(GluoDetalleProyecto entity)
         throws Exception;
@@ -240,6 +244,8 @@ public interface IBusinessDelegatorView {
 
     public GluoHistorialIndicador getGluoHistorialIndicador(Integer hiinId)
         throws Exception;
+    public List <GluoHistorialIndicador> findHistorialIndicadorActivo()
+    	throws Exception;
 
     public List<GluoHistorialIndicador> findByCriteriaInGluoHistorialIndicador(
         Object[] variables, Object[] variablesBetween,
@@ -272,6 +278,9 @@ public interface IBusinessDelegatorView {
 
     public GluoIndicador getGluoIndicador(Integer indiId)
         throws Exception;
+    
+    public List<GluoIndicador> findIndicadorActivo() 
+    	throws Exception;
 
     public List<GluoIndicador> findByCriteriaInGluoIndicador(
         Object[] variables, Object[] variablesBetween,
@@ -301,6 +310,8 @@ public interface IBusinessDelegatorView {
 
     public GluoObjetivo getGluoObjetivo(Integer objeId)
         throws Exception;
+    
+    public List<GluoObjetivo> findObjetivoActivo() throws Exception;
 
     public List<GluoObjetivo> findByCriteriaInGluoObjetivo(Object[] variables,
         Object[] variablesBetween, Object[] variablesBetweenDates)
@@ -332,6 +343,8 @@ public interface IBusinessDelegatorView {
 
     public GluoPlanDesarrollo getGluoPlanDesarrollo(Integer planId)
         throws Exception;
+    
+    public List <GluoPlanDesarrollo> findPlanDesarrolloActivo()throws Exception;
 
     public List<GluoPlanDesarrollo> findByCriteriaInGluoPlanDesarrollo(
         Object[] variables, Object[] variablesBetween,
@@ -362,6 +375,9 @@ public interface IBusinessDelegatorView {
 
     public GluoPresupuesto getGluoPresupuesto(Integer pptoId)
         throws Exception;
+    
+    public List<GluoPresupuesto> findPresupuestoActivo() 
+    	throws Exception;
 
     public List<GluoPresupuesto> findByCriteriaInGluoPresupuesto(
         Object[] variables, Object[] variablesBetween,
@@ -404,6 +420,8 @@ public interface IBusinessDelegatorView {
 
     public List<GluoProgramaDTO> getDataGluoPrograma()
         throws Exception;
+    
+    public List<GluoPrograma> findProgramaActivo() throws Exception;
 
     public void validateGluoPrograma(GluoPrograma gluoPrograma)
         throws Exception;
@@ -422,6 +440,8 @@ public interface IBusinessDelegatorView {
 
     public GluoProyecto getGluoProyecto(Integer proyId)
         throws Exception;
+    
+    public List<GluoProyecto> findProyectoActivo() throws Exception;
 
     public List<GluoProyecto> findByCriteriaInGluoProyecto(Object[] variables,
         Object[] variablesBetween, Object[] variablesBetweenDates)
@@ -453,6 +473,8 @@ public interface IBusinessDelegatorView {
 
     public GluoSectorEjeDimension getGluoSectorEjeDimension(Integer sediId)
         throws Exception;
+    
+    public List<GluoSectorEjeDimension> findSectorEjeDimensionActivo() throws Exception;
 
     public List<GluoSectorEjeDimension> findByCriteriaInGluoSectorEjeDimension(
         Object[] variables, Object[] variablesBetween,
@@ -485,6 +507,8 @@ public interface IBusinessDelegatorView {
 
     public GluoSubprograma getGluoSubprograma(Integer subpId)
         throws Exception;
+    
+    public List<GluoSubprograma> findSubprogramaActivo() throws Exception;
 
     public List<GluoSubprograma> findByCriteriaInGluoSubprograma(
         Object[] variables, Object[] variablesBetween,
@@ -515,6 +539,8 @@ public interface IBusinessDelegatorView {
 
     public GluoTipoRecurso getGluoTipoRecurso(Integer tireId)
         throws Exception;
+    
+    public List<GluoTipoRecurso> findTipoRecursoActivo() throws Exception;
 
     public List<GluoTipoRecurso> findByCriteriaInGluoTipoRecurso(
         Object[] variables, Object[] variablesBetween,

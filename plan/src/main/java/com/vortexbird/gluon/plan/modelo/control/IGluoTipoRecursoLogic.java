@@ -1,5 +1,6 @@
 package com.vortexbird.gluon.plan.modelo.control;
 
+import com.vortexbird.gluon.plan.modelo.GluoAnoFiscal;
 import com.vortexbird.gluon.plan.modelo.GluoTipoRecurso;
 import com.vortexbird.gluon.plan.modelo.dto.GluoTipoRecursoDTO;
 
@@ -45,6 +46,8 @@ public interface IGluoTipoRecursoLogic {
          */
     public GluoTipoRecurso getGluoTipoRecurso(Integer tireId)
         throws Exception;
+    
+    public List <GluoTipoRecurso> findTipoRecursoActivo()throws Exception;
 
     public List<GluoTipoRecurso> findByCriteria(Object[] variables,
         Object[] variablesBetween, Object[] variablesBetweenDates)

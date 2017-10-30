@@ -1,5 +1,6 @@
 package com.vortexbird.gluon.plan.modelo.control;
 
+import com.vortexbird.gluon.plan.modelo.GluoHistorialIndicador;
 import com.vortexbird.gluon.plan.modelo.GluoIndicador;
 import com.vortexbird.gluon.plan.modelo.dto.GluoIndicadorDTO;
 
@@ -45,6 +46,9 @@ public interface IGluoIndicadorLogic {
          */
     public GluoIndicador getGluoIndicador(Integer indiId)
         throws Exception;
+    
+    public List <GluoIndicador> findIndicadorActivo()
+    		throws Exception;
 
     public List<GluoIndicador> findByCriteria(Object[] variables,
         Object[] variablesBetween, Object[] variablesBetweenDates)

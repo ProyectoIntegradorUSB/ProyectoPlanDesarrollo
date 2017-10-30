@@ -445,7 +445,7 @@ public class GluoIndicadorView implements Serializable {
 		try {
 			if (losProyectosItems == null) {
 				losProyectosItems = new ArrayList<SelectItem>();
-				List<GluoProyecto> losGluoProyecto= businessDelegatorView.getGluoProyecto();
+				List<GluoProyecto> losGluoProyecto= businessDelegatorView.findProyectoActivo();
 				for (GluoProyecto gluoProyecto: losGluoProyecto) {
 					losProyectosItems.add(new SelectItem(gluoProyecto.getProyId(), gluoProyecto.getDescripcion()));
 				}

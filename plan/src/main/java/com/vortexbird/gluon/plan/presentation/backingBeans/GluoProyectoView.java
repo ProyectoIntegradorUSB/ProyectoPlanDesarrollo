@@ -407,7 +407,7 @@ public class GluoProyectoView implements Serializable {
 		try {
 			if (losSubProgramasItems == null) {
 				losSubProgramasItems = new ArrayList<SelectItem>();
-				List<GluoSubprograma> losGluoSubPrograma = businessDelegatorView.getGluoSubprograma();
+				List<GluoSubprograma> losGluoSubPrograma = businessDelegatorView.findSubprogramaActivo();
 				for (GluoSubprograma gluoSubPrograma : losGluoSubPrograma) {
 					losSubProgramasItems
 							.add(new SelectItem(gluoSubPrograma.getSubpId(), gluoSubPrograma.getDescripcion()));

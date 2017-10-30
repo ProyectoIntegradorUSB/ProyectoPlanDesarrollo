@@ -383,7 +383,7 @@ public class GluoProgramaView implements Serializable {
 		try {
 			if (losObjetivosItems == null) {
 				losObjetivosItems = new ArrayList<SelectItem>();
-				List<GluoObjetivo> losGluoObjetivo = businessDelegatorView.getGluoObjetivo();
+				List<GluoObjetivo> losGluoObjetivo = businessDelegatorView.findObjetivoActivo();
 				for (GluoObjetivo gluoObjetivo : losGluoObjetivo) {
 					losObjetivosItems.add(new SelectItem(gluoObjetivo.getObjeId(), gluoObjetivo.getDescripcion()));
 				}

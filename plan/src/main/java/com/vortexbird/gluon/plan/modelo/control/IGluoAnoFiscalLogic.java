@@ -1,6 +1,7 @@
 package com.vortexbird.gluon.plan.modelo.control;
 
 import com.vortexbird.gluon.plan.modelo.GluoAnoFiscal;
+import com.vortexbird.gluon.plan.modelo.GluoPlanDesarrollo;
 import com.vortexbird.gluon.plan.modelo.dto.GluoAnoFiscalDTO;
 
 import java.math.BigDecimal;
@@ -45,6 +46,8 @@ public interface IGluoAnoFiscalLogic {
          */
     public GluoAnoFiscal getGluoAnoFiscal(Integer anofId)
         throws Exception;
+    
+    public List <GluoAnoFiscal> findAnoFiscalActivo()throws Exception;
 
     public List<GluoAnoFiscal> findByCriteria(Object[] variables,
         Object[] variablesBetween, Object[] variablesBetweenDates)

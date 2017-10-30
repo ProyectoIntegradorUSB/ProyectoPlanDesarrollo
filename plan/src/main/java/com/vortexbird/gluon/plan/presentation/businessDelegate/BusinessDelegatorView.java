@@ -211,6 +211,13 @@ public class BusinessDelegatorView implements IBusinessDelegatorView {
 
         return gluoAnoFiscal;
     }
+    
+ public List <GluoAnoFiscal> findAnoFiscalActivo()throws Exception{
+    	
+    	return gluoAnoFiscalLogic.findAnoFiscalActivo();
+    	
+    	
+    }
 
     public List<GluoAnoFiscal> findByCriteriaInGluoAnoFiscal(
         Object[] variables, Object[] variablesBetween,
@@ -335,6 +342,13 @@ public class BusinessDelegatorView implements IBusinessDelegatorView {
 
         return gluoDetalleProyecto;
     }
+    
+ public List <GluoDetalleProyecto> findDetalleProyectoActivo()throws Exception{
+    	
+    	return gluoDetalleProyectoLogic.findDetalleProyectoActivo();
+    	
+    	
+    }
 
     public List<GluoDetalleProyecto> findByCriteriaInGluoDetalleProyecto(
         Object[] variables, Object[] variablesBetween,
@@ -431,6 +445,12 @@ public class BusinessDelegatorView implements IBusinessDelegatorView {
         throws Exception {
         return gluoHistorialIndicadorLogic.getGluoHistorialIndicador();
     }
+    
+    
+	public List<GluoHistorialIndicador> findHistorialIndicadorActivo() throws Exception {
+		
+		return gluoHistorialIndicadorLogic.findHistorialIndicadorActivo();
+	}
 
     public void saveGluoHistorialIndicador(GluoHistorialIndicador entity)
         throws Exception {
@@ -493,6 +513,11 @@ public class BusinessDelegatorView implements IBusinessDelegatorView {
     public List<GluoIndicador> getGluoIndicador() throws Exception {
         return gluoIndicadorLogic.getGluoIndicador();
     }
+    
+   
+	public List<GluoIndicador> findIndicadorActivo() throws Exception {
+	       return gluoIndicadorLogic.findIndicadorActivo();
+	}
 
     public void saveGluoIndicador(GluoIndicador entity)
         throws Exception {
@@ -580,6 +605,12 @@ public class BusinessDelegatorView implements IBusinessDelegatorView {
 
         return gluoObjetivo;
     }
+    
+  
+	public List<GluoObjetivo> findObjetivoActivo() throws Exception {
+		
+		return gluoObjetivoLogic.findObjetivoActivo();
+	}
 
     public List<GluoObjetivo> findByCriteriaInGluoObjetivo(Object[] variables,
         Object[] variablesBetween, Object[] variablesBetweenDates)
@@ -641,6 +672,13 @@ public class BusinessDelegatorView implements IBusinessDelegatorView {
 
         return gluoPlanDesarrollo;
     }
+    
+    public List <GluoPlanDesarrollo> findPlanDesarrolloActivo()throws Exception{
+    	
+    	return gluoPlanDesarrolloLogic.findPlanDesarrolloActivo();
+    	
+    	
+    }
 
     public List<GluoPlanDesarrollo> findByCriteriaInGluoPlanDesarrollo(
         Object[] variables, Object[] variablesBetween,
@@ -701,6 +739,12 @@ public class BusinessDelegatorView implements IBusinessDelegatorView {
 
         return gluoPresupuesto;
     }
+    
+
+	public List<GluoPresupuesto> findPresupuestoActivo() throws Exception {
+		
+		return gluoPresupuestoLogic.findPresupuestoActivo();
+	}
 
     public List<GluoPresupuesto> findByCriteriaInGluoPresupuesto(
         Object[] variables, Object[] variablesBetween,
@@ -733,6 +777,13 @@ public class BusinessDelegatorView implements IBusinessDelegatorView {
     public List<GluoPrograma> getGluoPrograma() throws Exception {
         return gluoProgramaLogic.getGluoPrograma();
     }
+    
+    @Override
+	public List<GluoPrograma> findProgramaActivo() throws Exception {
+		
+		return gluoProgramaLogic.findProgramaActivo();
+	}
+
 
     public void saveGluoPrograma(GluoPrograma entity) throws Exception {
         gluoProgramaLogic.saveGluoPrograma(entity);
@@ -792,6 +843,8 @@ public class BusinessDelegatorView implements IBusinessDelegatorView {
     public List<GluoProyecto> getGluoProyecto() throws Exception {
         return gluoProyectoLogic.getGluoProyecto();
     }
+    
+    
 
     public void saveGluoProyecto(GluoProyecto entity) throws Exception {
         gluoProyectoLogic.saveGluoProyecto(entity);
@@ -819,6 +872,12 @@ public class BusinessDelegatorView implements IBusinessDelegatorView {
 
         return gluoProyecto;
     }
+    
+ 
+	public List<GluoProyecto> findProyectoActivo() throws Exception {
+		
+		return gluoProyectoLogic.findProyectoActivo();
+	}
 
     public List<GluoProyecto> findByCriteriaInGluoProyecto(Object[] variables,
         Object[] variablesBetween, Object[] variablesBetweenDates)
@@ -914,6 +973,12 @@ public class BusinessDelegatorView implements IBusinessDelegatorView {
     public List<GluoSubprograma> getGluoSubprograma() throws Exception {
         return gluoSubprogramaLogic.getGluoSubprograma();
     }
+    
+  
+	public List<GluoSectorEjeDimension> findSectorEjeDimensionActivo() throws Exception {
+		
+		return gluoSectorEjeDimensionLogic.findSectorEjeDimensionActivo();
+	}
 
     public void saveGluoSubprograma(GluoSubprograma entity)
         throws Exception {
@@ -942,6 +1007,12 @@ public class BusinessDelegatorView implements IBusinessDelegatorView {
 
         return gluoSubprograma;
     }
+    
+    @Override
+	public List<GluoSubprograma> findSubprogramaActivo() throws Exception {
+		
+		return gluoSubprogramaLogic.findSubprogramaActivo();
+	}
 
     public List<GluoSubprograma> findByCriteriaInGluoSubprograma(
         Object[] variables, Object[] variablesBetween,
@@ -1002,6 +1073,12 @@ public class BusinessDelegatorView implements IBusinessDelegatorView {
 
         return gluoTipoRecurso;
     }
+    
+   
+	public List<GluoTipoRecurso> findTipoRecursoActivo() throws Exception {
+		
+		return gluoTipoRecursoLogic.findTipoRecursoActivo();
+	}
 
     public List<GluoTipoRecurso> findByCriteriaInGluoTipoRecurso(
         Object[] variables, Object[] variablesBetween,
@@ -1332,4 +1409,8 @@ public class BusinessDelegatorView implements IBusinessDelegatorView {
 	public List<GluoObjetivo> consultarTodoObjetivo() throws Exception {
 		return gluoObjetivoLogic.consultarTodoObjetivo();
 	}
+
+	
+	
+
 }

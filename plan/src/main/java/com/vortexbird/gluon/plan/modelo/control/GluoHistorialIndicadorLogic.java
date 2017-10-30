@@ -3,6 +3,7 @@ package com.vortexbird.gluon.plan.modelo.control;
 import com.vortexbird.gluon.plan.dataaccess.dao.*;
 import com.vortexbird.gluon.plan.dto.mapper.IGluoHistorialIndicadorMapper;
 import com.vortexbird.gluon.plan.exceptions.*;
+import com.vortexbird.gluon.plan.exceptions.ZMessManager.GettingException;
 import com.vortexbird.gluon.plan.modelo.*;
 import com.vortexbird.gluon.plan.modelo.dto.GluoHistorialIndicadorDTO;
 import com.vortexbird.gluon.plan.utilities.Utilities;
@@ -101,6 +102,25 @@ public class GluoHistorialIndicadorLogic implements IGluoHistorialIndicadorLogic
 
         return list;
     }
+    
+    @Transactional(readOnly=true)
+	public List<GluoHistorialIndicador> findHistorialIndicadorActivo() throws Exception {
+    	
+        List<GluoHistorialIndicador> listaActivos= new ArrayList<GluoHistorialIndicador>();
+    	
+    	try {
+    		listaActivos=gluoHistorialIndicadorDAO.find("FROM GluoHistorialIndicador hi WHERE hi.activo='A'");
+    	}catch(Exception e) {
+    		
+    		log.error("finding all GluoHistorialIndicador failed", e);
+    		
+    		throw new ZMessManager().new GettingException(ZMessManager.ALL + "GluoHistorialIndicador");
+    	}finally {
+    		
+    	}
+    	
+    	return listaActivos;
+	}
 
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     public void saveGluoHistorialIndicador(GluoHistorialIndicador entity)
@@ -415,4 +435,6 @@ public class GluoHistorialIndicadorLogic implements IGluoHistorialIndicadorLogic
 
         return list;
     }
+
+	
 }

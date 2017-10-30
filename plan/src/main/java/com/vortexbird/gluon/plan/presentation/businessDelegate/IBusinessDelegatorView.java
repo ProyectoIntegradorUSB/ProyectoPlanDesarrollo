@@ -409,6 +409,8 @@ public interface IBusinessDelegatorView {
         throws Exception;
 
     public List<GluoProyecto> getGluoProyecto() throws Exception;
+    
+   
 
     public void saveGluoProyecto(GluoProyecto entity) throws Exception;
 

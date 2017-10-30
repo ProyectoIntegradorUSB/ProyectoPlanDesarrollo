@@ -239,7 +239,7 @@ public class GluoObjetivoView implements Serializable {
 
 			// Integer objeId = FacesUtils.checkInteger(txtObjeId);
 
-			entity.setActivo(somActivo);
+			entity.setActivo("A");
 			entity.setDescripcion(FacesUtils.checkString(txtAreaDescripcion));
 			entity.setFechaCreacion(new Date());
 			// entity.setFechaModificacion(FacesUtils.checkDate(
@@ -262,7 +262,8 @@ public class GluoObjetivoView implements Serializable {
 			// : null);
 
 			businessDelegatorView.saveGluoObjetivo(entity);
-			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
+			FacesContext.getCurrentInstance().addMessage("",
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "El Objetivo se ha creado con exito", ""));
 			action_clear();
 		} catch (Exception e) {
 			entity = null;
@@ -282,7 +283,7 @@ public class GluoObjetivoView implements Serializable {
 			entity.setActivo(somActivo);
 			entity.setDescripcion(FacesUtils.checkString(txtAreaDescripcion));
 			// entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-			entity.setFechaModificacion(FacesUtils.checkDate(txtFechaModificacion));
+			entity.setFechaModificacion(new Date());
 			// entity.setUsuCreador(FacesUtils.checkInteger(txtUsuCreador));
 			SegUsuario segUsuario = (SegUsuario) FacesUtils.getfromSession("usuarioEnSession");
 			Integer usuaModificador = Integer.valueOf(segUsuario.getUsuId());
@@ -299,7 +300,8 @@ public class GluoObjetivoView implements Serializable {
 			// : null);
 
 			businessDelegatorView.updateGluoObjetivo(entity);
-			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
+			FacesContext.getCurrentInstance().addMessage("",
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "El Objetivo se modificó con exito", ""));
 		} catch (Exception e) {
 			data = null;
 			FacesUtils.addErrorMessage(e.getMessage());
@@ -324,7 +326,7 @@ public class GluoObjetivoView implements Serializable {
 		this.somSectorEje = somSectorEje;
 	}
 
-	public List<SelectItem> losSectorEjeItems() {
+	public List<SelectItem> getLosSectorEjeItems() {
 		try {
 			if (losSectorEjeItems == null) {
 				losSectorEjeItems = new ArrayList<SelectItem>();

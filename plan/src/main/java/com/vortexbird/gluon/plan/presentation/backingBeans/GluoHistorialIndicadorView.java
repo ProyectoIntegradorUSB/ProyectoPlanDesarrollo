@@ -9,7 +9,7 @@ import com.vortexbird.gluon.plan.utilities.*;
 import org.primefaces.component.calendar.*;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
-
+import org.primefaces.component.selectonemenu.SelectOneMenu;
 import org.primefaces.event.RowEditEvent;
 
 import org.slf4j.Logger;
@@ -34,6 +34,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 
 
 /**
@@ -46,7 +47,12 @@ import javax.faces.event.ActionEvent;
 public class GluoHistorialIndicadorView implements Serializable {
     private static final long serialVersionUID = 1L;
     private static final Logger log = LoggerFactory.getLogger(GluoHistorialIndicadorView.class);
-    private InputText txtActivo;
+    
+    private String somActivo;
+    
+    private SelectOneMenu somIndicador;
+	private List<SelectItem> losIndicadoresItems;
+	
     private InputText txtUsuCreador;
     private InputText txtUsuModificador;
     private InputText txtValorReal;
@@ -81,12 +87,12 @@ public class GluoHistorialIndicadorView implements Serializable {
     public String action_clear() {
         entity = null;
         selectedGluoHistorialIndicador = null;
-
+/*
         if (txtActivo != null) {
             txtActivo.setValue(null);
             txtActivo.setDisabled(true);
         }
-
+*/
         if (txtUsuCreador != null) {
             txtUsuCreador.setValue(null);
             txtUsuCreador.setDisabled(true);
@@ -172,7 +178,7 @@ public class GluoHistorialIndicadorView implements Serializable {
         }
 
         if (entity == null) {
-            txtActivo.setDisabled(false);
+            //txtActivo.setDisabled(false);
             txtUsuCreador.setDisabled(false);
             txtUsuModificador.setDisabled(false);
             txtValorReal.setDisabled(false);
@@ -183,8 +189,8 @@ public class GluoHistorialIndicadorView implements Serializable {
             txtHiinId.setDisabled(false);
             btnSave.setDisabled(false);
         } else {
-            txtActivo.setValue(entity.getActivo());
-            txtActivo.setDisabled(false);
+            //txtActivo.setValue(entity.getActivo());
+            //txtActivo.setDisabled(false);
             txtFecha.setValue(entity.getFecha());
             txtFecha.setDisabled(false);
             txtFechaCreacion.setValue(entity.getFechaCreacion());
@@ -214,8 +220,8 @@ public class GluoHistorialIndicadorView implements Serializable {
         selectedGluoHistorialIndicador = (GluoHistorialIndicadorDTO) (evt.getComponent()
                                                                          .getAttributes()
                                                                          .get("selectedGluoHistorialIndicador"));
-        txtActivo.setValue(selectedGluoHistorialIndicador.getActivo());
-        txtActivo.setDisabled(false);
+        //txtActivo.setValue(selectedGluoHistorialIndicador.getActivo());
+        //txtActivo.setDisabled(false);
         txtFecha.setValue(selectedGluoHistorialIndicador.getFecha());
         txtFecha.setDisabled(false);
         txtFechaCreacion.setValue(selectedGluoHistorialIndicador.getFechaCreacion());
@@ -228,8 +234,8 @@ public class GluoHistorialIndicadorView implements Serializable {
         txtUsuModificador.setDisabled(false);
         txtValorReal.setValue(selectedGluoHistorialIndicador.getValorReal());
         txtValorReal.setDisabled(false);
-        txtIndiId_GluoIndicador.setValue(selectedGluoHistorialIndicador.getIndiId_GluoIndicador());
-        txtIndiId_GluoIndicador.setDisabled(false);
+        //txtIndiId_GluoIndicador.setValue(selectedGluoHistorialIndicador.getIndiId_GluoIndicador());
+        //txtIndiId_GluoIndicador.setDisabled(false);
         txtHiinId.setValue(selectedGluoHistorialIndicador.getHiinId());
         txtHiinId.setDisabled(true);
         btnSave.setDisabled(false);
@@ -258,23 +264,32 @@ public class GluoHistorialIndicadorView implements Serializable {
         try {
             entity = new GluoHistorialIndicador();
 
-            Integer hiinId = FacesUtils.checkInteger(txtHiinId);
+            //Integer hiinId = FacesUtils.checkInteger(txtHiinId);
 
-            entity.setActivo(FacesUtils.checkString(txtActivo));
+            entity.setActivo("A");
             entity.setFecha(FacesUtils.checkDate(txtFecha));
-            entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-            entity.setFechaModificacion(FacesUtils.checkDate(
-                    txtFechaModificacion));
-            entity.setHiinId(hiinId);
-            entity.setUsuCreador(FacesUtils.checkInteger(txtUsuCreador));
+            entity.setFechaCreacion(new Date());
+
+			SegUsuario segUsuario = (SegUsuario) FacesUtils.getfromSession("usuarioEnSession");
+			Integer usuaCreador = Integer.valueOf(segUsuario.getUsuId());
+			entity.setUsuCreador(usuaCreador);
+			
+			Integer idIndicador = Integer.valueOf(somIndicador.getValue().toString());
+			GluoIndicador gluoIndicador = businessDelegatorView.getGluoIndicador(idIndicador);
+			entity.setGluoIndicador(gluoIndicador);
+          
+            
             entity.setUsuModificador(FacesUtils.checkInteger(txtUsuModificador));
             entity.setValorReal(FacesUtils.checkDouble(txtValorReal));
+            /*
             entity.setGluoIndicador((FacesUtils.checkInteger(
                     txtIndiId_GluoIndicador) != null)
                 ? businessDelegatorView.getGluoIndicador(
                     FacesUtils.checkInteger(txtIndiId_GluoIndicador)) : null);
+                    */
             businessDelegatorView.saveGluoHistorialIndicador(entity);
-            FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
+            FacesContext.getCurrentInstance().addMessage("",
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "El historial del indicador se almacenó con exito", ""));
             action_clear();
         } catch (Exception e) {
             entity = null;
@@ -291,20 +306,25 @@ public class GluoHistorialIndicadorView implements Serializable {
                 entity = businessDelegatorView.getGluoHistorialIndicador(hiinId);
             }
 
-            entity.setActivo(FacesUtils.checkString(txtActivo));
+            entity.setActivo((somActivo));
             entity.setFecha(FacesUtils.checkDate(txtFecha));
-            entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-            entity.setFechaModificacion(FacesUtils.checkDate(
-                    txtFechaModificacion));
-            entity.setUsuCreador(FacesUtils.checkInteger(txtUsuCreador));
-            entity.setUsuModificador(FacesUtils.checkInteger(txtUsuModificador));
+            
+            entity.setFechaModificacion(new Date());
+            
+            SegUsuario segUsuario = (SegUsuario) FacesUtils.getfromSession("usuarioEnSession");
+			Integer usuaModificador = Integer.valueOf(segUsuario.getUsuId());
+			entity.setUsuModificador(usuaModificador);
+          
             entity.setValorReal(FacesUtils.checkDouble(txtValorReal));
+            /*
             entity.setGluoIndicador((FacesUtils.checkInteger(
                     txtIndiId_GluoIndicador) != null)
                 ? businessDelegatorView.getGluoIndicador(
                     FacesUtils.checkInteger(txtIndiId_GluoIndicador)) : null);
+                    */
             businessDelegatorView.updateGluoHistorialIndicador(entity);
-            FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
+            FacesContext.getCurrentInstance().addMessage("",
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "El  historial del indicador se modificó con exito", ""));
         } catch (Exception e) {
             data = null;
             FacesUtils.addErrorMessage(e.getMessage());
@@ -382,15 +402,47 @@ public class GluoHistorialIndicadorView implements Serializable {
         return "";
     }
 
-    public InputText getTxtActivo() {
-        return txtActivo;
-    }
+    public List<SelectItem> getLosIndicadoresItems() {
+    	try {
+			if (losIndicadoresItems == null) {
+				losIndicadoresItems = new ArrayList<SelectItem>();
+				List<GluoIndicador> losgluoIndicador = businessDelegatorView.getGluoIndicador();
 
-    public void setTxtActivo(InputText txtActivo) {
-        this.txtActivo = txtActivo;
-    }
+				for (GluoIndicador gluoIndicador : losgluoIndicador) {
+					losIndicadoresItems.add(new SelectItem(gluoIndicador.getIndiId(),
+							gluoIndicador.getDescripcionIndicador()));
+				}
 
-    public InputText getTxtUsuCreador() {
+			}
+		} catch (Exception e) {
+			FacesUtils.addErrorMessage(e.getMessage());
+		}
+		return losIndicadoresItems;
+	}
+
+	public void setLosIndicadoresItems(List<SelectItem> losIndicadoresItems) {
+		this.losIndicadoresItems = losIndicadoresItems;
+	}
+
+    public SelectOneMenu getSomIndicador() {
+		return somIndicador;
+	}
+
+	public void setSomIndicador(SelectOneMenu somIndicador) {
+		this.somIndicador = somIndicador;
+	}
+
+	
+
+	public String getSomActivo() {
+		return somActivo;
+	}
+
+	public void setSomActivo(String somActivo) {
+		this.somActivo = somActivo;
+	}
+
+	public InputText getTxtUsuCreador() {
         return txtUsuCreador;
     }
 

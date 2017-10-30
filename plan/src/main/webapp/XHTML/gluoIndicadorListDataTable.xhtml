@@ -13,6 +13,7 @@
 				<p:growl id="men" />
 				<p:dataTable value="#{gluoIndicadorView.data}" var="gluoIndicador"
 					paginator="true" rows="5">
+
 					<p:column filterBy="#{gluoIndicador.indiId}"
 						sortBy="#{gluoIndicador.indiId}">
 						<f:facet name="header">
@@ -141,29 +142,21 @@
 						</p:inputText>
 
 						<h:outputText id="msgActivo" value=" Activo" />
-					<p:selectOneMenu id="Activo" value="#{gluoIndicador.somActivo}"
-						style="width:135px">
-						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
-						<f:selectItem itemLabel="A" itemValue="A" />
-						<f:selectItem itemLabel="I" itemValue="I" />
-					</p:selectOneMenu>
-					
-					<h:outputText value="Proyecto" />
-					<p:selectOneMenu id="somProyecto"
-						binding="#{gluoIndicadorView.somProyecto}">
-						<f:selectItems value="#{gluoIndicadorView.losProyectosItems}" />
-					</p:selectOneMenu>
-					
+						<p:selectOneMenu id="somActivo"
+							value="#{gluoIndicadorView.somActivo}">
+							<f:selectItem itemLabel="A" itemValue="A" />
+							<f:selectItem itemLabel="I" itemValue="I" />
+						</p:selectOneMenu>
 						<h:outputText id="msgDescripcionIndicador"
 							value=" DescripcionIndicador" />
-						<p:inputTextarea id="txtDescripcionIndicador" disabled="false"
+						<p:inputTextarea id="txtDescripcionIndicador" disabled="true"
 							binding="#{gluoIndicadorView.txtAreaDescripcionIndicador}" />
 						<h:outputText id="msgDescripcionLineaBase"
 							value=" DescripcionLineaBase" />
-						<p:inputTextarea id="txtDescripcionLineaBase" disabled="false"
+						<p:inputTextarea id="txtDescripcionLineaBase" disabled="true"
 							binding="#{gluoIndicadorView.txtAreaDescripcionLineaBase}" />
 						<h:outputText id="msgDescripcionMeta" value=" DescripcionMeta" />
-						<p:inputTextarea id="txtDescripcionMeta" disabled="false"
+						<p:inputTextarea id="txtDescripcionMeta" disabled="true"
 							binding="#{gluoIndicadorView.txtAreaDescripcionMeta}" />
 						<h:outputText id="msgUsuCreador" value=" UsuCreador" />
 						<p:inputText id="txtUsuCreador" disabled="true"
@@ -172,9 +165,25 @@
 						<p:inputText id="txtUsuModificador" disabled="true"
 							binding="#{gluoIndicadorView.txtUsuModificador}" />
 						<h:outputText id="msgValorMeta" value=" ValorMeta" />
-						<p:inputText id="txtValorMeta" disabled="false"
+						<p:inputText id="txtValorMeta" disabled="true"
 							binding="#{gluoIndicadorView.txtValorMeta}" />
-							
+						<h:outputText id="msgProyId_GluoProyecto"
+							value=" ProyId_GluoProyecto" />
+						<p:inputText id="txtProyId_GluoProyecto" disabled="true"
+							binding="#{gluoIndicadorView.txtProyId_GluoProyecto}" />
+
+						<h:outputText id="msgFechaCreacion" value=" FechaCreacion" />
+						<p:calendar showOn="button" navigator="true" locale="en"
+							binding="#{gluoIndicadorView.txtFechaCreacion}">
+							<p:ajax event="dateSelect"
+								listener="#{gluoIndicadorView.listener_txtFechaCreacion}" />
+						</p:calendar>
+						<h:outputText id="msgFechaModificacion" value=" FechaModificacion" />
+						<p:calendar showOn="button" navigator="true" locale="en"
+							binding="#{gluoIndicadorView.txtFechaModificacion}">
+							<p:ajax event="dateSelect"
+								listener="#{gluoIndicadorView.listener_txtFechaModificacion}" />
+						</p:calendar>
 					</h:panelGrid>
 				</p:panel>
 				<p:panel id="panelBotones">

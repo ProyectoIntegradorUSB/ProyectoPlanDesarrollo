@@ -1,79 +1,608 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:p="http://primefaces.org/ui"
-                template="/WEB-INF/template.xhtml">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
 
-    <ui:define name="title">
-        Menu - <span class="subitem">Steps</span>
-    </ui:define>
+	<ui:define name="content">
+		<h:form>
+			<p:messages id="msg" />
+			<p:growl id="men" />
+			<p:panel header="Gestion">
 
-    <ui:define name="description">
-        Steps components is an indicator for the steps in a workflow. Layout of steps component is optimized for responsive design.
-    </ui:define>
-    
-      <ui:define name="head">
-          <f:facet name="first">
-        <style type="text/css">
-.ui-steps .ui-steps-item {
-    width: 25%;
-}
-.ui-state-highlight {
-    text-shadow: none !important;
-}
-.ui-steps.custom {
-    margin-bottom: 30px;
-}
-.ui-steps.custom .ui-steps-item .ui-menuitem-link {
-    height: 10px;
-    padding: 0 1em;
-}
-.ui-steps.custom .ui-steps-item .ui-steps-number {
-    background-color: #0081c2;
-    color: #FFFFFF;
-    display: inline-block;
-    width: 30px;
-    border-radius: 10px;
-    margin-top: -10px;
-    margin-bottom: 10px;
-}
-.ui-steps.custom .ui-steps-item.ui-state-highlight .ui-steps-title {
-    color: #555;
-}
-        </style>
-          </f:facet>
+				<h3>Plan de Desarrollo Territorial</h3>
+				<p:tabView orientation="left">
+					<p:tab title="Plan">
+						<h:panelGrid id="panelGluoPlanDesarrollo" columns="2"
+							cellpadding="10">
+
+
+							<p:messages id="msg" />
+							<p:growl id="men" />
+							<h:outputText id="msgNombreAlcalde" value=" Nombre Alcalde" />
+							<p:inputText id="txtNombreAlcalde" disabled="false"
+								binding="#{gluoPlanDesarrolloView.txtNombreAlcalde}" />
+
+							<h:outputText id="msgEslogan" value=" Eslogan" />
+							<p:inputTextarea id="txtAreaEslogan" disabled="false"
+								binding="#{gluoPlanDesarrolloView.txtAreaEslogan}" />
+
+							<h:outputText id="msgDescripcion" value=" Descripcion" />
+							<p:inputTextarea id="txtAreaDescripcion" disabled="false"
+								binding="#{gluoPlanDesarrolloView.txtAreaDescripcion}" />
+
+
+							<h:outputText id="msgAnoInicio" value=" Año Inicio" />
+							<p:calendar showOn="button" navigator="true" locale="en"
+								binding="#{gluoPlanDesarrolloView.txtAnoInicio}">
+								<p:ajax event="dateSelect"
+									listener="#{gluoPlanDesarrolloView.listener_txtAnoInicio}" />
+							</p:calendar>
+
+							<h:outputText id="msgAnoFin" value=" Año Fin" />
+							<p:calendar showOn="button" navigator="true" locale="en"
+								binding="#{gluoPlanDesarrolloView.txtAnoFin}">
+								<p:ajax event="dateSelect"
+									listener="#{gluoPlanDesarrolloView.listener_txtAnoFin}" />
+							</p:calendar>
+
+							<p:spacer width="100" height="10" />
+
+
+							<p:panel id="panelBotones">
+								<div align="center">
+									<p:commandButton id="btnSave"
+										binding="#{gluoPlanDesarrolloView.btnSave}" disabled="false"
+										value="Guardar Plan"
+										action="#{gluoPlanDesarrolloView.action_save()}"
+										update="panelGluoPlanDesarrollo, msg, panelBotones, men, panelDataTableGluoPlanDesarrollo " />
+								</div>
+							</p:panel>
+
+
+						</h:panelGrid>
+
+						<p:panel id="panelDataTableGluoPlanDesarrollo"
+							header="Planes de Desarrollo">
+							<p:growl id="data" />
+							<p:dataTable value="#{gluoPlanDesarrolloView.data}"
+								var="gluoPlanDesarrollo" paginator="true" rows="5">
+
+								<p:column filterBy="#{gluoPlanDesarrollo.eslogan}"
+									sortBy="#{gluoPlanDesarrollo.eslogan}">
+									<f:facet name="header">
+										<h:outputText value="Eslogan" />
+									</f:facet>
+									<h:outputText value="#{gluoPlanDesarrollo.eslogan}" />
+								</p:column>
+
+								<p:column filterBy="#{gluoPlanDesarrollo.descripcion}"
+									sortBy="#{gluoPlanDesarrollo.descripcion}">
+									<f:facet name="header">
+										<h:outputText value="Descripcion" />
+									</f:facet>
+									<h:outputText value="#{gluoPlanDesarrollo.descripcion}" />
+								</p:column>
+
+								<p:column filterBy="#{gluoPlanDesarrollo.nombreAlcalde}"
+									sortBy="#{gluoPlanDesarrollo.nombreAlcalde}">
+									<f:facet name="header">
+										<h:outputText value="NombreAlcalde" />
+									</f:facet>
+									<h:outputText value="#{gluoPlanDesarrollo.nombreAlcalde}" />
+								</p:column>
+
+								<p:column filterBy="#{gluoPlanDesarrollo.anoInicio}"
+									sortBy="#{gluoPlanDesarrollo.anoInicio}">
+									<f:facet name="header">
+										<h:outputText value="AnoInicio" />
+									</f:facet>
+									<h:outputText value="#{gluoPlanDesarrollo.anoInicio}" />
+								</p:column>
+
+								<p:column filterBy="#{gluoPlanDesarrollo.anoFin}"
+									sortBy="#{gluoPlanDesarrollo.anoFin}">
+									<f:facet name="header">
+										<h:outputText value="AnoFin" />
+									</f:facet>
+									<h:outputText value="#{gluoPlanDesarrollo.anoFin}" />
+								</p:column>
+
+							</p:dataTable>
+						</p:panel>
+					</p:tab>
+					<p:tab title="Eje Dimensional">
+						<h:panelGrid id="panelGluoSectorEjeDimension" columns="2"
+							cellpadding="10">
+
+							<h:outputText id="msgDescripcionEje" value=" Descripcion Eje" />
+							<p:inputTextarea id="txtAreaDescripcionEje" rows="6" cols="33"
+								disabled="false"
+								binding="#{gluoSectorEjeDimensionView.txtAreaDescripcion}" />
+
+							<h:outputText value="Plan Desarrollo" />
+							<p:selectOneMenu
+								binding="#{gluoSectorEjeDimensionView.somPlanDesarrollo}"
+								id="somPlanDesarrollo">
+								<f:selectItem itemLabel="Seleccione una opcion" itemValue="-1" />
+								<f:selectItems
+									value="#{gluoSectorEjeDimensionView.losPlanDesarrolloItems}" />
+							</p:selectOneMenu>
+
+							<p:panel id="panelBotonesEje">
+								<div align="center">
+									<p:commandButton id="btnSaveEje"
+										binding="#{gluoSectorEjeDimensionView.btnSave}"
+										disabled="false" value="Guardar Sector"
+										action="#{gluoSectorEjeDimensionView.action_save()}"
+										update="panelGluoSectorEjeDimension, msg, panelBotones, men, panelDataTableGluoSectorEjeDimension" />
+								</div>
+							</p:panel>
+						</h:panelGrid>
+						<p:panel id="panelDataTableGluoSectorEjeDimension"
+							header="Sector /Eje Dimensional">
+							<p:dataTable value="#{gluoSectorEjeDimensionView.data}"
+								var="gluoSectorEjeDimension" paginator="true" rows="5">
+
+								<p:column filterBy="#{gluoSectorEjeDimension.descripcion}"
+									sortBy="#{gluoSectorEjeDimension.descripcion}">
+									<f:facet name="header">
+										<h:outputText value="Descripcion" />
+									</f:facet>
+									<h:outputText value="#{gluoSectorEjeDimension.descripcion}" />
+								</p:column>
+
+								<p:column
+									filterBy="#{gluoSectorEjeDimension.planId_GluoPlanDesarrollo}"
+									sortBy="#{gluoSectorEjeDimension.planId_GluoPlanDesarrollo}">
+									<f:facet name="header">
+										<h:outputText value="ID del Plan de Desarrollo" />
+									</f:facet>
+									<h:outputText
+										value="#{gluoSectorEjeDimension.planId_GluoPlanDesarrollo}" />
+								</p:column>
+							</p:dataTable>
+						</p:panel>
+					</p:tab>
+					<p:tab title="Objetivos">
+						<h:panelGrid id="panelGluoObjetivo" columns="2" cellpadding="10">
+
+							<h:outputText id="msgDescripcionOb" value=" Descripcion" />
+							<p:inputTextarea id="txtAreaDescripcionOb" rows="6" cols="33"
+								disabled="false"
+								binding="#{gluoObjetivoView.txtAreaDescripcion}" />
+
+							<h:outputText id="msgSediId_GluoSectorEjeDimension"
+								value=" Sector Eje Dicmensional" />
+							<p:selectOneMenu id="somObjetivos"
+								binding="#{gluoObjetivoView.somSectorEje}">
+								<f:selectItem itemLabel="Seleccione una opcion" itemValue="-1" />
+								<f:selectItems value="#{gluoObjetivoView.losSectorEjeItems}" />
+							</p:selectOneMenu>
+
+							<p:panel id="panelBotonesOb">
+								<div align="center">
+									<p:commandButton id="btnSaveOb"
+										binding="#{gluoObjetivoView.btnSave}" disabled="false"
+										value="Guardar Objetivo"
+										action="#{gluoObjetivoView.action_save()}"
+										update="panelGluoObjetivo, msg, panelBotones, men, panelDataTableGluoObjetivo" />
+								</div>
+							</p:panel>
+
+						</h:panelGrid>
+						<p:panel id="panelDataTableGluoObjetivo" header="GluoObjetivoData">
+
+							<p:dataTable value="#{gluoObjetivoView.data}" var="gluoObjetivo"
+								paginator="true" rows="5">
+								
+
+								
+								<p:column filterBy="#{gluoObjetivo.descripcion}"
+									sortBy="#{gluoObjetivo.descripcion}">
+									<f:facet name="header">
+										<h:outputText value="Descripcion" />
+									</f:facet>
+									<h:outputText value="#{gluoObjetivo.descripcion}" />
+								</p:column>
+
+								<p:column
+									filterBy="#{gluoObjetivo.sediId_GluoSectorEjeDimension}"
+									sortBy="#{gluoObjetivo.sediId_GluoSectorEjeDimension}">
+									<f:facet name="header">
+										<h:outputText value="ID del Sector/Eje Dimension" />
+									</f:facet>
+									<h:outputText
+										value="#{gluoObjetivo.sediId_GluoSectorEjeDimension}" />
+								</p:column>
+							</p:dataTable>
+						</p:panel>
+					</p:tab>
+					<p:tab title="Programa">
+						<h:panelGrid id="panelGluoPrograma" columns="2" cellpadding="10">
+
+							<h:outputText id="msgDescripcionPrograma" value=" Descripcion" />
+							<p:inputTextarea id="txtDescripcionPrograma" disabled="false"
+								binding="#{gluoProgramaView.txtAreaDescripcion}" />
+
+							<h:outputText value="Objetivo" />
+							<p:selectOneMenu id="somObjetivosPrograma"
+								binding="#{gluoProgramaView.somObjetivos}">
+								<f:selectItem itemLabel="Seleccione una opcion" itemValue="-1" />
+								<f:selectItems value="#{gluoProgramaView.losObjetivosItems}" />
+							</p:selectOneMenu>
+
+							<p:panel id="panelBotonesPrograma">
+								<div align="center">
+									<p:commandButton id="btnGuardarPrograma"
+										binding="#{gluoProgramaView.btnSave}" disabled="false"
+										value="Guardar Programa"
+										action="#{gluoProgramaView.action_save()}"
+										update="panelGluoPrograma, msg, panelBotones, men, panelDataTableGluoPrograma" />
+
+								</div>
+							</p:panel>
+						</h:panelGrid>
+						<p:panel id="panelDataTableGluoPrograma" header="Programas">
+
+							<p:dataTable value="#{gluoProgramaView.data}" var="gluoPrograma"
+								paginator="true" rows="5">
+								
+								<p:column filterBy="#{gluoPrograma.descripcion}"
+									sortBy="#{gluoPrograma.descripcion}">
+									<f:facet name="header">
+										<h:outputText value="Descripcion" />
+									</f:facet>
+									<h:outputText value="#{gluoPrograma.descripcion}" />
+								</p:column>
+								
+								<p:column filterBy="#{gluoPrograma.objeId_GluoObjetivo}"
+									sortBy="#{gluoPrograma.objeId_GluoObjetivo}">
+									<f:facet name="header">
+										<h:outputText value="ID del Objetivo" />
+									</f:facet>
+									<h:outputText value="#{gluoPrograma.objeId_GluoObjetivo}" />
+								</p:column>
+							</p:dataTable>
+						</p:panel>
+					</p:tab>
+					<p:tab title="Subprograma">
+						<h:panelGrid id="panelGluoSubprograma" columns="2"
+							cellpadding="10">
+
+							<h:outputText id="msgDescripcionSubPrograma" value=" Descripcion" />
+							<p:inputTextarea id="txtAreaDescripcionSubPrograma"
+								disabled="false"
+								binding="#{gluoSubprogramaView.txtAreaDescripcion}" />
+
+							<h:outputText value="Programa" />
+							<p:selectOneMenu binding="#{gluoSubprogramaView.somPrograma}"
+								id="somPrograma">
+								<f:selectItem itemLabel="Seleccione una opcion" itemValue="-1" />
+								<f:selectItems value="#{gluoSubprogramaView.losProgramasItems}" />
+							</p:selectOneMenu>
+
+							<p:panel id="panelBotonesSubPrograma">
+								<div align="center">
+									<p:commandButton id="btnSaveSubPrograma"
+										binding="#{gluoSubprogramaView.btnSave}" disabled="false"
+										value="Guardar Subprograma"
+										action="#{gluoSubprogramaView.action_save()}"
+										update="panelGluoSubprograma, msg, panelBotonesSubPrograma, men, panelDataTableGluoSubprograma" />
+
+								</div>
+							</p:panel>
+						</h:panelGrid>
+						<p:panel id="panelDataTableGluoSubprograma" header="Subprogramas">
+							<p:dataTable value="#{gluoSubprogramaView.data}"
+								var="gluoSubprograma" paginator="true" rows="5">
+								
+
+								<p:column filterBy="#{gluoSubprograma.descripcion}"
+									sortBy="#{gluoSubprograma.descripcion}">
+									<f:facet name="header">
+										<h:outputText value="Descripcion" />
+									</f:facet>
+									<h:outputText value="#{gluoSubprograma.descripcion}" />
+								</p:column>
+
+								<p:column filterBy="#{gluoSubprograma.progId_GluoPrograma}"
+									sortBy="#{gluoSubprograma.progId_GluoPrograma}">
+									<f:facet name="header">
+										<h:outputText value="ID del Programa" />
+									</f:facet>
+									<h:outputText value="#{gluoSubprograma.progId_GluoPrograma}" />
+								</p:column>
+							</p:dataTable>
+						</p:panel>
+					</p:tab>
+
+					<p:tab title="Proyecto">
+						<h:panelGrid id="panelGluoProyecto" columns="2" cellpadding="10">
+
+							<h:outputText id="msgDescripcionProyecto" value=" Descripcion" />
+							<p:inputTextarea id="txtAreaDescripcionProyeto" disabled="false"
+								binding="#{gluoProyectoView.txtAreaDescripcion}" />
+
+							<h:outputText value="Subprograma" />
+							<p:selectOneMenu binding="#{gluoProyectoView.somSubPrograma}"
+								id="somSubprograma">
+								<f:selectItem itemLabel="Seleccione una opcion" itemValue="-1" />
+								<f:selectItems value="#{gluoProyectoView.losSubProgramasItems}" />
+							</p:selectOneMenu>
+
+							<p:panel id="panelBotonesProyecto">
+								<div align="center">
+									<p:commandButton id="btnSaveProyecto"
+										binding="#{gluoProyectoView.btnSave}" disabled="false"
+										value="Guardar Proyecto"
+										action="#{gluoProyectoView.action_save()}"
+										update="panelGluoProyecto, msg, panelBotones, men, panelDataTableGluoProyecto" />
+
+								</div>
+							</p:panel>
+						</h:panelGrid>
+						<p:panel id="panelDataTableGluoProyecto" header="Proyectos">
+							<p:dataTable value="#{gluoProyectoView.data}" var="gluoProyecto"
+								paginator="true" rows="5">
+								
+								<p:column filterBy="#{gluoProyecto.descripcion}"
+									sortBy="#{gluoProyecto.descripcion}">
+									<f:facet name="header">
+										<h:outputText value="Descripcion" />
+									</f:facet>
+									<h:outputText value="#{gluoProyecto.descripcion}" />
+								</p:column>
+
+
+								<p:column filterBy="#{gluoProyecto.subpId_GluoSubprograma}"
+									sortBy="#{gluoProyecto.subpId_GluoSubprograma}">
+									<f:facet name="header">
+										<h:outputText value="ID del Subprograma" />
+									</f:facet>
+									<h:outputText value="#{gluoProyecto.subpId_GluoSubprograma}" />
+								</p:column>
+							</p:dataTable>
+						</p:panel>
+					</p:tab>
+
+					<p:tab title="Detalle de Proyecto">
+						<h:panelGrid id="panelGluoDetalleProyecto" columns="2"
+							cellpadding="10">
+
+							<h:outputText value="Proyecto" />
+							<p:selectOneMenu binding="#{gluoDetalleProyectoView.somProyecto}"
+								id="somProyecto">
+
+								<f:selectItems
+									value="#{gluoDetalleProyectoView.losProyectosItems}" />
+							</p:selectOneMenu>
+
+							<h:outputText value="Año Fiscal" />
+							<p:selectOneMenu
+								binding="#{gluoDetalleProyectoView.somAnoFiscal}"
+								id="somAnoFiscal">
+
+								<f:selectItems value="#{gluoDetalleProyectoView.anoFiscalItems}" />
+							</p:selectOneMenu>
+
+							<h:outputText id="msgValorTotalPresupuesto"
+								value=" Valor Total del Presupuesto" />
+							<p:inputText id="txtValorTotalPresupuesto" disabled="false"
+								binding="#{gluoDetalleProyectoView.txtValorTotalPresupuesto}" />
+
+							<p:panel id="panelBotonesDetalleProyecto">
+								<div align="center">
+									<p:commandButton id="btnSaveDetalleProyecto"
+										binding="#{gluoDetalleProyectoView.btnSave}" disabled="false"
+										value="Guardar Detalle de Proyecto"
+										action="#{gluoDetalleProyectoView.action_save()}"
+										update="panelGluoDetalleProyecto, msg, panelBotones, men, panelDataTableGluoDetalleProyecto" />
+
+								</div>
+							</p:panel>
+						</h:panelGrid>
+						<p:panel id="panelDataTableGluoDetalleProyecto"
+							header="Detalles de Proyectos">
+							<p:dataTable value="#{gluoDetalleProyectoView.data}"
+								var="gluoDetalleProyecto" paginator="true" rows="5">
+
+								<p:column
+									filterBy="#{gluoDetalleProyecto.valorTotalPresupuesto}"
+									sortBy="#{gluoDetalleProyecto.valorTotalPresupuesto}">
+									<f:facet name="header">
+										<h:outputText value="Valor Total Presupuesto" />
+									</f:facet>
+									<h:outputText
+										value="#{gluoDetalleProyecto.valorTotalPresupuesto}" />
+								</p:column>
+
+								<p:column filterBy="#{gluoDetalleProyecto.anofId_GluoAnoFiscal}"
+									sortBy="#{gluoDetalleProyecto.anofId_GluoAnoFiscal}">
+									<f:facet name="header">
+										<h:outputText value="ID de Año Fiscal" />
+									</f:facet>
+									<h:outputText
+										value="#{gluoDetalleProyecto.anofId_GluoAnoFiscal}" />
+								</p:column>
+
+								<p:column filterBy="#{gluoDetalleProyecto.proyId_GluoProyecto}"
+									sortBy="#{gluoDetalleProyecto.proyId_GluoProyecto}">
+									<f:facet name="header">
+										<h:outputText value="ID del Proyecto asociado" />
+									</f:facet>
+									<h:outputText
+										value="#{gluoDetalleProyecto.proyId_GluoProyecto}" />
+								</p:column>
+							</p:dataTable>
+						</p:panel>
+					</p:tab>
+
+					<p:tab title="Indicador del Proyecto">
+						<h:panelGrid id="panelGluoIndicador" columns="2" cellpadding="10">
+
+
+							<h:outputText value="Proyecto" />
+							<p:selectOneMenu binding="#{gluoIndicadorView.somProyecto}"
+								id="somIndicadorProyecto">
+
+								<f:selectItems value="#{gluoIndicadorView.losProyectosItems}" />
+							</p:selectOneMenu>
+
+							<h:outputText id="msgDescripcionIndicador"
+								value=" Descripcion del Indicador" />
+							<p:inputTextarea id="txtAreaDescripcionIndicador"
+								disabled="false"
+								binding="#{gluoIndicadorView.txtAreaDescripcionIndicador}" />
+
+							<h:outputText id="msgDescripcionLineaBase"
+								value=" Descripcion de la LineaBase" />
+							<p:inputTextarea id="txtAreaDescripcionLineaBase"
+								disabled="false"
+								binding="#{gluoIndicadorView.txtAreaDescripcionLineaBase}" />
+
+							<h:outputText id="msgDescripcionMeta"
+								value=" Descripcion de la Meta" />
+							<p:inputTextarea id="txtAreaDescripcionMeta" disabled="false"
+								binding="#{gluoIndicadorView.txtAreaDescripcionMeta}" />
+
+							<h:outputText id="msgValorMeta" value=" Valor de la Meta" />
+							<p:inputText id="txtValorMeta" disabled="false"
+								binding="#{gluoIndicadorView.txtValorMeta}" />
+
+							<p:panel id="panelBotonesIndicador">
+								<div align="right">
+									<p:commandButton id="btnSaveIndicador"
+										binding="#{gluoIndicadorView.btnSave}" disabled="false"
+										value="Guardar Indicador de Proyecto"
+										action="#{gluoIndicadorView.action_save()}"
+										update="panelGluoIndicador, msg, panelBotones, men, panelDataTableGluoIndicador" />
+
+								</div>
+							</p:panel>
+						</h:panelGrid>
+						<p:panel id="panelDataTableGluoIndicador"
+							header="Indicadores de Proyectos">
+							<p:dataTable value="#{gluoIndicadorView.data}"
+								var="gluoIndicador" paginator="true" rows="5">
+
+								<p:column filterBy="#{gluoIndicador.descripcionIndicador}"
+									sortBy="#{gluoIndicador.descripcionIndicador}">
+									<f:facet name="header">
+										<h:outputText value="Descripcion del Indicador" />
+									</f:facet>
+									<h:outputText value="#{gluoIndicador.descripcionIndicador}" />
+								</p:column>
+
+								<p:column filterBy="#{gluoIndicador.descripcionLineaBase}"
+									sortBy="#{gluoIndicador.descripcionLineaBase}">
+									<f:facet name="header">
+										<h:outputText value="Descripcion de la LineaBase" />
+									</f:facet>
+									<h:outputText value="#{gluoIndicador.descripcionLineaBase}" />
+								</p:column>
+
+								<p:column filterBy="#{gluoIndicador.descripcionMeta}"
+									sortBy="#{gluoIndicador.descripcionMeta}">
+									<f:facet name="header">
+										<h:outputText value="Descripcion de la Meta" />
+									</f:facet>
+									<h:outputText value="#{gluoIndicador.descripcionMeta}" />
+								</p:column>
+
+								<p:column filterBy="#{gluoIndicador.valorMeta}"
+									sortBy="#{gluoIndicador.valorMeta}">
+									<f:facet name="header">
+										<h:outputText value="Valor de la Meta" />
+									</f:facet>
+									<h:outputText value="#{gluoIndicador.valorMeta}" />
+								</p:column>
+
+								<p:column filterBy="#{gluoIndicador.proyId_GluoProyecto}"
+									sortBy="#{gluoIndicador.proyId_GluoProyecto}">
+									<f:facet name="header">
+										<h:outputText value="ID del Proyecto asociado" />
+									</f:facet>
+									<h:outputText value="#{gluoIndicador.proyId_GluoProyecto}" />
+								</p:column>
+							</p:dataTable>
+						</p:panel>
+					</p:tab>
+
+					<p:tab title="Historial de Indicadores">
+						<h:panelGrid id="panelGluoHistorialIndicador" columns="2"
+							cellpadding="10">
+
+
+							<h:outputText value="Indicador" />
+							<p:selectOneMenu
+								binding="#{gluoHistorialIndicadorView.somIndicador}"
+								id="somHistorialIndicador">
+
+								<f:selectItems value="#{gluoHistorialIndicadorView.losIndicadoresItems}" />
+							</p:selectOneMenu>
+
+							<h:outputText id="msgFecha" value=" Fecha" />
+							<p:calendar showOn="button" navigator="true" locale="en"
+								binding="#{gluoHistorialIndicadorView.txtFecha}">
+								<p:ajax event="dateSelect"
+									listener="#{gluoHistorialIndicadorView.listener_txtFecha}" />
+							</p:calendar>
+
+							<h:outputText id="msgValorReal" value=" ValorReal" />
+							<p:inputText id="txtValorReal" disabled="false"
+								binding="#{gluoHistorialIndicadorView.txtValorReal}" />
+
+
+							<p:panel id="panelBotonesHistorialIndicador">
+								<div align="right">
+									<p:commandButton id="btnSaveHistorialIndicador"
+										binding="#{gluoHistorialIndicadorView.btnSave}" disabled="false"
+										value="Guardar Historial de Indicador"
+										action="#{gluoHistorialIndicadorView.action_save()}"
+										update="panelGluoHistorialIndicador, msg, panelBotones, men, panelDataTableGluoHistorialIndicador" />
+
+								</div>
+							</p:panel>
+						</h:panelGrid>
+
+						<p:panel id="panelDataTableGluoHistorialIndicador"
+							header="GluoHistorialIndicadorData">
+							<p:dataTable value="#{gluoHistorialIndicadorView.data}"
+								var="gluoHistorialIndicador" paginator="true" rows="5">
+
+
+								<p:column filterBy="#{gluoHistorialIndicador.fecha}"
+									sortBy="#{gluoHistorialIndicador.fecha}">
+									<f:facet name="header">
+										<h:outputText value="Fecha" />
+									</f:facet>
+									<h:outputText value="#{gluoHistorialIndicador.fecha}" />
+								</p:column>
+
+								<p:column filterBy="#{gluoHistorialIndicador.valorReal}"
+									sortBy="#{gluoHistorialIndicador.valorReal}">
+									<f:facet name="header">
+										<h:outputText value="ValorReal" />
+									</f:facet>
+									<h:outputText value="#{gluoHistorialIndicador.valorReal}" />
+								</p:column>
+
+								<p:column
+									filterBy="#{gluoHistorialIndicador.indiId_GluoIndicador}"
+									sortBy="#{gluoHistorialIndicador.indiId_GluoIndicador}">
+									<f:facet name="header">
+										<h:outputText value="ID del Indicador asociado" />
+									</f:facet>
+									<h:outputText
+										value="#{gluoHistorialIndicador.indiId_GluoIndicador}" />
+								</p:column>
+							</p:dataTable>
+						</p:panel>
+					</p:tab>
+
+				</p:tabView>
+			</p:panel>
+		</h:form>
 	</ui:define>
-
-    <ui:define name="implementation">
-        
-        <h3 style="margin-top:0">Basic</h3>
-        <p:steps>
-            <p:menuitem value="Personal" />
-            <p:menuitem value="Seat Selection" />
-            <p:menuitem value="Payment" />
-            <p:menuitem value="Confirmation" />
-        </p:steps>
-        
-        <h3>Interactive</h3>
-        <p:steps activeIndex="1" styleClass="custom" readonly="false">
-            <p:menuitem value="Personal" url="#"/>
-            <p:menuitem value="Seat Selection" url="#"/>
-            <p:menuitem value="Payment" url="#"/>
-            <p:menuitem value="Confirmation" url="#"/>
-        </p:steps>
-    </ui:define>
-
-    <ui:define name="source">
-        <p:tabView>
-            <p:tab title="steps.xhtml">
-                <pre class="brush:xml">
-
-                </pre>
-            </p:tab>
-            
-        </p:tabView>
-
-    </ui:define>
-
 </ui:composition>

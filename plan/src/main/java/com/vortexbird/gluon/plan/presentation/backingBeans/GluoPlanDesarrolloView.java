@@ -101,7 +101,7 @@ public class GluoPlanDesarrolloView implements Serializable {
 
         if (txtNombreAlcalde != null) {
             txtNombreAlcalde.setValue(null);
-            txtNombreAlcalde.setDisabled(true);
+            txtNombreAlcalde.setDisabled(false);
         }
 
         if (txtUsuCreador != null) {
@@ -289,7 +289,7 @@ public class GluoPlanDesarrolloView implements Serializable {
 
 //            Integer planId = FacesUtils.checkInteger(txtPlanId);
 
-            entity.setActivo(somActivo);
+            entity.setActivo("A");
             entity.setAnoFin(FacesUtils.checkDate(txtAnoFin));
             entity.setAnoInicio(FacesUtils.checkDate(txtAnoInicio));
             entity.setDescripcion(FacesUtils.checkString(txtAreaDescripcion));
@@ -304,8 +304,8 @@ public class GluoPlanDesarrolloView implements Serializable {
             entity.setUsuCreador(usuaCreador);
 //            entity.setUsuModificador(FacesUtils.checkInteger(txtUsuModificador));
             businessDelegatorView.saveGluoPlanDesarrollo(entity);
-            FacesContext.getCurrentInstance().addMessage("", 
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Plan de Desarrollo creado con exito", ""));
+            FacesContext.getCurrentInstance().addMessage("",
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "El Plan se ha creado exitosamente", ""));
             action_clear();
         } catch (Exception e) {
             entity = null;
@@ -337,7 +337,8 @@ public class GluoPlanDesarrolloView implements Serializable {
             
             entity.setUsuModificador(usuaModificador);
             businessDelegatorView.updateGluoPlanDesarrollo(entity);
-            FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
+            FacesContext.getCurrentInstance().addMessage("",
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "El Plan se ha modificado exitosamente", ""));
         } catch (Exception e) {
             data = null;
             FacesUtils.addErrorMessage(e.getMessage());

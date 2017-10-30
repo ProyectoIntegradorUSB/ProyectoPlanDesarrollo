@@ -5,8 +5,12 @@ import com.vortexbird.gluon.plan.dto.mapper.IGluoProyectoMapper;
 import com.vortexbird.gluon.plan.exceptions.*;
 import com.vortexbird.gluon.plan.modelo.*;
 import com.vortexbird.gluon.plan.modelo.dto.GluoProyectoDTO;
+import com.vortexbird.gluon.plan.presentation.backingBeans.GluoProyectoView;
+import com.vortexbird.gluon.plan.presentation.businessDelegate.IBusinessDelegatorView;
+import com.vortexbird.gluon.plan.utilities.FacesUtils;
 import com.vortexbird.gluon.plan.utilities.Utilities;
 
+import org.primefaces.component.selectonemenu.SelectOneMenu;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,6 +30,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import javax.faces.bean.ManagedProperty;
+import javax.faces.model.SelectItem;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
@@ -50,6 +56,11 @@ public class GluoProyectoLogic implements IGluoProyectoLogic {
     private IGluoProyectoMapper gluoProyectoMapper;
     @Autowired
     private Validator validator;
+    @ManagedProperty(value = "#{BusinessDelegatorView}")
+	private IBusinessDelegatorView businessDelegatorView;
+    
+    private List<SelectItem> losSubProgramasItems;
+	private SelectOneMenu somSubPrograma;
 
     /**
     * DAO injected by Spring that manages GluoDetalleProyecto entities
@@ -71,8 +82,40 @@ public class GluoProyectoLogic implements IGluoProyectoLogic {
     */
     @Autowired
     IGluoSubprogramaLogic logicGluoSubprograma1;
+    
+    
+    
 
-    public void validateGluoProyecto(GluoProyecto gluoProyecto)
+    public List<SelectItem> getLosSubProgramasItems() {
+    	try {
+			if (losSubProgramasItems == null) {
+				losSubProgramasItems = new ArrayList<SelectItem>();
+				List<GluoSubprograma> losGluoSubPrograma = businessDelegatorView.getGluoSubprograma();
+				for (GluoSubprograma gluoSubPrograma : losGluoSubPrograma) {
+					losSubProgramasItems
+							.add(new SelectItem(gluoSubPrograma.getSubpId(), gluoSubPrograma.getDescripcion()));
+				}
+			}
+		} catch (Exception e) {
+			FacesUtils.addErrorMessage(e.getMessage());
+		}
+
+		return losSubProgramasItems;
+	}
+
+	public void setLosSubProgramasItems(List<SelectItem> losSubProgramasItems) {
+		this.losSubProgramasItems = losSubProgramasItems;
+	}
+
+	public SelectOneMenu getSomSubPrograma() {
+		return somSubPrograma;
+	}
+
+	public void setSomSubPrograma(SelectOneMenu somSubPrograma) {
+		this.somSubPrograma = somSubPrograma;
+	}
+
+	public void validateGluoProyecto(GluoProyecto gluoProyecto)
         throws Exception {
         try {
             Set<ConstraintViolation<GluoProyecto>> constraintViolations = validator.validate(gluoProyecto);
@@ -202,6 +245,44 @@ public class GluoProyectoLogic implements IGluoProyectoLogic {
         } finally {
         }
     }
+    
+    @Transactional(readOnly=false,propagation=Propagation.REQUIRED,rollbackFor=Exception.class)
+    public void crearProyecto(GluoProyecto gluoProyecto)throws Exception {
+    	
+    	if(gluoProyecto==null) {
+    		
+    		throw new Exception("El Proyecto no puede ser nulo");    		
+    	}
+    	
+    	validateGluoProyecto(gluoProyecto);
+    	
+    	GluoProyecto gluoProyectoID= gluoProyectoDAO.findById(gluoProyecto.getProyId());
+    	
+    	SegUsuario segUsuario = (SegUsuario) FacesUtils.getfromSession("usuarioEnSession");
+		Integer usuaCreador = Integer.valueOf(segUsuario.getUsuId());
+		
+		Integer idSubprograma = Integer.valueOf(somSubPrograma.getValue().toString());
+		GluoSubprograma gluoSubPrograma = businessDelegatorView.getGluoSubprograma(idSubprograma);
+		
+		
+    	
+    	String var=gluoProyectoID.getDescripcion().toString();
+    	GluoProyecto gluoProject=new GluoProyecto();
+    	
+    	
+    	gluoProject.setActivo("A");
+    	gluoProject.setDescripcion(var);
+    	gluoProject.setFechaCreacion(new Date());
+    	gluoProject.setUsuCreador(usuaCreador);
+    	gluoProject.setGluoSubprograma(gluoSubPrograma);
+    	
+    	gluoProyectoDAO.save(gluoProject);
+    	
+    	
+    }
+    
+    
+    
 
     @Transactional(readOnly = true)
     public List<GluoProyectoDTO> getDataGluoProyecto()

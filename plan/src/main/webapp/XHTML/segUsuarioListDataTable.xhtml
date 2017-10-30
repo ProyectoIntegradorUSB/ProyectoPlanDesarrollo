@@ -1,138 +1,162 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-                template="/WEB-INF/template.xhtml">
-		 
-	<ui:define name="content">		
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
 
-					
-		  			<h:form id="frm">								  		
-						
-						<p:panel id="panelDataTableSegUsuario" header="SegUsuarioData">
-							<p:growl id="men"/>				
-							<p:dataTable value="#{segUsuarioView.data}" var="segUsuario"
-								paginator="true" rows="5">
-																										<p:column filterBy="#{segUsuario.usuId}" sortBy="#{segUsuario.usuId}" >
-										 <f:facet name="header">
-										<h:outputText value="usuId"/>
-										</f:facet>
-										 <h:outputText value="#{segUsuario.usuId}"/>
-										 </p:column>
-			                    																									
-										<p:column filterBy="#{segUsuario.activo}" sortBy="#{segUsuario.activo}" >
-										 <f:facet name="header">
-										<h:outputText value="Activo"/>
-										</f:facet>
-										 <h:outputText value="#{segUsuario.activo}"/>
-										</p:column>   
-			                    									
-										<p:column filterBy="#{segUsuario.fechaCreacion}" sortBy="#{segUsuario.fechaCreacion}" >
-										 <f:facet name="header">
-										<h:outputText value="FechaCreacion"/>
-										</f:facet>
-										 <h:outputText value="#{segUsuario.fechaCreacion}"/>
-										</p:column>   
-			                    									
-										<p:column filterBy="#{segUsuario.fechaModificacion}" sortBy="#{segUsuario.fechaModificacion}" >
-										 <f:facet name="header">
-										<h:outputText value="FechaModificacion"/>
-										</f:facet>
-										 <h:outputText value="#{segUsuario.fechaModificacion}"/>
-										</p:column>   
-			                    									
-										<p:column filterBy="#{segUsuario.usuCreador}" sortBy="#{segUsuario.usuCreador}" >
-										 <f:facet name="header">
-										<h:outputText value="UsuCreador"/>
-										</f:facet>
-										 <h:outputText value="#{segUsuario.usuCreador}"/>
-										</p:column>   
-			                    									
-										<p:column filterBy="#{segUsuario.usuLogin}" sortBy="#{segUsuario.usuLogin}" >
-										 <f:facet name="header">
-										<h:outputText value="UsuLogin"/>
-										</f:facet>
-										 <h:outputText value="#{segUsuario.usuLogin}"/>
-										</p:column>   
-			                    									
-										<p:column filterBy="#{segUsuario.usuModificador}" sortBy="#{segUsuario.usuModificador}" >
-										 <f:facet name="header">
-										<h:outputText value="UsuModificador"/>
-										</f:facet>
-										 <h:outputText value="#{segUsuario.usuModificador}"/>
-										</p:column>   
-			                    									
-										<p:column filterBy="#{segUsuario.usuPassword}" sortBy="#{segUsuario.usuPassword}" >
-										 <f:facet name="header">
-										<h:outputText value="UsuPassword"/>
-										</f:facet>
-										 <h:outputText value="#{segUsuario.usuPassword}"/>
-										</p:column>   
-			                    			                    
-								<p:column headerText="Options">
-									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
-										update=":dialogSegUsuario"
-										actionListener="#{segUsuarioView.action_edit}">
-										<f:attribute name="selectedSegUsuario" value="#{segUsuario}" />
-									</p:commandButton>
-									<p:commandButton id="btnDelete"									
-										title="Delete" actionListener="#{segUsuarioView.action_delete_datatable}"
-										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
-										icon="ui-icon-trash" update="@form">
-										<f:attribute name="selectedSegUsuario" value="#{segUsuario}" />
-									</p:commandButton>
-								</p:column>									                    
-							</p:dataTable>	
-						</p:panel>
-						<p:panel id="panelBoton">
-							<div align="center">
-								<p:commandButton id="btnNew" value="New"
-									action="#{segUsuarioView.action_new()}" update=":dialogSegUsuario" />
-							</div>
-						</p:panel>						
-		   			</h:form>
-					<p:dialog id="dialogSegUsuario" appendTo="@(body)" draggable="true"
-						closable="false" visible="#{segUsuarioView.showDialog}" resizable="false"
-						modal="true" width="500">
-						<h:form id="formDialog">
-							<p:messages id="msg" />
-							<p:panel id="panelSegUsuario" header="SegUsuario">							
-							    <h:panelGrid columns="2" id="panelGrid" >
-																		 <h:outputText id="msgUsuId" value="UsuId"/>
-									 <p:inputText id="txtUsuId" binding="#{segUsuarioView.txtUsuId}">
-									 <p:ajax update=":dialogSegUsuario" listener="#{segUsuarioView.listener_txtId}"/>
-									 </p:inputText>	
-																											
-																		<h:outputText id="msgActivo" value=" Activo"/>
-									<p:inputText id="txtActivo" disabled="true" binding="#{segUsuarioView.txtActivo}"/>
-																		<h:outputText id="msgUsuCreador" value=" UsuCreador"/>
-									<p:inputText id="txtUsuCreador" disabled="true" binding="#{segUsuarioView.txtUsuCreador}"/>
-																		<h:outputText id="msgUsuLogin" value=" UsuLogin"/>
-									<p:inputText id="txtUsuLogin" disabled="true" binding="#{segUsuarioView.txtUsuLogin}"/>
-																		<h:outputText id="msgUsuModificador" value=" UsuModificador"/>
-									<p:inputText id="txtUsuModificador" disabled="true" binding="#{segUsuarioView.txtUsuModificador}"/>
-																		<h:outputText id="msgUsuPassword" value=" UsuPassword"/>
-									<p:inputText id="txtUsuPassword" disabled="true" binding="#{segUsuarioView.txtUsuPassword}"/>
-																		
-																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
-																				<p:calendar showOn="button" navigator="true" locale="en" 
-										binding="#{segUsuarioView.txtFechaCreacion}" >
-										<p:ajax event="dateSelect" listener="#{segUsuarioView.listener_txtFechaCreacion}" />
-										</p:calendar>
-																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
-																				<p:calendar showOn="button" navigator="true" locale="en" 
-										binding="#{segUsuarioView.txtFechaModificacion}" >
-										<p:ajax event="dateSelect" listener="#{segUsuarioView.listener_txtFechaModificacion}" />
-										</p:calendar>
-																										    </h:panelGrid>
-							</p:panel>						   
-							<p:panel id="panelBotones">
-								<div align="center">					
-									<p:commandButton id="btnSave" binding="#{segUsuarioView.btnSave}" value="Save" action="#{segUsuarioView.action_save()}" update=":dialogSegUsuario :frm:panelDataTableSegUsuario" />
-									<p:commandButton id="btnClear" value="Clear" action="#{segUsuarioView.action_clear()}" update=":dialogSegUsuario" />
-									<p:commandButton id="btnExit" value="Exit" action="#{segUsuarioView.action_closeDialog()}" update=":dialogSegUsuario" />
-								</div>
+	<ui:define name="content">
+
+
+		<h:form id="frm">
+
+			<p:panel id="panelDataTableSegUsuario" header="SegUsuarioData">
+				<p:growl id="men" />
+				<p:dataTable value="#{segUsuarioView.data}" var="segUsuario"
+					paginator="true" rows="5">
+					<p:column filterBy="#{segUsuario.usuId}"
+						sortBy="#{segUsuario.usuId}">
+						<f:facet name="header">
+							<h:outputText value="usuId" />
+						</f:facet>
+						<h:outputText value="#{segUsuario.usuId}" />
+					</p:column>
+
+					<p:column filterBy="#{segUsuario.activo}"
+						sortBy="#{segUsuario.activo}">
+						<f:facet name="header">
+							<h:outputText value="Activo" />
+						</f:facet>
+						<h:outputText value="#{segUsuario.activo}" />
+					</p:column>
+
+					<p:column filterBy="#{segUsuario.fechaCreacion}"
+						sortBy="#{segUsuario.fechaCreacion}">
+						<f:facet name="header">
+							<h:outputText value="FechaCreacion" />
+						</f:facet>
+						<h:outputText value="#{segUsuario.fechaCreacion}" />
+					</p:column>
+
+					<p:column filterBy="#{segUsuario.fechaModificacion}"
+						sortBy="#{segUsuario.fechaModificacion}">
+						<f:facet name="header">
+							<h:outputText value="FechaModificacion" />
+						</f:facet>
+						<h:outputText value="#{segUsuario.fechaModificacion}" />
+					</p:column>
+
+					<p:column filterBy="#{segUsuario.usuCreador}"
+						sortBy="#{segUsuario.usuCreador}">
+						<f:facet name="header">
+							<h:outputText value="UsuCreador" />
+						</f:facet>
+						<h:outputText value="#{segUsuario.usuCreador}" />
+					</p:column>
+
+					<p:column filterBy="#{segUsuario.usuLogin}"
+						sortBy="#{segUsuario.usuLogin}">
+						<f:facet name="header">
+							<h:outputText value="UsuLogin" />
+						</f:facet>
+						<h:outputText value="#{segUsuario.usuLogin}" />
+					</p:column>
+
+					<p:column filterBy="#{segUsuario.usuModificador}"
+						sortBy="#{segUsuario.usuModificador}">
+						<f:facet name="header">
+							<h:outputText value="UsuModificador" />
+						</f:facet>
+						<h:outputText value="#{segUsuario.usuModificador}" />
+					</p:column>
+
+					<p:column filterBy="#{segUsuario.usuPassword}"
+						sortBy="#{segUsuario.usuPassword}">
+						<f:facet name="header">
+							<h:outputText value="UsuPassword" />
+						</f:facet>
+						<h:outputText value="#{segUsuario.usuPassword}" />
+					</p:column>
+
+					<p:column headerText="Options">
+						<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+							update=":dialogSegUsuario"
+							actionListener="#{segUsuarioView.action_edit}">
+							<f:attribute name="selectedSegUsuario" value="#{segUsuario}" />
+						</p:commandButton>
+						<p:commandButton id="btnDelete" title="Delete"
+							actionListener="#{segUsuarioView.action_delete_datatable}"
+							onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+							icon="ui-icon-trash" update="@form">
+							<f:attribute name="selectedSegUsuario" value="#{segUsuario}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+			<p:panel id="panelBoton">
+				<div align="center">
+					<p:commandButton id="btnNew" value="New"
+						action="#{segUsuarioView.action_new()}" update=":dialogSegUsuario" />
+				</div>
+			</p:panel>
+		</h:form>
+		<p:dialog id="dialogSegUsuario" appendTo="@(body)" draggable="true"
+			closable="false" visible="#{segUsuarioView.showDialog}"
+			resizable="false" modal="true" width="500">
+			<h:form id="formDialog">
+				<p:messages id="msg" />
+				<p:panel id="panelSegUsuario" header="SegUsuario">
+					<h:panelGrid columns="2" id="panelGrid">
+						<h:outputText id="msgUsuId" value="UsuId" />
+						<p:inputText id="txtUsuId" binding="#{segUsuarioView.txtUsuId}">
+							<p:ajax update=":dialogSegUsuario"
+								listener="#{segUsuarioView.listener_txtId}" />
+						</p:inputText>
+
+						<h:outputText id="msgActivo" value=" Activo" />
+						<p:selectOneMenu id="somActivo"
+							value="#{segUsuarioView.somActivo}">
+							<f:selectItem itemLabel="A" itemValue="A" />
+							<f:selectItem itemLabel="I" itemValue="I" />
+						</p:selectOneMenu>
+						<h:outputText id="msgUsuCreador" value=" UsuCreador" />
+						<p:inputText id="txtUsuCreador" disabled="true"
+							binding="#{segUsuarioView.txtUsuCreador}" />
+						<h:outputText id="msgUsuLogin" value=" UsuLogin" />
+						<p:inputText id="txtUsuLogin" disabled="true"
+							binding="#{segUsuarioView.txtUsuLogin}" />
+						<h:outputText id="msgUsuModificador" value=" UsuModificador" />
+						<p:inputText id="txtUsuModificador" disabled="true"
+							binding="#{segUsuarioView.txtUsuModificador}" />
+						<h:outputText id="msgUsuPassword" value=" UsuPassword" />
+						<p:inputText id="txtUsuPassword" disabled="true"
+							binding="#{segUsuarioView.txtUsuPassword}" />
+
+						<h:outputText id="msgFechaCreacion" value=" FechaCreacion" />
+						<p:calendar showOn="button" navigator="true" locale="en"
+							binding="#{segUsuarioView.txtFechaCreacion}">
+							<p:ajax event="dateSelect"
+								listener="#{segUsuarioView.listener_txtFechaCreacion}" />
+						</p:calendar>
+						<h:outputText id="msgFechaModificacion" value=" FechaModificacion" />
+						<p:calendar showOn="button" navigator="true" locale="en"
+							binding="#{segUsuarioView.txtFechaModificacion}">
+							<p:ajax event="dateSelect"
+								listener="#{segUsuarioView.listener_txtFechaModificacion}" />
+						</p:calendar>
+					</h:panelGrid>
+				</p:panel>
+				<p:panel id="panelBotones">
+					<div align="center">
+						<p:commandButton id="btnSave" binding="#{segUsuarioView.btnSave}"
+							value="Save" action="#{segUsuarioView.action_save()}"
+							update=":dialogSegUsuario :frm:panelDataTableSegUsuario" />
+						<p:commandButton id="btnClear" value="Clear"
+							action="#{segUsuarioView.action_clear()}"
+							update=":dialogSegUsuario" />
+						<p:commandButton id="btnExit" value="Exit"
+							action="#{segUsuarioView.action_closeDialog()}"
+							update=":dialogSegUsuario" />
+					</div>
 				</p:panel>
 			</h:form>
 		</p:dialog>

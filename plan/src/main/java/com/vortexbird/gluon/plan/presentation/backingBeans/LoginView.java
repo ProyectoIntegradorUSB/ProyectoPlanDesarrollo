@@ -61,7 +61,7 @@ public class LoginView {
             FacesUtils.getHttpSession(true)
                       .setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
         } catch (AuthenticationException e) {
-            FacesUtils.addErrorMessage("Nombre de Usuario o Contraseña incorrectos");
+            FacesUtils.addErrorMessage("authfailed login or password");
 
             return "/login.xhtml";
         }

@@ -49,7 +49,6 @@ public class ZathuraCodeAuthenticationProvider implements AuthenticationProvider
         	 if (segUsuario!=null) {
                  final List<GrantedAuthority> grantedAuths = new ArrayList<GrantedAuthority>(); 
                  grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
-                  
                  //grantedAuths.add(new SimpleGrantedAuthority(usuarios.getTiposUsuarios().getTusuNombre()));
                  
                  

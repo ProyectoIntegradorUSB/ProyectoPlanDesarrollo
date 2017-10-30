@@ -82,10 +82,10 @@ public class GluoSubprogramaView implements Serializable {
 		entity = null;
 		selectedGluoSubprograma = null;
 
-		// if (somActivo != null) {
-		// somActivo.setValue(null);
-		// somActivo.setDisabled(true);
-		// }
+//		 if (somActivo != null) {
+//		 somActivo.setValue(null);
+//		 somActivo.setDisabled(true);
+//		 }
 
 		if (txtAreaDescripcion != null) {
 			txtAreaDescripcion.setValue(null);
@@ -237,29 +237,26 @@ public class GluoSubprogramaView implements Serializable {
 
 			// Integer subpId = FacesUtils.checkInteger(txtSubpId);
 
-			entity.setActivo(somActivo);
+			entity.setActivo("A");
 			entity.setDescripcion(FacesUtils.checkString(txtAreaDescripcion));
 			entity.setFechaCreacion(new Date());
-
-			SegUsuario segUsuario = (SegUsuario) FacesUtils.getfromSession("usuarioEnSession");
-			Integer usuaCreador = Integer.valueOf(segUsuario.getUsuId());
-			entity.setUsuCreador(usuaCreador);
-
-			Integer idprograma = Integer.valueOf(somPrograma.getValue().toString());
-			GluoPrograma gluoPrograma = businessDelegatorView.getGluoPrograma(idprograma);
-			entity.setGluoPrograma(gluoPrograma);
 			// entity.setFechaModificacion(FacesUtils.checkDate(
 			// txtFechaModificacion));
 			// entity.setSubpId(subpId);
-			// entity.setUsuModificador(FacesUtils.checkInteger(txtUsuModificador));
-			// entity.setGluoPrograma((FacesUtils.checkInteger(txtProgId_GluoPrograma) !=
-			// null)
-			// ?
-			// businessDelegatorView.getGluoPrograma(FacesUtils.checkInteger(txtProgId_GluoPrograma))
-			// : null);
+			SegUsuario segUsuario = (SegUsuario) FacesUtils.getfromSession("usuarioEnSession");
+			Integer usuaCreador = Integer.valueOf(segUsuario.getUsuId());
+			entity.setUsuCreador(usuaCreador);
+			
+			Integer idprograma = Integer.valueOf(somPrograma.getValue().toString());
+            GluoPrograma gluoPrograma = businessDelegatorView.getGluoPrograma(idprograma);
+            entity.setGluoPrograma(gluoPrograma);
+			//entity.setUsuModificador(FacesUtils.checkInteger(txtUsuModificador));
+//			entity.setGluoPrograma((FacesUtils.checkInteger(txtProgId_GluoPrograma) != null)
+//					? businessDelegatorView.getGluoPrograma(FacesUtils.checkInteger(txtProgId_GluoPrograma))
+//					: null);
 			businessDelegatorView.saveGluoSubprograma(entity);
-			FacesContext.getCurrentInstance().addMessage("", 
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "El Subprograma del plan se ha almacenado con exito", ""));
+			FacesContext.getCurrentInstance().addMessage("",
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "El Sub programa se creó exitosamente", ""));
 			action_clear();
 		} catch (Exception e) {
 			entity = null;
@@ -278,28 +275,24 @@ public class GluoSubprogramaView implements Serializable {
 
 			entity.setActivo(somActivo);
 			entity.setDescripcion(FacesUtils.checkString(txtAreaDescripcion));
-			
-			entity.setFechaModificacion(new Date());
-			
+			//entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
+			entity.setFechaModificacion(FacesUtils.checkDate(txtFechaModificacion));
+			//entity.setUsuCreador(FacesUtils.checkInteger(txtUsuCreador));
 			SegUsuario segUsuario = (SegUsuario) FacesUtils.getfromSession("usuarioEnSession");
 			Integer usuaModificador = Integer.valueOf(segUsuario.getUsuId());
 			entity.setUsuModificador(usuaModificador);
-
-			Integer idprograma = Integer.valueOf(somPrograma.getValue().toString());
-			GluoPrograma gluoPrograma = businessDelegatorView.getGluoPrograma(idprograma);
-			entity.setGluoPrograma(gluoPrograma);
 			
-			// entity.setUsuCreador(FacesUtils.checkInteger(txtUsuCreador));
-			// entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-			// entity.setUsuModificador(FacesUtils.checkInteger(txtUsuModificador));
-			// entity.setGluoPrograma((FacesUtils.checkInteger(txtProgId_GluoPrograma) !=
-			// null)
-			// ?
-			// businessDelegatorView.getGluoPrograma(FacesUtils.checkInteger(txtProgId_GluoPrograma))
-			// : null);
+			Integer idprograma = Integer.valueOf(somPrograma.getValue().toString());
+            GluoPrograma gluoPrograma = businessDelegatorView.getGluoPrograma(idprograma);
+            entity.setGluoPrograma(gluoPrograma);
+            
+			//entity.setUsuModificador(FacesUtils.checkInteger(txtUsuModificador));
+//			entity.setGluoPrograma((FacesUtils.checkInteger(txtProgId_GluoPrograma) != null)
+//					? businessDelegatorView.getGluoPrograma(FacesUtils.checkInteger(txtProgId_GluoPrograma))
+//					: null);
 			businessDelegatorView.updateGluoSubprograma(entity);
-			FacesContext.getCurrentInstance().addMessage("", 
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "El Subprograma ha sido modificado", ""));
+			FacesContext.getCurrentInstance().addMessage("",
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "El Sub programa se creó con exito", ""));
 		} catch (Exception e) {
 			data = null;
 			FacesUtils.addErrorMessage(e.getMessage());

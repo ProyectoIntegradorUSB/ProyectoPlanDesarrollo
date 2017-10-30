@@ -1,54 +1,49 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-                template="/WEB-INF/template.xhtml">
-		 
-	<ui:define name="content">	
-			
-			
-			<h:form id="formDialog">
-				<p:messages id="msg" />
-				<p:growl id="men"/>
-					<p:panel id="panelSegUsuario" header="SegUsuario">							
-						<h:panelGrid columns="2" id="panelGrid" >
-												 	<h:outputText id="msgUsuId" value="UsuId"/>
-						 	<p:inputText id="txtUsuId" binding="#{segUsuarioView.txtUsuId}">
-						 		<p:ajax update="panelSegUsuario,msg,panelBotones" listener="#{segUsuarioView.listener_txtId}"/>
-						 	</p:inputText>	
-																		
-													<h:outputText id="msgActivo" value=" Activo"/>
-							<p:inputText id="txtActivo" disabled="true" binding="#{segUsuarioView.txtActivo}"/>
-													<h:outputText id="msgUsuCreador" value=" UsuCreador"/>
-							<p:inputText id="txtUsuCreador" disabled="true" binding="#{segUsuarioView.txtUsuCreador}"/>
-													<h:outputText id="msgUsuLogin" value=" UsuLogin"/>
-							<p:inputText id="txtUsuLogin" disabled="true" binding="#{segUsuarioView.txtUsuLogin}"/>
-													<h:outputText id="msgUsuModificador" value=" UsuModificador"/>
-							<p:inputText id="txtUsuModificador" disabled="true" binding="#{segUsuarioView.txtUsuModificador}"/>
-													<h:outputText id="msgUsuPassword" value=" UsuPassword"/>
-							<p:inputText id="txtUsuPassword" disabled="true" binding="#{segUsuarioView.txtUsuPassword}"/>
-												
-																				<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
-														<p:calendar showOn="button" navigator="true" locale="en" 
-							binding="#{segUsuarioView.txtFechaCreacion}" >
-								<p:ajax event="dateSelect" listener="#{segUsuarioView.listener_txtFechaCreacion}"  />
-							</p:calendar>
-														<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
-														<p:calendar showOn="button" navigator="true" locale="en" 
-							binding="#{segUsuarioView.txtFechaModificacion}" >
-								<p:ajax event="dateSelect" listener="#{segUsuarioView.listener_txtFechaModificacion}"  />
-							</p:calendar>
-																	   </h:panelGrid>
-				</p:panel>
-	   			<p:panel id="panelBotones">
-					<div align="center">					
-						<p:commandButton id="btnSave" binding="#{segUsuarioView.btnSave}" disabled="true" value="Save" action="#{segUsuarioView.action_save()}" update="panelSegUsuario, msg, panelBotones, men" />
-						<p:commandButton id="btnDelete" binding="#{segUsuarioView.btnDelete}" disabled="true" value="Delete" action="#{segUsuarioView.action_delete_master()}" onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}" update="panelSegUsuario, msg, panelBotones, men" />
-						<p:commandButton id="btnClear" value="Clear" action="#{segUsuarioView.action_clear()}" update="panelSegUsuario, msg, panelBotones, men" />
-					</div>
-				</p:panel>			
-			</h:form>
-			
-  </ui:define>
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+
+
+		<h:form id="formDialog">
+			<p:messages id="msg" />
+			<p:growl id="men" />
+			<p:panel id="panelSegUsuario" header="SegUsuario">
+				<h:panelGrid columns="2" id="panelGrid">
+
+
+
+					<h:outputText id="msgUsuLogin" value=" Login de Usuario" />
+					<p:inputText id="txtUsuLogin" disabled="false"
+						binding="#{segUsuarioView.txtUsuLogin}" />
+
+					<h:outputText id="msgUsuPassword" value="Password" />
+					<p:inputText id="txtUsuPassword" disabled="false"
+						binding="#{segUsuarioView.txtUsuPassword}" />
+						
+						<h:outputText value="Rol" />
+							<p:selectOneMenu
+								binding="#{segUsuarioView.somRoles}"
+								id="somRoles">
+								<f:selectItem itemLabel="Seleccione un rol" itemValue="-1" />
+								<f:selectItems
+									value="#{segUsuarioView.losRolesItems}" />
+							</p:selectOneMenu>
+
+
+				</h:panelGrid>
+			</p:panel>
+			<p:panel id="panelBotones">
+				<div align="center">
+					<p:commandButton id="btnSave" binding="#{segUsuarioView.btnSave}"
+						disabled="false" value="Guardar Usuario"
+						action="#{segUsuarioView.action_save()}"
+						update="panelSegUsuario, msg, panelBotones, men" />
+				</div>
+			</p:panel>
+		</h:form>
+
+	</ui:define>
 </ui:composition>

@@ -114,11 +114,11 @@ public class GluoHistorialIndicadorLogic implements IGluoHistorialIndicadorLogic
             }
 
             validateGluoHistorialIndicador(entity);
-
+/*
             if (getGluoHistorialIndicador(entity.getHiinId()) != null) {
                 throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
             }
-
+*/
             gluoHistorialIndicadorDAO.save(entity);
 
             log.debug("save GluoHistorialIndicador successful");

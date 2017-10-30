@@ -9,7 +9,7 @@ import com.vortexbird.gluon.plan.utilities.*;
 import org.primefaces.component.calendar.*;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
-
+import org.primefaces.component.selectonemenu.SelectOneMenu;
 import org.primefaces.event.RowEditEvent;
 
 import org.slf4j.Logger;
@@ -34,6 +34,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 
 
 /**
@@ -46,6 +47,13 @@ import javax.faces.event.ActionEvent;
 public class SegUsuarioView implements Serializable {
     private static final long serialVersionUID = 1L;
     private static final Logger log = LoggerFactory.getLogger(SegUsuarioView.class);
+    
+    
+    private List<SelectItem> losRolesItems;
+	private SelectOneMenu somRoles;
+	
+	private String somActivo;
+	
     private InputText txtActivo;
     private InputText txtUsuCreador;
     private InputText txtUsuLogin;
@@ -81,52 +89,26 @@ public class SegUsuarioView implements Serializable {
         entity = null;
         selectedSegUsuario = null;
 
-        if (txtActivo != null) {
-            txtActivo.setValue(null);
-            txtActivo.setDisabled(true);
-        }
-
-        if (txtUsuCreador != null) {
-            txtUsuCreador.setValue(null);
-            txtUsuCreador.setDisabled(true);
-        }
 
         if (txtUsuLogin != null) {
             txtUsuLogin.setValue(null);
-            txtUsuLogin.setDisabled(true);
+            txtUsuLogin.setDisabled(false);
         }
 
-        if (txtUsuModificador != null) {
-            txtUsuModificador.setValue(null);
-            txtUsuModificador.setDisabled(true);
-        }
+       
 
         if (txtUsuPassword != null) {
             txtUsuPassword.setValue(null);
-            txtUsuPassword.setDisabled(true);
+            txtUsuPassword.setDisabled(false);
         }
 
-        if (txtFechaCreacion != null) {
-            txtFechaCreacion.setValue(null);
-            txtFechaCreacion.setDisabled(true);
-        }
-
-        if (txtFechaModificacion != null) {
-            txtFechaModificacion.setValue(null);
-            txtFechaModificacion.setDisabled(true);
-        }
-
-        if (txtUsuId != null) {
-            txtUsuId.setValue(null);
-            txtUsuId.setDisabled(false);
-        }
 
         if (btnSave != null) {
             btnSave.setDisabled(true);
         }
 
         if (btnDelete != null) {
-            btnDelete.setDisabled(true);
+            btnDelete.setDisabled(false);
         }
 
         return "";
@@ -158,7 +140,7 @@ public class SegUsuarioView implements Serializable {
         }
 
         if (entity == null) {
-            txtActivo.setDisabled(false);
+            //txtActivo.setDisabled(false);
             txtUsuCreador.setDisabled(false);
             txtUsuLogin.setDisabled(false);
             txtUsuModificador.setDisabled(false);
@@ -168,8 +150,8 @@ public class SegUsuarioView implements Serializable {
             txtUsuId.setDisabled(false);
             btnSave.setDisabled(false);
         } else {
-            txtActivo.setValue(entity.getActivo());
-            txtActivo.setDisabled(false);
+            //txtActivo.setValue(entity.getActivo());
+           // txtActivo.setDisabled(false);
             txtFechaCreacion.setValue(entity.getFechaCreacion());
             txtFechaCreacion.setDisabled(false);
             txtFechaModificacion.setValue(entity.getFechaModificacion());
@@ -182,8 +164,8 @@ public class SegUsuarioView implements Serializable {
             txtUsuModificador.setDisabled(false);
             txtUsuPassword.setValue(entity.getUsuPassword());
             txtUsuPassword.setDisabled(false);
-            txtUsuId.setValue(entity.getUsuId());
-            txtUsuId.setDisabled(true);
+           // txtUsuId.setValue(entity.getUsuId());
+            //txtUsuId.setDisabled(true);
             btnSave.setDisabled(false);
 
             if (btnDelete != null) {
@@ -195,8 +177,8 @@ public class SegUsuarioView implements Serializable {
     public String action_edit(ActionEvent evt) {
         selectedSegUsuario = (SegUsuarioDTO) (evt.getComponent().getAttributes()
                                                  .get("selectedSegUsuario"));
-        txtActivo.setValue(selectedSegUsuario.getActivo());
-        txtActivo.setDisabled(false);
+      //  txtActivo.setValue(selectedSegUsuario.getActivo());
+        //txtActivo.setDisabled(false);
         txtFechaCreacion.setValue(selectedSegUsuario.getFechaCreacion());
         txtFechaCreacion.setDisabled(false);
         txtFechaModificacion.setValue(selectedSegUsuario.getFechaModificacion());
@@ -209,8 +191,8 @@ public class SegUsuarioView implements Serializable {
         txtUsuModificador.setDisabled(false);
         txtUsuPassword.setValue(selectedSegUsuario.getUsuPassword());
         txtUsuPassword.setDisabled(false);
-        txtUsuId.setValue(selectedSegUsuario.getUsuId());
-        txtUsuId.setDisabled(true);
+       // txtUsuId.setValue(selectedSegUsuario.getUsuId());
+        //txtUsuId.setDisabled(true);
         btnSave.setDisabled(false);
         setShowDialog(true);
 
@@ -237,19 +219,20 @@ public class SegUsuarioView implements Serializable {
         try {
             entity = new SegUsuario();
 
-            Integer usuId = FacesUtils.checkInteger(txtUsuId);
+            //Integer usuId = FacesUtils.checkInteger(txtUsuId);
 
-            entity.setActivo(FacesUtils.checkString(txtActivo));
-            entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-            entity.setFechaModificacion(FacesUtils.checkDate(
-                    txtFechaModificacion));
-            entity.setUsuCreador(FacesUtils.checkInteger(txtUsuCreador));
-            entity.setUsuId(usuId);
+            entity.setActivo("A");
+            entity.setFechaCreacion(new Date());
+            
+            SegUsuario segUsuario = (SegUsuario) FacesUtils.getfromSession("usuarioEnSession");
+			Integer usuaCreador = Integer.valueOf(segUsuario.getUsuId());
+			entity.setUsuCreador(usuaCreador);
+			
             entity.setUsuLogin(FacesUtils.checkString(txtUsuLogin));
-            entity.setUsuModificador(FacesUtils.checkInteger(txtUsuModificador));
             entity.setUsuPassword(FacesUtils.checkString(txtUsuPassword));
             businessDelegatorView.saveSegUsuario(entity);
-            FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
+            FacesContext.getCurrentInstance().addMessage("",
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "El usuario se creó con exito", ""));
             action_clear();
         } catch (Exception e) {
             entity = null;
@@ -352,16 +335,46 @@ public class SegUsuarioView implements Serializable {
 
         return "";
     }
+    
+    
 
-    public InputText getTxtActivo() {
-        return txtActivo;
-    }
+    public List<SelectItem> getLosRolesItems() {
+    	try {
+			if (losRolesItems == null) {
+				losRolesItems = new ArrayList<SelectItem>();
+				List<SegRol> losRoles = businessDelegatorView.getSegRol();
+				for (SegRol rol : losRoles) {
+					losRolesItems.add(new SelectItem(rol.getRolId(), rol.getNombre()));
+				}
+			}
+		} catch (Exception e) {
+			FacesUtils.addErrorMessage(e.getMessage());
+		}
+		return losRolesItems;
+	}
 
-    public void setTxtActivo(InputText txtActivo) {
-        this.txtActivo = txtActivo;
-    }
+	public void setLosRolesItems(List<SelectItem> losRolesItems) {
+		this.losRolesItems = losRolesItems;
+	}
 
-    public InputText getTxtUsuCreador() {
+	public SelectOneMenu getSomRoles() {
+		return somRoles;
+	}
+
+	public void setSomRoles(SelectOneMenu somRoles) {
+		this.somRoles = somRoles;
+	}
+	
+
+	public String getSomActivo() {
+		return somActivo;
+	}
+
+	public void setSomActivo(String somActivo) {
+		this.somActivo = somActivo;
+	}
+
+	public InputText getTxtUsuCreador() {
         return txtUsuCreador;
     }
 

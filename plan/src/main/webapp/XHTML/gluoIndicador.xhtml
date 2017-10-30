@@ -12,47 +12,64 @@
 			<p:growl id="men" />
 			<p:panel id="panelGluoIndicador" header="GluoIndicador">
 				<h:panelGrid columns="2" id="panelGrid">
-				
-				
-				<h:outputText id="msgActivo" value=" Activo" />
-					<p:selectOneMenu id="Activo" value="#{gluoIndicadorView.somActivo}"
-						style="width:135px">
-						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
-						<f:selectItem itemLabel="A" itemValue="A" />
-						<f:selectItem itemLabel="I" itemValue="I" />
-					</p:selectOneMenu>
-					
-					<h:outputText value="Proyecto" />
-					<p:selectOneMenu id="somProyecto"
-						binding="#{gluoIndicadorView.somProyecto}">
-						<f:selectItems value="#{gluoIndicadorView.losProyectosItems}" />
-					</p:selectOneMenu>
-										
+					<h:outputText id="msgIndiId" value="IndiId" />
+					<p:inputText id="txtIndiId"
+						binding="#{gluoIndicadorView.txtIndiId}">
+						<p:ajax update="panelGluoIndicador,msg,panelBotones"
+							listener="#{gluoIndicadorView.listener_txtId}" />
+					</p:inputText>
+
+			
 					<h:outputText id="msgDescripcionIndicador"
 						value=" DescripcionIndicador" />
-					<p:inputTextarea id="txtDescripcionIndicador" disabled="false"
-						binding="#{gluoIndicadorView.txtAreaDescripcionIndicador}" />
+					<p:inputText id="txtDescripcionIndicador" disabled="true"
+						binding="#{gluoIndicadorView.txtDescripcionIndicador}" />
 					<h:outputText id="msgDescripcionLineaBase"
 						value=" DescripcionLineaBase" />
-					<p:inputTextarea id="txtDescripcionLineaBase" disabled="false"
-						binding="#{gluoIndicadorView.txtAreaDescripcionLineaBase}" />
+					<p:inputText id="txtDescripcionLineaBase" disabled="true"
+						binding="#{gluoIndicadorView.txtDescripcionLineaBase}" />
 					<h:outputText id="msgDescripcionMeta" value=" DescripcionMeta" />
-					<p:inputTextarea id="txtDescripcionMeta" disabled="false"
-						binding="#{gluoIndicadorView.txtAreaDescripcionMeta}" />
+					<p:inputText id="txtDescripcionMeta" disabled="true"
+						binding="#{gluoIndicadorView.txtDescripcionMeta}" />
 					<h:outputText id="msgUsuCreador" value=" UsuCreador" />
 					<p:inputText id="txtUsuCreador" disabled="true"
 						binding="#{gluoIndicadorView.txtUsuCreador}" />
+					<h:outputText id="msgUsuModificador" value=" UsuModificador" />
+					<p:inputText id="txtUsuModificador" disabled="true"
+						binding="#{gluoIndicadorView.txtUsuModificador}" />
 					<h:outputText id="msgValorMeta" value=" ValorMeta" />
-					<p:inputText id="txtValorMeta" disabled="false"
+					<p:inputText id="txtValorMeta" disabled="true"
 						binding="#{gluoIndicadorView.txtValorMeta}" />
-					
+					<h:outputText id="msgProyId_GluoProyecto"
+						value=" ProyId_GluoProyecto" />
+					<p:inputText id="txtProyId_GluoProyecto" disabled="true"
+						binding="#{gluoIndicadorView.txtProyId_GluoProyecto}" />
+
+					<h:outputText id="msgFechaCreacion" value=" FechaCreacion" />
+					<p:calendar showOn="button" navigator="true" locale="en"
+						binding="#{gluoIndicadorView.txtFechaCreacion}">
+						<p:ajax event="dateSelect"
+							listener="#{gluoIndicadorView.listener_txtFechaCreacion}" />
+					</p:calendar>
+					<h:outputText id="msgFechaModificacion" value=" FechaModificacion" />
+					<p:calendar showOn="button" navigator="true" locale="en"
+						binding="#{gluoIndicadorView.txtFechaModificacion}">
+						<p:ajax event="dateSelect"
+							listener="#{gluoIndicadorView.listener_txtFechaModificacion}" />
+					</p:calendar>
 				</h:panelGrid>
 			</p:panel>
 			<p:panel id="panelBotones">
 				<div align="center">
 					<p:commandButton id="btnSave"
-						binding="#{gluoIndicadorView.btnSave}" disabled="false"
+						binding="#{gluoIndicadorView.btnSave}" disabled="true"
 						value="Save" action="#{gluoIndicadorView.action_save()}"
+						update="panelGluoIndicador, msg, panelBotones, men" />
+					<p:commandButton id="btnDelete"
+						binding="#{gluoIndicadorView.btnDelete}" disabled="true"
+						value="Delete"
+						action="#{gluoIndicadorView.action_delete_master()}"
+						onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
 						update="panelGluoIndicador, msg, panelBotones, men" />
 					<p:commandButton id="btnClear" value="Clear"
 						action="#{gluoIndicadorView.action_clear()}"

@@ -37,367 +37,376 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
+
 /**
- * @author Zathura Code Generator http://zathuracode.org/ www.zathuracode.org
+ * @author Zathura Code Generator http://zathuracode.org/
+ * www.zathuracode.org
  *
  */
 @ManagedBean
 @ViewScoped
 public class GluoSectorEjeDimensionView implements Serializable {
-	private static final long serialVersionUID = 1L;
-	private static final Logger log = LoggerFactory.getLogger(GluoSectorEjeDimensionView.class);
+    private static final long serialVersionUID = 1L;
+    private static final Logger log = LoggerFactory.getLogger(GluoSectorEjeDimensionView.class);
+    
+    private String somActivo;
+    private List<SelectItem> losPlanDesarrolloItems;
+    private SelectOneMenu somPlanDesarrollo;
+    
+    private InputTextarea txtAreaDescripcion;
+    private InputText txtUsuCreador;
+    private InputText txtUsuModificador;
+    private InputText txtPlanId_GluoPlanDesarrollo;
+    private InputText txtSediId;
+    private Calendar txtFechaCreacion;
+    private Calendar txtFechaModificacion;
+    private CommandButton btnSave;
+    private CommandButton btnModify;
+    private CommandButton btnDelete;
+    private CommandButton btnClear;
+    private List<GluoSectorEjeDimensionDTO> data;
+    private GluoSectorEjeDimensionDTO selectedGluoSectorEjeDimension;
+    private GluoSectorEjeDimension entity;
+    private boolean showDialog;
+    @ManagedProperty(value = "#{BusinessDelegatorView}")
+    private IBusinessDelegatorView businessDelegatorView;
 
-	private String somActivo;
-	private List<SelectItem> losPlanDesarrolloItems;
-	private SelectOneMenu somPlanDesarrollo;
+    public GluoSectorEjeDimensionView() {
+        super();
+    }
 
-	private InputTextarea txtAreaDescripcion;
-	private InputText txtUsuCreador;
-	private InputText txtUsuModificador;
-	private InputText txtPlanId_GluoPlanDesarrollo;
-	private InputText txtSediId;
-	private Calendar txtFechaCreacion;
-	private Calendar txtFechaModificacion;
-	private CommandButton btnSave;
-	private CommandButton btnModify;
-	private CommandButton btnDelete;
-	private CommandButton btnClear;
-	private List<GluoSectorEjeDimensionDTO> data;
-	private GluoSectorEjeDimensionDTO selectedGluoSectorEjeDimension;
-	private GluoSectorEjeDimension entity;
-	private boolean showDialog;
-	@ManagedProperty(value = "#{BusinessDelegatorView}")
-	private IBusinessDelegatorView businessDelegatorView;
+    public String action_new() {
+        action_clear();
+        selectedGluoSectorEjeDimension = null;
+        setShowDialog(true);
 
-	public GluoSectorEjeDimensionView() {
-		super();
-	}
+        return "";
+    }
 
-	public String action_new() {
-		action_clear();
-		selectedGluoSectorEjeDimension = null;
-		setShowDialog(true);
+    public String action_clear() {
+        entity = null;
+        selectedGluoSectorEjeDimension = null;
 
-		return "";
-	}
+//        if (txtActivo != null) {
+//            txtActivo.setValue(null);
+//            txtActivo.setDisabled(true);
+//        }
 
-	public String action_clear() {
-		entity = null;
-		selectedGluoSectorEjeDimension = null;
+        if (txtAreaDescripcion != null) {
+        	txtAreaDescripcion.setValue(null);
+        	txtAreaDescripcion.setDisabled(false);
+        }
 
-		// if (txtActivo != null) {
-		// txtActivo.setValue(null);
-		// txtActivo.setDisabled(true);
-		// }
+        if (txtUsuCreador != null) {
+            txtUsuCreador.setValue(null);
+            txtUsuCreador.setDisabled(true);
+        }
 
-		if (txtAreaDescripcion != null) {
-			txtAreaDescripcion.setValue(null);
-			txtAreaDescripcion.setDisabled(false);
-		}
+        if (txtUsuModificador != null) {
+            txtUsuModificador.setValue(null);
+            txtUsuModificador.setDisabled(true);
+        }
 
-		if (txtUsuCreador != null) {
-			txtUsuCreador.setValue(null);
-			txtUsuCreador.setDisabled(true);
-		}
+        if (txtPlanId_GluoPlanDesarrollo != null) {
+            txtPlanId_GluoPlanDesarrollo.setValue(null);
+            txtPlanId_GluoPlanDesarrollo.setDisabled(true);
+        }
 
-		if (txtUsuModificador != null) {
-			txtUsuModificador.setValue(null);
-			txtUsuModificador.setDisabled(true);
-		}
+        if (txtFechaCreacion != null) {
+            txtFechaCreacion.setValue(null);
+            txtFechaCreacion.setDisabled(true);
+        }
 
-		if (txtPlanId_GluoPlanDesarrollo != null) {
-			txtPlanId_GluoPlanDesarrollo.setValue(null);
-			txtPlanId_GluoPlanDesarrollo.setDisabled(true);
-		}
+        if (txtFechaModificacion != null) {
+            txtFechaModificacion.setValue(null);
+            txtFechaModificacion.setDisabled(true);
+        }
 
-		if (txtFechaCreacion != null) {
-			txtFechaCreacion.setValue(null);
-			txtFechaCreacion.setDisabled(true);
-		}
+        if (txtSediId != null) {
+            txtSediId.setValue(null);
+            txtSediId.setDisabled(false);
+        }
 
-		if (txtFechaModificacion != null) {
-			txtFechaModificacion.setValue(null);
-			txtFechaModificacion.setDisabled(true);
-		}
+        if (btnSave != null) {
+            btnSave.setDisabled(false);
+        }
 
-		if (txtSediId != null) {
-			txtSediId.setValue(null);
-			txtSediId.setDisabled(false);
-		}
+        if (btnDelete != null) {
+            btnDelete.setDisabled(true);
+        }
 
-		if (btnSave != null) {
-			btnSave.setDisabled(false);
-		}
+        return "";
+    }
 
-		if (btnDelete != null) {
-			btnDelete.setDisabled(true);
-		}
+    public void listener_txtFechaCreacion() {
+        Date inputDate = (Date) txtFechaCreacion.getValue();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        FacesContext.getCurrentInstance()
+                    .addMessage("",
+            new FacesMessage("Selected Date " + dateFormat.format(inputDate)));
+    }
 
-		return "";
-	}
+    public void listener_txtFechaModificacion() {
+        Date inputDate = (Date) txtFechaModificacion.getValue();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        FacesContext.getCurrentInstance()
+                    .addMessage("",
+            new FacesMessage("Selected Date " + dateFormat.format(inputDate)));
+    }
 
-	public void listener_txtFechaCreacion() {
-		Date inputDate = (Date) txtFechaCreacion.getValue();
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		FacesContext.getCurrentInstance().addMessage("",
-				new FacesMessage("Selected Date " + dateFormat.format(inputDate)));
-	}
+    public void listener_txtId() {
+        try {
+            Integer sediId = FacesUtils.checkInteger(txtSediId);
+            entity = (sediId != null)
+                ? businessDelegatorView.getGluoSectorEjeDimension(sediId) : null;
+        } catch (Exception e) {
+            entity = null;
+        }
 
-	public void listener_txtFechaModificacion() {
-		Date inputDate = (Date) txtFechaModificacion.getValue();
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		FacesContext.getCurrentInstance().addMessage("",
-				new FacesMessage("Selected Date " + dateFormat.format(inputDate)));
-	}
+        if (entity == null) {
+//            txtActivo.setDisabled(false);
+        	txtAreaDescripcion.setDisabled(false);
+            txtUsuCreador.setDisabled(false);
+            txtUsuModificador.setDisabled(false);
+            txtPlanId_GluoPlanDesarrollo.setDisabled(false);
+            txtFechaCreacion.setDisabled(false);
+            txtFechaModificacion.setDisabled(false);
+            txtSediId.setDisabled(false);
+            btnSave.setDisabled(false);
+        } else {
+//            txtActivo.setValue(entity.getActivo());
+//            txtActivo.setDisabled(false);
+            txtAreaDescripcion.setValue(entity.getDescripcion());
+            txtAreaDescripcion.setDisabled(false);
+            txtFechaCreacion.setValue(entity.getFechaCreacion());
+            txtFechaCreacion.setDisabled(false);
+            txtFechaModificacion.setValue(entity.getFechaModificacion());
+            txtFechaModificacion.setDisabled(false);
+            txtUsuCreador.setValue(entity.getUsuCreador());
+            txtUsuCreador.setDisabled(false);
+            txtUsuModificador.setValue(entity.getUsuModificador());
+            txtUsuModificador.setDisabled(false);
+            txtPlanId_GluoPlanDesarrollo.setValue(entity.getGluoPlanDesarrollo()
+                                                        .getPlanId());
+            txtPlanId_GluoPlanDesarrollo.setDisabled(false);
+            txtSediId.setValue(entity.getSediId());
+            txtSediId.setDisabled(true);
+            btnSave.setDisabled(false);
 
-	public void listener_txtId() {
-		try {
-			Integer sediId = FacesUtils.checkInteger(txtSediId);
-			entity = (sediId != null) ? businessDelegatorView.getGluoSectorEjeDimension(sediId) : null;
-		} catch (Exception e) {
-			entity = null;
-		}
+            if (btnDelete != null) {
+                btnDelete.setDisabled(false);
+            }
+        }
+    }
 
-		if (entity == null) {
-			// txtActivo.setDisabled(false);
-			txtAreaDescripcion.setDisabled(false);
-			txtUsuCreador.setDisabled(false);
-			txtUsuModificador.setDisabled(false);
-			txtPlanId_GluoPlanDesarrollo.setDisabled(false);
-			txtFechaCreacion.setDisabled(false);
-			txtFechaModificacion.setDisabled(false);
-			txtSediId.setDisabled(false);
-			btnSave.setDisabled(false);
-		} else {
-			// txtActivo.setValue(entity.getActivo());
-			// txtActivo.setDisabled(false);
-			txtAreaDescripcion.setValue(entity.getDescripcion());
-			txtAreaDescripcion.setDisabled(false);
-			txtFechaCreacion.setValue(entity.getFechaCreacion());
-			txtFechaCreacion.setDisabled(false);
-			txtFechaModificacion.setValue(entity.getFechaModificacion());
-			txtFechaModificacion.setDisabled(false);
-			txtUsuCreador.setValue(entity.getUsuCreador());
-			txtUsuCreador.setDisabled(false);
-			txtUsuModificador.setValue(entity.getUsuModificador());
-			txtUsuModificador.setDisabled(false);
-			txtPlanId_GluoPlanDesarrollo.setValue(entity.getGluoPlanDesarrollo().getPlanId());
-			txtPlanId_GluoPlanDesarrollo.setDisabled(false);
-			txtSediId.setValue(entity.getSediId());
-			txtSediId.setDisabled(true);
-			btnSave.setDisabled(false);
+    public String action_edit(ActionEvent evt) {
+        selectedGluoSectorEjeDimension = (GluoSectorEjeDimensionDTO) (evt.getComponent()
+                                                                         .getAttributes()
+                                                                         .get("selectedGluoSectorEjeDimension"));
+//        txtActivo.setValue(selectedGluoSectorEjeDimension.getActivo());
+//        txtActivo.setDisabled(false);
+        txtAreaDescripcion.setValue(selectedGluoSectorEjeDimension.getDescripcion());
+        txtAreaDescripcion.setDisabled(false);
+        txtFechaCreacion.setValue(selectedGluoSectorEjeDimension.getFechaCreacion());
+        txtFechaCreacion.setDisabled(true);
+        txtFechaModificacion.setValue(selectedGluoSectorEjeDimension.getFechaModificacion());
+        txtFechaModificacion.setDisabled(true);
+        txtUsuCreador.setValue(selectedGluoSectorEjeDimension.getUsuCreador());
+        txtUsuCreador.setDisabled(true);
+        txtUsuModificador.setValue(selectedGluoSectorEjeDimension.getUsuModificador());
+        txtUsuModificador.setDisabled(true);
+//        txtPlanId_GluoPlanDesarrollo.setValue(selectedGluoSectorEjeDimension.getPlanId_GluoPlanDesarrollo());
+//        txtPlanId_GluoPlanDesarrollo.setDisabled(false);
+        txtSediId.setValue(selectedGluoSectorEjeDimension.getSediId());
+        txtSediId.setDisabled(true);
+        btnSave.setDisabled(false);
+        setShowDialog(true);
 
-			if (btnDelete != null) {
-				btnDelete.setDisabled(false);
-			}
-		}
-	}
+        return "";
+    }
 
-	public String action_edit(ActionEvent evt) {
-		selectedGluoSectorEjeDimension = (GluoSectorEjeDimensionDTO) (evt.getComponent().getAttributes()
-				.get("selectedGluoSectorEjeDimension"));
-		// txtActivo.setValue(selectedGluoSectorEjeDimension.getActivo());
-		// txtActivo.setDisabled(false);
-		txtAreaDescripcion.setValue(selectedGluoSectorEjeDimension.getDescripcion());
-		txtAreaDescripcion.setDisabled(false);
-		txtFechaCreacion.setValue(selectedGluoSectorEjeDimension.getFechaCreacion());
-		txtFechaCreacion.setDisabled(true);
-		txtFechaModificacion.setValue(selectedGluoSectorEjeDimension.getFechaModificacion());
-		txtFechaModificacion.setDisabled(true);
-		txtUsuCreador.setValue(selectedGluoSectorEjeDimension.getUsuCreador());
-		txtUsuCreador.setDisabled(true);
-		txtUsuModificador.setValue(selectedGluoSectorEjeDimension.getUsuModificador());
-		txtUsuModificador.setDisabled(true);
-		// txtPlanId_GluoPlanDesarrollo.setValue(selectedGluoSectorEjeDimension.getPlanId_GluoPlanDesarrollo());
-		// txtPlanId_GluoPlanDesarrollo.setDisabled(false);
-		txtSediId.setValue(selectedGluoSectorEjeDimension.getSediId());
-		txtSediId.setDisabled(true);
-		btnSave.setDisabled(false);
-		setShowDialog(true);
+    public String action_save() {
+        try {
+            if ((selectedGluoSectorEjeDimension == null) && (entity == null)) {
+                action_create();
+            } else {
+                action_modify();
+            }
 
-		return "";
-	}
+            data = null;
+        } catch (Exception e) {
+            FacesUtils.addErrorMessage(e.getMessage());
+        }
 
-	public String action_save() {
-		try {
-			if ((selectedGluoSectorEjeDimension == null) && (entity == null)) {
-				action_create();
-			} else {
-				action_modify();
-			}
+        return "";
+    }
 
-			data = null;
-		} catch (Exception e) {
-			FacesUtils.addErrorMessage(e.getMessage());
-		}
+    public String action_create() {
+        try {
+            entity = new GluoSectorEjeDimension();
 
-		return "";
-	}
+//            Integer sediId = FacesUtils.checkInteger(txtSediId);
 
-	public String action_create() {
-		try {
-			entity = new GluoSectorEjeDimension();
-
-			// Integer sediId = FacesUtils.checkInteger(txtSediId);
-
-			entity.setActivo(somActivo);
-			entity.setDescripcion(FacesUtils.checkString(txtAreaDescripcion));
-			entity.setFechaCreacion(new Date());
-			// entity.setFechaModificacion(FacesUtils.checkDate(
-			// txtFechaModificacion));
-			// entity.setSediId(sediId);
-
-			SegUsuario segUsuario = (SegUsuario) FacesUtils.getfromSession("usuarioEnSession");
+            entity.setActivo("A");
+            entity.setDescripcion(FacesUtils.checkString(txtAreaDescripcion));
+            entity.setFechaCreacion(new Date());
+//            entity.setFechaModificacion(FacesUtils.checkDate(
+//                    txtFechaModificacion));
+//            entity.setSediId(sediId);
+            
+            SegUsuario segUsuario = (SegUsuario) FacesUtils.getfromSession("usuarioEnSession");
 			Integer usuaCreador = Integer.valueOf(segUsuario.getUsuId());
-
-			entity.setUsuCreador(usuaCreador);
-			// entity.setUsuModificador(FacesUtils.checkInteger(txtUsuModificador));
-
-			Integer idPlanDesarrollo = Integer.valueOf(somPlanDesarrollo.getValue().toString());
+			
+            entity.setUsuCreador(usuaCreador);
+//            entity.setUsuModificador(FacesUtils.checkInteger(txtUsuModificador));
+            
+            Integer idPlanDesarrollo = Integer.valueOf(somPlanDesarrollo.getValue().toString());
 			GluoPlanDesarrollo gluoPlanDesarrollo = businessDelegatorView.getGluoPlanDesarrollo(idPlanDesarrollo);
 			entity.setGluoPlanDesarrollo(gluoPlanDesarrollo);
+			
+//            entity.setGluoPlanDesarrollo((FacesUtils.checkInteger(
+//                    txtPlanId_GluoPlanDesarrollo) != null)
+//                ? businessDelegatorView.getGluoPlanDesarrollo(
+//                    FacesUtils.checkInteger(txtPlanId_GluoPlanDesarrollo)) : null);
+            
+            businessDelegatorView.saveGluoSectorEjeDimension(entity);
+            FacesContext.getCurrentInstance().addMessage("",
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Se ha creado un nuevo sector dimensional para el proyecto", ""));
+            action_clear();
+        } catch (Exception e) {
+            entity = null;
+            FacesUtils.addErrorMessage(e.getMessage());
+        }
 
-			// entity.setGluoPlanDesarrollo((FacesUtils.checkInteger(
-			// txtPlanId_GluoPlanDesarrollo) != null)
-			// ? businessDelegatorView.getGluoPlanDesarrollo(
-			// FacesUtils.checkInteger(txtPlanId_GluoPlanDesarrollo)) : null);
+        return "";
+    }
 
-			businessDelegatorView.saveGluoSectorEjeDimension(entity);
-			FacesContext.getCurrentInstance().addMessage("",
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Sector/Eje Dimensional creado con exito", ""));
-			action_clear();
-		} catch (Exception e) {
-			entity = null;
-			FacesUtils.addErrorMessage(e.getMessage());
-		}
+    public String action_modify() {
+        try {
+            if (entity == null) {
+                Integer sediId = new Integer(selectedGluoSectorEjeDimension.getSediId());
+                entity = businessDelegatorView.getGluoSectorEjeDimension(sediId);
+            }
 
-		return "";
-	}
+            entity.setActivo(somActivo);
+            entity.setDescripcion(FacesUtils.checkString(txtAreaDescripcion));
+//            entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
+            entity.setFechaModificacion(new Date());
+            
+//            entity.setUsuCreador(FacesUtils.checkInteger(txtUsuCreador));
+            SegUsuario segUsuario = (SegUsuario) FacesUtils.getfromSession("usuarioEnSession");
+            Integer usuaModificador = Integer.valueOf(segUsuario.getUsuId());
+            entity.setUsuModificador(usuaModificador);
+            
+//            entity.setGluoPlanDesarrollo((FacesUtils.checkInteger(
+//                    txtPlanId_GluoPlanDesarrollo) != null)
+//                ? businessDelegatorView.getGluoPlanDesarrollo(
+//                    FacesUtils.checkInteger(txtPlanId_GluoPlanDesarrollo)) : null);
+            
+            Integer idPlanDesarrollo = Integer.valueOf(somPlanDesarrollo.getValue().toString());
+            GluoPlanDesarrollo gluoplan = businessDelegatorView.getGluoPlanDesarrollo(idPlanDesarrollo);
+            entity.setGluoPlanDesarrollo(gluoplan);
+            
+            businessDelegatorView.updateGluoSectorEjeDimension(entity);
+            FacesContext.getCurrentInstance().addMessage("",
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Se ha modificado el  sector dimensional del plan", ""));
+        } catch (Exception e) {
+            data = null;
+            FacesUtils.addErrorMessage(e.getMessage());
+        }
 
-	public String action_modify() {
-		try {
-			if (entity == null) {
-				Integer sediId = new Integer(selectedGluoSectorEjeDimension.getSediId());
-				entity = businessDelegatorView.getGluoSectorEjeDimension(sediId);
-			}
+        return "";
+    }
 
-			entity.setActivo(somActivo);
-			entity.setDescripcion(FacesUtils.checkString(txtAreaDescripcion));
-			// entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-			entity.setFechaModificacion(new Date());
+    public String action_delete_datatable(ActionEvent evt) {
+        try {
+            selectedGluoSectorEjeDimension = (GluoSectorEjeDimensionDTO) (evt.getComponent()
+                                                                             .getAttributes()
+                                                                             .get("selectedGluoSectorEjeDimension"));
 
-			// entity.setUsuCreador(FacesUtils.checkInteger(txtUsuCreador));
-			SegUsuario segUsuario = (SegUsuario) FacesUtils.getfromSession("usuarioEnSession");
-			Integer usuaModificador = Integer.valueOf(segUsuario.getUsuId());
-			entity.setUsuModificador(usuaModificador);
+            Integer sediId = new Integer(selectedGluoSectorEjeDimension.getSediId());
+            entity = businessDelegatorView.getGluoSectorEjeDimension(sediId);
+            action_delete();
+        } catch (Exception e) {
+            FacesUtils.addErrorMessage(e.getMessage());
+        }
 
-			// entity.setGluoPlanDesarrollo((FacesUtils.checkInteger(
-			// txtPlanId_GluoPlanDesarrollo) != null)
-			// ? businessDelegatorView.getGluoPlanDesarrollo(
-			// FacesUtils.checkInteger(txtPlanId_GluoPlanDesarrollo)) : null);
+        return "";
+    }
 
-			Integer idPlanDesarrollo = Integer.valueOf(somPlanDesarrollo.getValue().toString());
-			GluoPlanDesarrollo gluoplan = businessDelegatorView.getGluoPlanDesarrollo(idPlanDesarrollo);
-			entity.setGluoPlanDesarrollo(gluoplan);
+    public String action_delete_master() {
+        try {
+            Integer sediId = FacesUtils.checkInteger(txtSediId);
+            entity = businessDelegatorView.getGluoSectorEjeDimension(sediId);
+            action_delete();
+        } catch (Exception e) {
+            FacesUtils.addErrorMessage(e.getMessage());
+        }
 
-			businessDelegatorView.updateGluoSectorEjeDimension(entity);
-			FacesContext.getCurrentInstance().addMessage("",
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Sector/Eje Dimensional modificado con exito", ""));
-		} catch (Exception e) {
-			data = null;
-			FacesUtils.addErrorMessage(e.getMessage());
-		}
+        return "";
+    }
 
-		return "";
-	}
+    public void action_delete() throws Exception {
+        try {
+            businessDelegatorView.deleteGluoSectorEjeDimension(entity);
+            FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYDELETED);
+            action_clear();
+            data = null;
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 
-	public String action_delete_datatable(ActionEvent evt) {
-		try {
-			selectedGluoSectorEjeDimension = (GluoSectorEjeDimensionDTO) (evt.getComponent().getAttributes()
-					.get("selectedGluoSectorEjeDimension"));
+    public String action_closeDialog() {
+        setShowDialog(false);
+        action_clear();
 
-			Integer sediId = new Integer(selectedGluoSectorEjeDimension.getSediId());
-			entity = businessDelegatorView.getGluoSectorEjeDimension(sediId);
-			action_delete();
-		} catch (Exception e) {
-			FacesUtils.addErrorMessage(e.getMessage());
-		}
+        return "";
+    }
 
-		return "";
-	}
+    public String action_modifyWitDTO(String activo, String descripcion,
+        Date fechaCreacion, Date fechaModificacion, Integer sediId,
+        Integer usuCreador, Integer usuModificador,
+        Integer planId_GluoPlanDesarrollo) throws Exception {
+        try {
+            entity.setActivo(FacesUtils.checkString(activo));
+            entity.setDescripcion(FacesUtils.checkString(descripcion));
+            entity.setFechaCreacion(FacesUtils.checkDate(fechaCreacion));
+            entity.setFechaModificacion(FacesUtils.checkDate(fechaModificacion));
+            entity.setUsuCreador(FacesUtils.checkInteger(usuCreador));
+            entity.setUsuModificador(FacesUtils.checkInteger(usuModificador));
+            businessDelegatorView.updateGluoSectorEjeDimension(entity);
+            FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
+        } catch (Exception e) {
+            //renderManager.getOnDemandRenderer("GluoSectorEjeDimensionView").requestRender();
+            FacesUtils.addErrorMessage(e.getMessage());
+            throw e;
+        }
 
-	public String action_delete_master() {
-		try {
-			Integer sediId = FacesUtils.checkInteger(txtSediId);
-			entity = businessDelegatorView.getGluoSectorEjeDimension(sediId);
-			action_delete();
-		} catch (Exception e) {
-			FacesUtils.addErrorMessage(e.getMessage());
-		}
+        return "";
+    }
 
-		return "";
-	}
+//    public InputText getTxtActivo() {
+//        return txtActivo;
+//    }
+//
+//    public void setTxtActivo(InputText txtActivo) {
+//        this.txtActivo = txtActivo;
+//    }
 
-	public void action_delete() throws Exception {
-		try {
-			businessDelegatorView.deleteGluoSectorEjeDimension(entity);
-			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYDELETED);
-			action_clear();
-			data = null;
-		} catch (Exception e) {
-			throw e;
-		}
-	}
+//    public InputText getTxtDescripcion() {
+//        return txtDescripcion;
+//    }
+//
+//    public void setTxtDescripcion(InputText txtDescripcion) {
+//        this.txtDescripcion = txtDescripcion;
+//    }
 
-	public String action_closeDialog() {
-		setShowDialog(false);
-		action_clear();
+    public InputText getTxtUsuCreador() {
+        return txtUsuCreador;
+    }
 
-		return "";
-	}
-
-	public String action_modifyWitDTO(String activo, String descripcion, Date fechaCreacion, Date fechaModificacion,
-			Integer sediId, Integer usuCreador, Integer usuModificador, Integer planId_GluoPlanDesarrollo)
-			throws Exception {
-		try {
-			entity.setActivo(FacesUtils.checkString(activo));
-			entity.setDescripcion(FacesUtils.checkString(descripcion));
-			entity.setFechaCreacion(FacesUtils.checkDate(fechaCreacion));
-			entity.setFechaModificacion(FacesUtils.checkDate(fechaModificacion));
-			entity.setUsuCreador(FacesUtils.checkInteger(usuCreador));
-			entity.setUsuModificador(FacesUtils.checkInteger(usuModificador));
-			businessDelegatorView.updateGluoSectorEjeDimension(entity);
-			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
-		} catch (Exception e) {
-			// renderManager.getOnDemandRenderer("GluoSectorEjeDimensionView").requestRender();
-			FacesUtils.addErrorMessage(e.getMessage());
-			throw e;
-		}
-
-		return "";
-	}
-
-	// public InputText getTxtActivo() {
-	// return txtActivo;
-	// }
-	//
-	// public void setTxtActivo(InputText txtActivo) {
-	// this.txtActivo = txtActivo;
-	// }
-
-	// public InputText getTxtDescripcion() {
-	// return txtDescripcion;
-	// }
-	//
-	// public void setTxtDescripcion(InputText txtDescripcion) {
-	// this.txtDescripcion = txtDescripcion;
-	// }
-
-	public InputText getTxtUsuCreador() {
-		return txtUsuCreador;
-	}
-
-	public String getSomActivo() {
+    public String getSomActivo() {
 		return somActivo;
 	}
 
@@ -407,15 +416,13 @@ public class GluoSectorEjeDimensionView implements Serializable {
 
 	public List<SelectItem> getLosPlanDesarrolloItems() {
 		try {
-			if (losPlanDesarrolloItems == null) {
+			if(losPlanDesarrolloItems == null) {
 				losPlanDesarrolloItems = new ArrayList<SelectItem>();
 				List<GluoPlanDesarrollo> losGluoPlanDesarrollo = businessDelegatorView.getGluoPlanDesarrollo();
 				for (GluoPlanDesarrollo gluoPlanDesarrollo : losGluoPlanDesarrollo) {
-					// SelectItem selectItem = new
-					// SelectItem(gluoPlanDesarrollo.getPlanId(),gluoPlanDesarrollo.getDescripcion());
-					// losPlanDesarrolloItems.add(selectItem);
-					losPlanDesarrolloItems
-							.add(new SelectItem(gluoPlanDesarrollo.getPlanId(), gluoPlanDesarrollo.getDescripcion()));
+//					SelectItem selectItem = new SelectItem(gluoPlanDesarrollo.getPlanId(),gluoPlanDesarrollo.getDescripcion());
+//					losPlanDesarrolloItems.add(selectItem);
+					losPlanDesarrolloItems.add(new SelectItem(gluoPlanDesarrollo.getPlanId(),gluoPlanDesarrollo.getDescripcion()));
 				}
 			}
 		} catch (Exception e) {
@@ -445,122 +452,126 @@ public class GluoSectorEjeDimensionView implements Serializable {
 	}
 
 	public void setTxtUsuCreador(InputText txtUsuCreador) {
-		this.txtUsuCreador = txtUsuCreador;
-	}
+        this.txtUsuCreador = txtUsuCreador;
+    }
 
-	public InputText getTxtUsuModificador() {
-		return txtUsuModificador;
-	}
+    public InputText getTxtUsuModificador() {
+        return txtUsuModificador;
+    }
 
-	public void setTxtUsuModificador(InputText txtUsuModificador) {
-		this.txtUsuModificador = txtUsuModificador;
-	}
+    public void setTxtUsuModificador(InputText txtUsuModificador) {
+        this.txtUsuModificador = txtUsuModificador;
+    }
 
-	public InputText getTxtPlanId_GluoPlanDesarrollo() {
-		return txtPlanId_GluoPlanDesarrollo;
-	}
+    public InputText getTxtPlanId_GluoPlanDesarrollo() {
+        return txtPlanId_GluoPlanDesarrollo;
+    }
 
-	public void setTxtPlanId_GluoPlanDesarrollo(InputText txtPlanId_GluoPlanDesarrollo) {
-		this.txtPlanId_GluoPlanDesarrollo = txtPlanId_GluoPlanDesarrollo;
-	}
+    public void setTxtPlanId_GluoPlanDesarrollo(
+        InputText txtPlanId_GluoPlanDesarrollo) {
+        this.txtPlanId_GluoPlanDesarrollo = txtPlanId_GluoPlanDesarrollo;
+    }
 
-	public Calendar getTxtFechaCreacion() {
-		return txtFechaCreacion;
-	}
+    public Calendar getTxtFechaCreacion() {
+        return txtFechaCreacion;
+    }
 
-	public void setTxtFechaCreacion(Calendar txtFechaCreacion) {
-		this.txtFechaCreacion = txtFechaCreacion;
-	}
+    public void setTxtFechaCreacion(Calendar txtFechaCreacion) {
+        this.txtFechaCreacion = txtFechaCreacion;
+    }
 
-	public Calendar getTxtFechaModificacion() {
-		return txtFechaModificacion;
-	}
+    public Calendar getTxtFechaModificacion() {
+        return txtFechaModificacion;
+    }
 
-	public void setTxtFechaModificacion(Calendar txtFechaModificacion) {
-		this.txtFechaModificacion = txtFechaModificacion;
-	}
+    public void setTxtFechaModificacion(Calendar txtFechaModificacion) {
+        this.txtFechaModificacion = txtFechaModificacion;
+    }
 
-	public InputText getTxtSediId() {
-		return txtSediId;
-	}
+    public InputText getTxtSediId() {
+        return txtSediId;
+    }
 
-	public void setTxtSediId(InputText txtSediId) {
-		this.txtSediId = txtSediId;
-	}
+    public void setTxtSediId(InputText txtSediId) {
+        this.txtSediId = txtSediId;
+    }
 
-	public List<GluoSectorEjeDimensionDTO> getData() {
-		try {
-			if (data == null) {
-				data = businessDelegatorView.getDataGluoSectorEjeDimension();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+    public List<GluoSectorEjeDimensionDTO> getData() {
+        try {
+            if (data == null) {
+                data = businessDelegatorView.getDataGluoSectorEjeDimension();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-		return data;
-	}
+        return data;
+    }
 
-	public void setData(List<GluoSectorEjeDimensionDTO> gluoSectorEjeDimensionDTO) {
-		this.data = gluoSectorEjeDimensionDTO;
-	}
+    public void setData(
+        List<GluoSectorEjeDimensionDTO> gluoSectorEjeDimensionDTO) {
+        this.data = gluoSectorEjeDimensionDTO;
+    }
 
-	public GluoSectorEjeDimensionDTO getSelectedGluoSectorEjeDimension() {
-		return selectedGluoSectorEjeDimension;
-	}
+    public GluoSectorEjeDimensionDTO getSelectedGluoSectorEjeDimension() {
+        return selectedGluoSectorEjeDimension;
+    }
 
-	public void setSelectedGluoSectorEjeDimension(GluoSectorEjeDimensionDTO gluoSectorEjeDimension) {
-		this.selectedGluoSectorEjeDimension = gluoSectorEjeDimension;
-	}
+    public void setSelectedGluoSectorEjeDimension(
+        GluoSectorEjeDimensionDTO gluoSectorEjeDimension) {
+        this.selectedGluoSectorEjeDimension = gluoSectorEjeDimension;
+    }
 
-	public CommandButton getBtnSave() {
-		return btnSave;
-	}
+    public CommandButton getBtnSave() {
+        return btnSave;
+    }
 
-	public void setBtnSave(CommandButton btnSave) {
-		this.btnSave = btnSave;
-	}
+    public void setBtnSave(CommandButton btnSave) {
+        this.btnSave = btnSave;
+    }
 
-	public CommandButton getBtnModify() {
-		return btnModify;
-	}
+    public CommandButton getBtnModify() {
+        return btnModify;
+    }
 
-	public void setBtnModify(CommandButton btnModify) {
-		this.btnModify = btnModify;
-	}
+    public void setBtnModify(CommandButton btnModify) {
+        this.btnModify = btnModify;
+    }
 
-	public CommandButton getBtnDelete() {
-		return btnDelete;
-	}
+    public CommandButton getBtnDelete() {
+        return btnDelete;
+    }
 
-	public void setBtnDelete(CommandButton btnDelete) {
-		this.btnDelete = btnDelete;
-	}
+    public void setBtnDelete(CommandButton btnDelete) {
+        this.btnDelete = btnDelete;
+    }
 
-	public CommandButton getBtnClear() {
-		return btnClear;
-	}
+    public CommandButton getBtnClear() {
+        return btnClear;
+    }
 
-	public void setBtnClear(CommandButton btnClear) {
-		this.btnClear = btnClear;
-	}
+    public void setBtnClear(CommandButton btnClear) {
+        this.btnClear = btnClear;
+    }
 
-	public TimeZone getTimeZone() {
-		return java.util.TimeZone.getDefault();
-	}
+    public TimeZone getTimeZone() {
+        return java.util.TimeZone.getDefault();
+    }
 
-	public IBusinessDelegatorView getBusinessDelegatorView() {
-		return businessDelegatorView;
-	}
+    public IBusinessDelegatorView getBusinessDelegatorView() {
+        return businessDelegatorView;
+    }
 
-	public void setBusinessDelegatorView(IBusinessDelegatorView businessDelegatorView) {
-		this.businessDelegatorView = businessDelegatorView;
-	}
+    public void setBusinessDelegatorView(
+        IBusinessDelegatorView businessDelegatorView) {
+        this.businessDelegatorView = businessDelegatorView;
+    }
 
-	public boolean isShowDialog() {
-		return showDialog;
-	}
+    public boolean isShowDialog() {
+        return showDialog;
+    }
 
-	public void setShowDialog(boolean showDialog) {
-		this.showDialog = showDialog;
-	}
+    public void setShowDialog(boolean showDialog) {
+        this.showDialog = showDialog;
+    }
 }

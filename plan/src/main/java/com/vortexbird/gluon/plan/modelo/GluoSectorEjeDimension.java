@@ -77,6 +77,7 @@ public class GluoSectorEjeDimension implements java.io.Serializable {
     public void setGluoPlanDesarrollo(GluoPlanDesarrollo gluoPlanDesarrollo) {
         this.gluoPlanDesarrollo = gluoPlanDesarrollo;
     }
+    
 
     public String getActivo() {
         return this.activo;

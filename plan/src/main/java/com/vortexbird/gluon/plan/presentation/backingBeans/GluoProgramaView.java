@@ -40,12 +40,12 @@ public class GluoProgramaView implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private static final Logger log = LoggerFactory.getLogger(GluoProgramaView.class);
-
+	
 	private String somActivo;
 	private InputTextarea txtAreaDescripcion;
 
 	private List<SelectItem> losObjetivosItems;
-
+	
 	private SelectOneMenu somObjetivos;
 
 	private InputText txtUsuCreador;
@@ -124,10 +124,6 @@ public class GluoProgramaView implements Serializable {
 			btnSave.setDisabled(false);
 		}
 
-		if (btnDelete != null) {
-			btnDelete.setDisabled(true);
-		}
-
 		return "";
 	}
 
@@ -202,8 +198,8 @@ public class GluoProgramaView implements Serializable {
 		txtUsuCreador.setDisabled(false);
 		txtUsuModificador.setValue(selectedGluoPrograma.getUsuModificador());
 		txtUsuModificador.setDisabled(false);
-		// txtObjeId_GluoObjetivo.setValue(selectedGluoPrograma.getObjeId_GluoObjetivo());
-		// txtObjeId_GluoObjetivo.setDisabled(false);
+		//txtObjeId_GluoObjetivo.setValue(selectedGluoPrograma.getObjeId_GluoObjetivo());
+		//txtObjeId_GluoObjetivo.setDisabled(false);
 		txtProgId.setValue(selectedGluoPrograma.getProgId());
 		txtProgId.setDisabled(true);
 		btnSave.setDisabled(false);
@@ -232,33 +228,32 @@ public class GluoProgramaView implements Serializable {
 		try {
 			entity = new GluoPrograma();
 
-			// Integer progId = FacesUtils.checkInteger(txtProgId);
+			//Integer progId = FacesUtils.checkInteger(txtProgId);
 
-			entity.setActivo((somActivo));
+			entity.setActivo("A");
 			entity.setDescripcion(FacesUtils.checkString(txtAreaDescripcion));
 			entity.setFechaCreacion(new Date());
-
+			// entity.setFechaModificacion(FacesUtils.checkDate(
+			// txtFechaModificacion));
+			// entity.setProgId(progId);
 			SegUsuario segUsuario = (SegUsuario) FacesUtils.getfromSession("usuarioEnSession");
 			Integer usuaCreador = Integer.valueOf(segUsuario.getUsuId());
 			entity.setUsuCreador(usuaCreador);
 
+			//entity.setUsuCreador(FacesUtils.checkInteger(txtUsuCreador));
+			// entity.setUsuModificador(FacesUtils.checkInteger(txtUsuModificador));
+
 			Integer idObjetivo = Integer.valueOf(somObjetivos.getValue().toString());
 			GluoObjetivo gluoObjetivo = businessDelegatorView.getGluoObjetivo(idObjetivo);
 			entity.setGluoObjetivo(gluoObjetivo);
-
-			// entity.setFechaModificacion(FacesUtils.checkDate(
-			// txtFechaModificacion));
-			// entity.setProgId(progId);
-			// entity.setUsuCreador(FacesUtils.checkInteger(txtUsuCreador));
-			// entity.setUsuModificador(FacesUtils.checkInteger(txtUsuModificador));
 			// entity.setGluoObjetivo((FacesUtils.checkInteger(txtObjeId_GluoObjetivo) !=
 			// null)
 			// ?
 			// businessDelegatorView.getGluoObjetivo(FacesUtils.checkInteger(txtObjeId_GluoObjetivo))
 			// : null);
 			businessDelegatorView.saveGluoPrograma(entity);
-			FacesContext.getCurrentInstance().addMessage("", 
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "El Programa se ha almacenado con exito", ""));
+			FacesContext.getCurrentInstance().addMessage("",
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "El Programa se ingresó con exito", ""));
 			action_clear();
 		} catch (Exception e) {
 			entity = null;
@@ -277,17 +272,16 @@ public class GluoProgramaView implements Serializable {
 
 			entity.setActivo(somActivo);
 			entity.setDescripcion(FacesUtils.checkString(txtAreaDescripcion));
-
-			entity.setFechaModificacion(new Date());
+			//entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
+			 entity.setFechaModificacion(FacesUtils.checkDate(txtFechaModificacion));
 			SegUsuario segUsuario = (SegUsuario) FacesUtils.getfromSession("usuarioEnSession");
 			Integer usuaModificador = Integer.valueOf(segUsuario.getUsuId());
 			entity.setUsuModificador(usuaModificador);
-
+			
+			//entity.setUsuCreador(FacesUtils.checkInteger(txtUsuCreador));
 			Integer idObjetivo = Integer.valueOf(somObjetivos.getValue().toString());
 			GluoObjetivo gluoObjetivo = businessDelegatorView.getGluoObjetivo(idObjetivo);
 			entity.setGluoObjetivo(gluoObjetivo);
-			// entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-			// entity.setUsuCreador(FacesUtils.checkInteger(txtUsuCreador));
 			// entity.setUsuModificador(FacesUtils.checkInteger(txtUsuModificador));
 			// entity.setGluoObjetivo((FacesUtils.checkInteger(txtObjeId_GluoObjetivo) !=
 			// null)
@@ -295,8 +289,8 @@ public class GluoProgramaView implements Serializable {
 			// businessDelegatorView.getGluoObjetivo(FacesUtils.checkInteger(txtObjeId_GluoObjetivo))
 			// : null);
 			businessDelegatorView.updateGluoPrograma(entity);
-			FacesContext.getCurrentInstance().addMessage("", 
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "El Programa ha sido modificado", ""));
+			FacesContext.getCurrentInstance().addMessage("",
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "El Programa se modificó con exito", ""));
 		} catch (Exception e) {
 			data = null;
 			FacesUtils.addErrorMessage(e.getMessage());

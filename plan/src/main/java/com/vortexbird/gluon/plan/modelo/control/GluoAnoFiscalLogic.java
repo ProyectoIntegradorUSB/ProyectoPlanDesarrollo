@@ -118,12 +118,11 @@ public class GluoAnoFiscalLogic implements IGluoAnoFiscalLogic {
             }
 
             validateGluoAnoFiscal(entity);
-            
-            /*
+
             if (getGluoAnoFiscal(entity.getAnofId()) != null) {
                 throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
             }
-            */
+
             gluoAnoFiscalDAO.save(entity);
 
             log.debug("save GluoAnoFiscal successful");

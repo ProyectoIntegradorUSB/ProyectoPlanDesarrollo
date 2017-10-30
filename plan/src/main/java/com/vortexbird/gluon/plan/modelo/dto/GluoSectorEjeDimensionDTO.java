@@ -3,6 +3,8 @@ package com.vortexbird.gluon.plan.modelo.dto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.vortexbird.gluon.plan.modelo.GluoPlanDesarrollo;
+
 import java.io.Serializable;
 
 import java.sql.*;
@@ -27,6 +29,9 @@ public class GluoSectorEjeDimensionDTO implements Serializable {
     private Integer usuCreador;
     private Integer usuModificador;
     private Integer planId_GluoPlanDesarrollo;
+    private String nombreGluoPlanDesarrollo;
+    
+    
 
     public String getActivo() {
         return activo;
@@ -87,8 +92,18 @@ public class GluoSectorEjeDimensionDTO implements Serializable {
     public Integer getPlanId_GluoPlanDesarrollo() {
         return planId_GluoPlanDesarrollo;
     }
-
     public void setPlanId_GluoPlanDesarrollo(Integer planId_GluoPlanDesarrollo) {
         this.planId_GluoPlanDesarrollo = planId_GluoPlanDesarrollo;
     }
+
+    public String getNombreGluoPlanDesarrollo() {
+		return nombreGluoPlanDesarrollo;
+	}
+
+	public void setNombreGluoPlanDesarrollo(String nombreGluoPlanDesarrollo) {
+		this.nombreGluoPlanDesarrollo = nombreGluoPlanDesarrollo;
+	}
+	
+
+	
 }

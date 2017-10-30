@@ -109,11 +109,12 @@ public class SegUsuarioLogic implements ISegUsuarioLogic {
             }
 
             validateSegUsuario(entity);
-
+            
+            /*
             if (getSegUsuario(entity.getUsuId()) != null) {
                 throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
             }
-
+            */
             segUsuarioDAO.save(entity);
 
             log.debug("save SegUsuario successful");

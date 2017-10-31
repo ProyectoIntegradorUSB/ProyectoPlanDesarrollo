@@ -126,7 +126,32 @@ public class GluoPlanDesarrolloLogic implements IGluoPlanDesarrolloLogic {
         } finally {
         }
     }
+    /*
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+    public void inhabilitarGluoPlanDesarrollo(GluoPlanDesarrollo entity)
+        throws Exception {
+        log.debug("saving GluoPlanDesarrollo instance");
 
+        try {
+        	Integer val=entity.getPlanId();
+        	GluoSectorEjeDimension gluo= new GluoSectorEjeDimension();
+        	gluo.setGluoPlanDesarrollo(gluoPlanDesarrollo);
+            if (entity != null) {
+               
+            	entity.setActivo("I");
+            	
+            	
+            }
+
+
+            log.debug("save GluoPlanDesarrollo successful");
+        } catch (Exception e) {
+            log.error("save GluoPlanDesarrollo failed", e);
+            throw e;
+        } finally {
+        }
+    }
+*/
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     public void deleteGluoPlanDesarrollo(GluoPlanDesarrollo entity)
         throws Exception {

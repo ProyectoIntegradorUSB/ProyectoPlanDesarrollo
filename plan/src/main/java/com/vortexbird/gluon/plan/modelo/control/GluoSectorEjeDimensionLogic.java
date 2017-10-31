@@ -48,6 +48,8 @@ public class GluoSectorEjeDimensionLogic implements IGluoSectorEjeDimensionLogic
     @Autowired
     private IGluoSectorEjeDimensionDAO gluoSectorEjeDimensionDAO;
     @Autowired
+    private IGluoPlanDesarrolloDAO gluoPlanDesarrolloDAO;
+    @Autowired
     private IGluoSectorEjeDimensionMapper gluoSectorEjeDimensionMapper;
     @Autowired
     private Validator validator;
@@ -108,6 +110,29 @@ public class GluoSectorEjeDimensionLogic implements IGluoSectorEjeDimensionLogic
         }
 
         return list;
+    }
+    
+    @Transactional(readOnly=false,propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+    public List<GluoSectorEjeDimension> validadPadre()
+        throws Exception {
+    	List<GluoSectorEjeDimension> listaActivos= new ArrayList<GluoSectorEjeDimension>();
+    	
+    	try {
+    		listaActivos=gluoSectorEjeDimensionDAO.find("FROM GluoSectorEjeDimension se, GluoPlanDesarrollo pd WHERE se.plan_id=pd.plan_id and pd.activo='I'");
+    		for (GluoSectorEjeDimension gluoSectorEjeDimension : listaActivos) {
+    			gluoSectorEjeDimension.setActivo("I");
+    		}
+    		
+    	}catch(Exception e) {
+    		
+    		log.error("finding all GluoSectorEjeDimension failed", e);
+    		
+    		throw new ZMessManager().new GettingException(ZMessManager.ALL + "GluoSectorEjeDimension");
+    	}finally {
+    		
+    	}
+    	
+    	return listaActivos;
     }
     
     @Transactional(readOnly=true)

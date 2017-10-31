@@ -107,6 +107,7 @@ public class GluoAnoFiscalLogic implements IGluoAnoFiscalLogic {
         return list;
     }
     
+    
     @Transactional(readOnly=true)
     public List <GluoAnoFiscal> findAnoFiscalActivo()throws Exception{
     	
@@ -454,4 +455,8 @@ public class GluoAnoFiscalLogic implements IGluoAnoFiscalLogic {
 
         return list;
     }
+
+	
+
+	
 }

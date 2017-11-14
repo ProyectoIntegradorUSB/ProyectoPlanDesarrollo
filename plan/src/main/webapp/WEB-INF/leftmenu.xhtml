@@ -18,15 +18,21 @@
 			<ps:menu id="sm_leftmenu">
 
 
-	<p:menuitem value="Plan de Desarrollo Territorial" icon="icon-book"
-						url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/test.xhtml" />
-
+				<p:menuitem value="Modulo de Desarrollo Territorial"
+					icon="icon-book"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/test.xhtml" />
+					
+					<p:menuitem value="Modulo de Desarrollo Territorial Usuarios"
+					icon="icon-book"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/USER/test.xhtml" />
+					
+				
 				<p:menuitem value="Creación de usuarios" icon="icon-book"
 					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/segUsuario.xhtml" />
 
 				<p:submenu label="Administración de Planes Territoriales"
 					icon="ui-icon-document">
-				
+
 
 					<p:menuitem value="PlanDesarrollo"
 						url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/gluoPlanDesarrolloListDataTable.xhtml" />
@@ -54,7 +60,10 @@
 					<p:menuitem value="HistorialIndicador"
 						url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/gluoHistorialIndicadorListDataTable.xhtml" />
 
-					<p:menuitem value="SegUsuario"
+					<p:menuitem value="RolUsuario"
+						url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/segRolUsuario.xhtml" />
+
+					<p:menuitem value="Usuario"
 						url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/segUsuarioListDataTable.xhtml" />
 				</p:submenu>
 

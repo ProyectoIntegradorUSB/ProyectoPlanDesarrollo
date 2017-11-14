@@ -95,17 +95,17 @@ public class GluoHistorialIndicadorView implements Serializable {
 */
         if (txtUsuCreador != null) {
             txtUsuCreador.setValue(null);
-            txtUsuCreador.setDisabled(true);
+            txtUsuCreador.setDisabled(false);
         }
 
         if (txtUsuModificador != null) {
             txtUsuModificador.setValue(null);
-            txtUsuModificador.setDisabled(true);
+            txtUsuModificador.setDisabled(false);
         }
 
         if (txtValorReal != null) {
             txtValorReal.setValue(null);
-            txtValorReal.setDisabled(true);
+            txtValorReal.setDisabled(false);
         }
 
         if (txtIndiId_GluoIndicador != null) {
@@ -115,17 +115,17 @@ public class GluoHistorialIndicadorView implements Serializable {
 
         if (txtFecha != null) {
             txtFecha.setValue(null);
-            txtFecha.setDisabled(true);
+            txtFecha.setDisabled(false);
         }
 
         if (txtFechaCreacion != null) {
             txtFechaCreacion.setValue(null);
-            txtFechaCreacion.setDisabled(true);
+            txtFechaCreacion.setDisabled(false);
         }
 
         if (txtFechaModificacion != null) {
             txtFechaModificacion.setValue(null);
-            txtFechaModificacion.setDisabled(true);
+            txtFechaModificacion.setDisabled(false);
         }
 
         if (txtHiinId != null) {
@@ -134,7 +134,7 @@ public class GluoHistorialIndicadorView implements Serializable {
         }
 
         if (btnSave != null) {
-            btnSave.setDisabled(true);
+            btnSave.setDisabled(false);
         }
 
         if (btnDelete != null) {

@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import com.vortexbird.gluon.plan.modelo.SegRol;
 import com.vortexbird.gluon.plan.modelo.SegRolUsuario;
 import com.vortexbird.gluon.plan.modelo.SegUsuario;
 import com.vortexbird.gluon.plan.modelo.control.ISegRolUsuarioLogic;
@@ -48,15 +49,35 @@ public class ZathuraCodeAuthenticationProvider implements AuthenticationProvider
         	
         	 if (segUsuario!=null) {
                  final List<GrantedAuthority> grantedAuths = new ArrayList<GrantedAuthority>(); 
-                 grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
-                 grantedAuths.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+                 Object datosRol[] = new Object[4];
+                 datosRol[0]="segUsuario";
+                 datosRol[1]=false;
+                 datosRol[2]=segUsuario.getUsuId();
+                 datosRol[3]="=";
+                 
+                 FacesUtils.putinSession("usuarioEnSession", segUsuario);
+                 
+                 List<SegRolUsuario> segRolUsuario = businessDelegatorView.findByCriteriaInSegRolUsuario(datosRol, null, null);
+                 List<SegRol> segRol = new ArrayList<SegRol>();
+                 
+                 
+                 for (SegRolUsuario segRolUsuario2 : segRolUsuario) {
+					SegRol rol = businessDelegatorView.getSegRol(segRolUsuario2.getSegRol().getRolId());
+					segRol.add(rol);
+					grantedAuths.add(new SimpleGrantedAuthority("ROLE_"+rol.getNombre()));
+				}
+                 
+                 FacesUtils.putinSession("rol", segRol);
+                 
+//                 grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
+//                 grantedAuths.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
                  //grantedAuths.add(new SimpleGrantedAuthority(usuarios.getTiposUsuarios().getTusuNombre()));
                  
                  
                  final UserDetails principal = new User(name, password, grantedAuths);
                  final Authentication auth = new UsernamePasswordAuthenticationToken(principal,password, grantedAuths);
                  
-                 FacesUtils.putinSession("usuarioEnSession", segUsuario);
+                 
                  
                  return auth;
         	 } else {

@@ -111,9 +111,9 @@ public class GluoSectorEjeDimensionLogic implements IGluoSectorEjeDimensionLogic
 
         return list;
     }
-    
+    /*
     @Transactional(readOnly=false,propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
-    public List<GluoSectorEjeDimension> validadPadre()
+    public List<GluoSectorEjeDimension> validarPadre()
         throws Exception {
     	List<GluoSectorEjeDimension> listaActivos= new ArrayList<GluoSectorEjeDimension>();
     	
@@ -134,7 +134,7 @@ public class GluoSectorEjeDimensionLogic implements IGluoSectorEjeDimensionLogic
     	
     	return listaActivos;
     }
-    
+    */
     @Transactional(readOnly=true)
 	public List<GluoSectorEjeDimension> findSectorEjeDimensionActivo() throws Exception {
           List<GluoSectorEjeDimension> listaActivos= new ArrayList<GluoSectorEjeDimension>();

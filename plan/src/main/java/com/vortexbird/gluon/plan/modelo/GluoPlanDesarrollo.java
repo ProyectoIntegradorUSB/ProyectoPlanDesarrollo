@@ -34,7 +34,9 @@ public class GluoPlanDesarrollo implements java.io.Serializable {
     private Date anoFin;
     @NotNull
     private Date anoInicio;
+   
     private String descripcion;
+    
     private String eslogan;
     @NotNull
     private Date fechaCreacion;
@@ -42,6 +44,7 @@ public class GluoPlanDesarrollo implements java.io.Serializable {
     @NotNull
     @NotEmpty
     @Size(max = 255)
+    
     private String nombreAlcalde;
     @NotNull
     private Integer usuCreador;

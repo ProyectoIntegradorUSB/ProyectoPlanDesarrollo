@@ -36,6 +36,7 @@ public class GluoPrograma implements java.io.Serializable {
     @NotNull
     @NotEmpty
     @Size(max = 255)
+    
     private String descripcion;
     @NotNull
     private Date fechaCreacion;

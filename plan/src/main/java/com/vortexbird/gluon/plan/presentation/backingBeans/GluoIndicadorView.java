@@ -54,6 +54,8 @@ public class GluoIndicadorView implements Serializable {
     
     private List<SelectItem> losProyectosItems;
     private SelectOneMenu somProyecto;
+    
+    private SelectOneMenu somHistorial;
 
 	private InputTextarea txtAreaDescripcionIndicador;
     private InputTextarea txtAreaDescripcionLineaBase;
@@ -71,6 +73,7 @@ public class GluoIndicadorView implements Serializable {
     private CommandButton btnClear;
     private List<GluoIndicadorDTO> data;
     private GluoIndicadorDTO selectedGluoIndicador;
+    private GluoHistorialIndicador entityHistorial;
     private GluoIndicador entity;
     private boolean showDialog;
     @ManagedProperty(value = "#{BusinessDelegatorView}")
@@ -333,6 +336,10 @@ public class GluoIndicadorView implements Serializable {
 			SegUsuario segUsuario = (SegUsuario) FacesUtils.getfromSession("usuarioEnSession");
 			Integer usuaModificador = Integer.valueOf(segUsuario.getUsuId());
 			entity.setUsuModificador(usuaModificador);
+			
+			Integer idProyecto = Integer.valueOf(somProyecto.getValue().toString());
+			GluoProyecto gluoProyecto = businessDelegatorView.getGluoProyecto(idProyecto);
+			entity.setGluoProyecto(gluoProyecto);
        
             entity.setValorMeta(FacesUtils.checkDouble(txtValorMeta));
             /*
@@ -342,6 +349,19 @@ public class GluoIndicadorView implements Serializable {
                         txtProyId_GluoProyecto)) : null);
                         */
             businessDelegatorView.updateGluoIndicador(entity);
+            
+            entityHistorial = new GluoHistorialIndicador();
+            
+         
+            entityHistorial.setActivo("A");
+            entityHistorial.setValorReal(FacesUtils.checkDouble(txtValorMeta));
+            entityHistorial.setFechaCreacion(new Date());
+            entityHistorial.setUsuCreador(usuaModificador);
+            entityHistorial.setFecha(new Date());
+            entityHistorial.setGluoIndicador(entity);
+            
+            businessDelegatorView.saveGluoHistorialIndicador(entityHistorial);
+            
             FacesContext.getCurrentInstance().addMessage("",
 					new FacesMessage(FacesMessage.SEVERITY_INFO, "El indicador de proyecto se modificó con exito", ""));
         } catch (Exception e) {
@@ -458,6 +478,18 @@ public class GluoIndicadorView implements Serializable {
 
 	public void setLosProyectosItems(List<SelectItem> losProyectosItems) {
 		this.losProyectosItems = losProyectosItems;
+	}
+
+	
+	
+	
+	
+	public SelectOneMenu getSomHistorial() {
+		return somHistorial;
+	}
+
+	public void setSomHistorial(SelectOneMenu somHistorial) {
+		this.somHistorial = somHistorial;
 	}
 
 	public SelectOneMenu getSomProyecto() {

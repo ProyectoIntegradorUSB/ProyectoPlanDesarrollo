@@ -420,8 +420,6 @@ public class GluoSectorEjeDimensionView implements Serializable {
 				losPlanDesarrolloItems = new ArrayList<SelectItem>();
 				List<GluoPlanDesarrollo> losGluoPlanDesarrollo = businessDelegatorView.findPlanDesarrolloActivo();
 				for (GluoPlanDesarrollo gluoPlanDesarrollo : losGluoPlanDesarrollo) {
-//					SelectItem selectItem = new SelectItem(gluoPlanDesarrollo.getPlanId(),gluoPlanDesarrollo.getDescripcion());
-//					losPlanDesarrolloItems.add(selectItem);
 					losPlanDesarrolloItems.add(new SelectItem(gluoPlanDesarrollo.getPlanId(),gluoPlanDesarrollo.getDescripcion()));
 				}
 			}

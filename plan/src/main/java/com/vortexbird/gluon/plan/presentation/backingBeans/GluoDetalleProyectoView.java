@@ -276,8 +276,8 @@ public class GluoDetalleProyectoView implements Serializable {
 			Integer idAnoFiscal = Integer.valueOf(somAnoFiscal.getValue().toString());
 			GluoAnoFiscal gluoAnoFiscal = businessDelegatorView.getGluoAnoFiscal(idAnoFiscal);
 			entity.setGluoAnoFiscal(gluoAnoFiscal);
-			
-            entity.setValorTotalPresupuesto(FacesUtils.checkDouble(txtValorTotalPresupuesto));
+			Double vtTotalPresupuesto = Double.parseDouble(txtValorTotalPresupuesto.getValue().toString());
+            entity.setValorTotalPresupuesto(vtTotalPresupuesto);
 //            entity.setGluoAnoFiscal((FacesUtils.checkInteger(
 //                    txtAnofId_GluoAnoFiscal) != null)
 //                ? businessDelegatorView.getGluoAnoFiscal(

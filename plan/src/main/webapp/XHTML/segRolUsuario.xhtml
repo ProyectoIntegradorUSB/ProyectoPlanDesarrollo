@@ -1,54 +1,97 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-                template="/WEB-INF/template.xhtml">
-		 
-	<ui:define name="content">	
-			
-			
-			<h:form id="formDialog">
-				<p:messages id="msg" />
-				<p:growl id="men"/>
-					<p:panel id="panelSegRolUsuario" header="SegRolUsuario">							
-						<h:panelGrid columns="2" id="panelGrid" >
-												 	<h:outputText id="msgRlusId" value="RlusId"/>
-						 	<p:inputText id="txtRlusId" binding="#{segRolUsuarioView.txtRlusId}">
-						 		<p:ajax update="panelSegRolUsuario,msg,panelBotones" listener="#{segRolUsuarioView.listener_txtId}"/>
-						 	</p:inputText>	
-																		
-													<h:outputText id="msgActivo" value=" Activo"/>
-							<p:inputText id="txtActivo" disabled="true" binding="#{segRolUsuarioView.txtActivo}"/>
-													<h:outputText id="msgUsuCreador" value=" UsuCreador"/>
-							<p:inputText id="txtUsuCreador" disabled="true" binding="#{segRolUsuarioView.txtUsuCreador}"/>
-													<h:outputText id="msgUsuModificador" value=" UsuModificador"/>
-							<p:inputText id="txtUsuModificador" disabled="true" binding="#{segRolUsuarioView.txtUsuModificador}"/>
-													<h:outputText id="msgRolId_SegRol" value=" RolId_SegRol"/>
-							<p:inputText id="txtRolId_SegRol" disabled="true" binding="#{segRolUsuarioView.txtRolId_SegRol}"/>
-													<h:outputText id="msgUsuId_SegUsuario" value=" UsuId_SegUsuario"/>
-							<p:inputText id="txtUsuId_SegUsuario" disabled="true" binding="#{segRolUsuarioView.txtUsuId_SegUsuario}"/>
-												
-																				<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
-														<p:calendar showOn="button" navigator="true" locale="en" 
-							binding="#{segRolUsuarioView.txtFechaCreacion}" >
-								<p:ajax event="dateSelect" listener="#{segRolUsuarioView.listener_txtFechaCreacion}"  />
-							</p:calendar>
-														<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
-														<p:calendar showOn="button" navigator="true" locale="en" 
-							binding="#{segRolUsuarioView.txtFechaModificacion}" >
-								<p:ajax event="dateSelect" listener="#{segRolUsuarioView.listener_txtFechaModificacion}"  />
-							</p:calendar>
-																	   </h:panelGrid>
-				</p:panel>
-	   			<p:panel id="panelBotones">
-					<div align="center">					
-						<p:commandButton id="btnSave" binding="#{segRolUsuarioView.btnSave}" disabled="true" value="Save" action="#{segRolUsuarioView.action_save()}" update="panelSegRolUsuario, msg, panelBotones, men" />
-						<p:commandButton id="btnDelete" binding="#{segRolUsuarioView.btnDelete}" disabled="true" value="Delete" action="#{segRolUsuarioView.action_delete_master()}" onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}" update="panelSegRolUsuario, msg, panelBotones, men" />
-						<p:commandButton id="btnClear" value="Clear" action="#{segRolUsuarioView.action_clear()}" update="panelSegRolUsuario, msg, panelBotones, men" />
-					</div>
-				</p:panel>			
-			</h:form>
-			
-  </ui:define>
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+
+
+		<h:form id="formDialog">
+			<p:messages id="msg" />
+			<p:growl id="men" />
+			<p:panel id="panelRolUsuario" header="Asignacion de Roles">
+				<h:panelGrid columns="2" id="panelGrid">
+
+
+					<h:outputText value="Usuario" />
+					<p:selectOneMenu binding="#{segRolUsuarioView.somUsuarios}"
+						id="somUsuario">
+
+						<f:selectItems value="#{segRolUsuarioView.losUsuariosItems}" />
+					</p:selectOneMenu>
+
+
+					<h:outputText value="Rol a asignar" />
+					<p:selectOneMenu binding="#{segRolUsuarioView.somRoles}"
+						id="somRoles">
+
+						<f:selectItems value="#{segRolUsuarioView.losRolesItems}" />
+					</p:selectOneMenu>
+
+
+
+
+
+				</h:panelGrid>
+			</p:panel>
+			<p:panel id="panelBotones">
+				<div align="center">
+					<p:commandButton id="btnSave"
+						binding="#{segRolUsuarioView.btnSave}" disabled="false"
+						value="Guardar" action="#{segRolUsuarioView.action_save()}"
+						update="panelRolUsuario, msg, panelBotones, men,panelDataTableRolUsuario" />
+
+				</div>
+			</p:panel>
+
+			<p:panel id="panelDataTableRolUsuario"
+				header="Roles Asignados a usuarios">
+				<p:dataTable value="#{segRolUsuarioView.data}" var="rolUsuario"
+					paginator="true" rows="5">
+
+					<p:column filterBy="#{rolUsuario.rlusId}"
+						sortBy="#{rolUsuario.rlusId}">
+						<f:facet name="header">
+							<h:outputText value="ID de ROL-Usuario" />
+						</f:facet>
+						<h:outputText value="#{rolUsuario.rlusId}" />
+					</p:column>
+
+					<p:column filterBy="rolUsuario.activo"
+						sortBy="rolUsuario.activo">
+						<f:facet name="header">
+							<h:outputText value="Estado" />
+						</f:facet>
+						<h:outputText value="#{rolUsuario.activo}" />
+					</p:column>
+
+					<p:column filterBy="#{rolUsuario.fechaCreacion}"
+						sortBy="#{rolUsuario.fechaCreacion}">
+						<f:facet name="header">
+							<h:outputText value="Fecha de Asignacion" />
+						</f:facet>
+						<h:outputText value="#{rolUsuario.fechaCreacion}" />
+					</p:column>
+
+					<p:column filterBy="#{rolUsuario.rolId_SegRol}"
+						sortBy="#{rolUsuario.rolId_SegRol}">
+						<f:facet name="header">
+							<h:outputText value="ID de Rol" />
+						</f:facet>
+						<h:outputText value="#{rolUsuario.rolId_SegRol}" />
+					</p:column>
+
+					<p:column filterBy="#{rolUsuario.usuId_SegUsuario}"
+						sortBy="#{rolUsuario.usuId_SegUsuario}">
+						<f:facet name="header">
+							<h:outputText value="ID del Usuario" />
+						</f:facet>
+						<h:outputText value="#{rolUsuario.usuId_SegUsuario}" />
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+		</h:form>
+
+	</ui:define>
 </ui:composition>

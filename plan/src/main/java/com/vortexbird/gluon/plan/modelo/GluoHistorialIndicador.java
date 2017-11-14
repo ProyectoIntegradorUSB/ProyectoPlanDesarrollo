@@ -39,6 +39,7 @@ public class GluoHistorialIndicador implements java.io.Serializable {
     private Integer usuCreador;
     private Integer usuModificador;
     @NotNull
+   
     private Double valorReal;
 
     public GluoHistorialIndicador() {

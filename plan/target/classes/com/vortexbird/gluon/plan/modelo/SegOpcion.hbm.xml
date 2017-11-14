@@ -6,7 +6,7 @@
     <class name="com.vortexbird.gluon.plan.modelo.SegOpcion" table="seg_opcion" schema="public" optimistic-lock="version">
         <id name="opcnId" type="java.lang.Integer">
             <column name="opcn_id" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
         <property name="activo" type="java.lang.String">
             <column name="activo" length="1" not-null="true" />

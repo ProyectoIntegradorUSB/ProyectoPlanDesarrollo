@@ -35,14 +35,17 @@ public class GluoIndicador implements java.io.Serializable {
     @NotNull
     @NotEmpty
     @Size(max = 255)
+    
     private String descripcionIndicador;
     @NotNull
     @NotEmpty
     @Size(max = 255)
+    
     private String descripcionLineaBase;
     @NotNull
     @NotEmpty
     @Size(max = 255)
+    
     private String descripcionMeta;
     @NotNull
     private Date fechaCreacion;
@@ -51,6 +54,7 @@ public class GluoIndicador implements java.io.Serializable {
     private Integer usuCreador;
     private Integer usuModificador;
     @NotNull
+    
     private Double valorMeta;
     private Set<GluoHistorialIndicador> gluoHistorialIndicadors = new HashSet<GluoHistorialIndicador>(0);
 

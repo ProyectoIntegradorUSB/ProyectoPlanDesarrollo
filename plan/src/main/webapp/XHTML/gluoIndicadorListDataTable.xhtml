@@ -147,6 +147,14 @@
 							<f:selectItem itemLabel="A" itemValue="A" />
 							<f:selectItem itemLabel="I" itemValue="I" />
 						</p:selectOneMenu>
+
+						<h:outputText value="Proyecto" />
+						<p:selectOneMenu binding="#{gluoIndicadorView.somProyecto}"
+							id="somIndicadorProyecto">
+
+							<f:selectItems value="#{gluoIndicadorView.losProyectosItems}" />
+						</p:selectOneMenu>
+
 						<h:outputText id="msgDescripcionIndicador"
 							value=" DescripcionIndicador" />
 						<p:inputTextarea id="txtDescripcionIndicador" disabled="true"
@@ -167,10 +175,7 @@
 						<h:outputText id="msgValorMeta" value=" ValorMeta" />
 						<p:inputText id="txtValorMeta" disabled="true"
 							binding="#{gluoIndicadorView.txtValorMeta}" />
-						<h:outputText id="msgProyId_GluoProyecto"
-							value=" ProyId_GluoProyecto" />
-						<p:inputText id="txtProyId_GluoProyecto" disabled="true"
-							binding="#{gluoIndicadorView.txtProyId_GluoProyecto}" />
+
 
 						<h:outputText id="msgFechaCreacion" value=" FechaCreacion" />
 						<p:calendar showOn="button" navigator="true" locale="en"
@@ -189,13 +194,13 @@
 				<p:panel id="panelBotones">
 					<div align="center">
 						<p:commandButton id="btnSave"
-							binding="#{gluoIndicadorView.btnSave}" value="Save"
+							binding="#{gluoIndicadorView.btnSave}" value="Guardar"
 							action="#{gluoIndicadorView.action_save()}"
 							update=":dialogGluoIndicador :frm:panelDataTableGluoIndicador" />
-						<p:commandButton id="btnClear" value="Clear"
+						<p:commandButton id="btnClear" value="Limpiar"
 							action="#{gluoIndicadorView.action_clear()}"
 							update=":dialogGluoIndicador" />
-						<p:commandButton id="btnExit" value="Exit"
+						<p:commandButton id="btnExit" value="Salir"
 							action="#{gluoIndicadorView.action_closeDialog()}"
 							update=":dialogGluoIndicador" />
 					</div>

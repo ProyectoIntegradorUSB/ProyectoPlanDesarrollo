@@ -1,5 +1,7 @@
 package com.vortexbird.gluon.plan.presentation.backingBeans;
 
+import com.vortexbird.gluon.plan.dataaccess.dao.SegRolUsuarioDAO;
+import com.vortexbird.gluon.plan.dto.mapper.SegRolUsuarioMapper;
 import com.vortexbird.gluon.plan.exceptions.*;
 import com.vortexbird.gluon.plan.modelo.*;
 import com.vortexbird.gluon.plan.modelo.dto.SegUsuarioDTO;
@@ -9,6 +11,7 @@ import com.vortexbird.gluon.plan.utilities.*;
 import org.primefaces.component.calendar.*;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
+import org.primefaces.component.password.Password;
 import org.primefaces.component.selectonemenu.SelectOneMenu;
 import org.primefaces.event.RowEditEvent;
 
@@ -24,6 +27,7 @@ import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.TimeZone;
@@ -50,6 +54,10 @@ public class SegUsuarioView implements Serializable {
     
     
     private List<SelectItem> losRolesItems;
+    private List<String> roles;
+    private String[] selectedRoles2;
+    private String[] selectedRoles;
+
 	private SelectOneMenu somRoles;
 	
 	private String somActivo;
@@ -58,7 +66,8 @@ public class SegUsuarioView implements Serializable {
     private InputText txtUsuCreador;
     private InputText txtUsuLogin;
     private InputText txtUsuModificador;
-    private InputText txtUsuPassword;
+    private Password txtUsuPassword;
+    private Password txtUsuRepetirPassword;
     private InputText txtUsuId;
     private Calendar txtFechaCreacion;
     private Calendar txtFechaModificacion;
@@ -69,6 +78,7 @@ public class SegUsuarioView implements Serializable {
     private List<SegUsuarioDTO> data;
     private SegUsuarioDTO selectedSegUsuario;
     private SegUsuario entity;
+    private SegRolUsuario entityRolUsuario;
     private boolean showDialog;
     @ManagedProperty(value = "#{BusinessDelegatorView}")
     private IBusinessDelegatorView businessDelegatorView;
@@ -80,6 +90,7 @@ public class SegUsuarioView implements Serializable {
     public String action_new() {
         action_clear();
         selectedSegUsuario = null;
+        entityRolUsuario = null;
         setShowDialog(true);
 
         return "";
@@ -104,7 +115,7 @@ public class SegUsuarioView implements Serializable {
 
 
         if (btnSave != null) {
-            btnSave.setDisabled(true);
+            btnSave.setDisabled(false);
         }
 
         if (btnDelete != null) {
@@ -203,6 +214,7 @@ public class SegUsuarioView implements Serializable {
         try {
             if ((selectedSegUsuario == null) && (entity == null)) {
                 action_create();
+                action_clear();
             } else {
                 action_modify();
             }
@@ -218,7 +230,7 @@ public class SegUsuarioView implements Serializable {
     public String action_create() {
         try {
             entity = new SegUsuario();
-
+            entityRolUsuario = new SegRolUsuario();
             //Integer usuId = FacesUtils.checkInteger(txtUsuId);
 
             entity.setActivo("A");
@@ -229,11 +241,30 @@ public class SegUsuarioView implements Serializable {
 			entity.setUsuCreador(usuaCreador);
 			
             entity.setUsuLogin(FacesUtils.checkString(txtUsuLogin));
+            
+            if(FacesUtils.checkString(txtUsuRepetirPassword).equals(FacesUtils.checkString(txtUsuPassword))) {
             entity.setUsuPassword(FacesUtils.checkString(txtUsuPassword));
+            
+            
             businessDelegatorView.saveSegUsuario(entity);
+            
+            
+            Integer idSegRol = Integer.parseInt(somRoles.getValue().toString());
+            SegRol segRol = businessDelegatorView.getSegRol(idSegRol);
+            entityRolUsuario.setSegRol(segRol);
+            entityRolUsuario.setActivo("A");
+            entityRolUsuario.setSegUsuario(entity);
+            entityRolUsuario.setFechaCreacion(new Date());
+            entityRolUsuario.setUsuCreador(usuaCreador);
+            
+            businessDelegatorView.saveSegRolUsuario(entityRolUsuario);
+            
             FacesContext.getCurrentInstance().addMessage("",
 					new FacesMessage(FacesMessage.SEVERITY_INFO, "El usuario se creó con exito", ""));
-            action_clear();
+            }else {
+            	FacesContext.getCurrentInstance().addMessage("",
+    					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Las contraseñas no coinciden", ""));
+            }
         } catch (Exception e) {
             entity = null;
             FacesUtils.addErrorMessage(e.getMessage());
@@ -335,8 +366,40 @@ public class SegUsuarioView implements Serializable {
 
         return "";
     }
-    
-    
+	public String[] getSelectedRoles() {
+		return selectedRoles;
+	}
+
+	public void setSelectedRoles(String[] selectedRoles) {
+		this.selectedRoles = selectedRoles;
+	}
+	
+    public String[] getSelectedRoles2() {
+		return selectedRoles;
+	}
+
+	public void setSelectedRoles2(String[] selectedRoles2) {
+		this.selectedRoles2 = selectedRoles2;
+	}
+
+	public List<String> getRoles() {
+    	try {
+    		if(roles== null) {
+    			roles = new ArrayList<>();
+    			List<SegRol> losRoles = businessDelegatorView.getSegRol();
+    			for (SegRol segRol : losRoles) {
+					roles.add(segRol.getNombre());
+				}
+    		}
+    	}catch (Exception e) {
+    		FacesUtils.addErrorMessage(e.getMessage());
+		}
+		return roles;
+	}
+
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
+	}
 
     public List<SelectItem> getLosRolesItems() {
     	try {
@@ -398,15 +461,25 @@ public class SegUsuarioView implements Serializable {
         this.txtUsuModificador = txtUsuModificador;
     }
 
-    public InputText getTxtUsuPassword() {
-        return txtUsuPassword;
-    }
+    
 
-    public void setTxtUsuPassword(InputText txtUsuPassword) {
-        this.txtUsuPassword = txtUsuPassword;
-    }
+    public Password getTxtUsuRepetirPassword() {
+		return txtUsuRepetirPassword;
+	}
 
-    public Calendar getTxtFechaCreacion() {
+	public void setTxtUsuRepetirPassword(Password txtUsuRepetirPassword) {
+		this.txtUsuRepetirPassword = txtUsuRepetirPassword;
+	}
+
+	public Password getTxtUsuPassword() {
+		return txtUsuPassword;
+	}
+
+	public void setTxtUsuPassword(Password txtUsuPassword) {
+		this.txtUsuPassword = txtUsuPassword;
+	}
+
+	public Calendar getTxtFechaCreacion() {
         return txtFechaCreacion;
     }
 

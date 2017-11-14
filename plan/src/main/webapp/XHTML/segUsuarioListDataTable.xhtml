@@ -128,7 +128,7 @@
 						<p:inputText id="txtUsuModificador" disabled="true"
 							binding="#{segUsuarioView.txtUsuModificador}" />
 						<h:outputText id="msgUsuPassword" value=" UsuPassword" />
-						<p:inputText id="txtUsuPassword" disabled="true"
+						<p:password id="txtUsuPassword" disabled="true"
 							binding="#{segUsuarioView.txtUsuPassword}" />
 
 						<h:outputText id="msgFechaCreacion" value=" FechaCreacion" />
@@ -148,12 +148,12 @@
 				<p:panel id="panelBotones">
 					<div align="center">
 						<p:commandButton id="btnSave" binding="#{segUsuarioView.btnSave}"
-							value="Save" action="#{segUsuarioView.action_save()}"
+							value="Guardar" action="#{segUsuarioView.action_save()}"
 							update=":dialogSegUsuario :frm:panelDataTableSegUsuario" />
-						<p:commandButton id="btnClear" value="Clear"
+						<p:commandButton id="btnClear" value="Limpiar"
 							action="#{segUsuarioView.action_clear()}"
 							update=":dialogSegUsuario" />
-						<p:commandButton id="btnExit" value="Exit"
+						<p:commandButton id="btnExit" value="Salir"
 							action="#{segUsuarioView.action_closeDialog()}"
 							update=":dialogSegUsuario" />
 					</div>

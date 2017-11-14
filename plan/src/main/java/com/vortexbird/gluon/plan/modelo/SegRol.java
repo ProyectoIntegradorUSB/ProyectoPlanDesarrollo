@@ -36,6 +36,7 @@ public class SegRol implements java.io.Serializable {
     @NotNull
     @NotEmpty
     @Size(max = 255)
+   
     private String nombre;
     @NotNull
     private Integer usuCreador;

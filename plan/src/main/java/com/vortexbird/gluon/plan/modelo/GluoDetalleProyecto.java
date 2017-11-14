@@ -42,6 +42,7 @@ public class GluoDetalleProyecto implements java.io.Serializable {
     private Integer usuCreador;
     private Integer usuModificador;
     @NotNull
+    
     private Double valorTotalPresupuesto;
     private Set<GluoDetalleProyectoXRubro> gluoDetalleProyectoXRubros = new HashSet<GluoDetalleProyectoXRubro>(0);
 

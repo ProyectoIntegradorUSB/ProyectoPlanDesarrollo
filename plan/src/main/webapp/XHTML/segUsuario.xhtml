@@ -20,8 +20,12 @@
 						binding="#{segUsuarioView.txtUsuLogin}" />
 
 					<h:outputText id="msgUsuPassword" value="Password" />
-					<p:inputText id="txtUsuPassword" disabled="false"
+					<p:password id="txtUsuPassword" disabled="false"
 						binding="#{segUsuarioView.txtUsuPassword}" />
+						
+						<h:outputText id="msgUsuRepetirPassword" value="Repetir Password" />
+					<p:password id="txtUsuRepetirPassword" disabled="false"
+						binding="#{segUsuarioView.txtUsuRepetirPassword}" />
 						
 						<h:outputText value="Rol" />
 							<p:selectOneMenu
@@ -40,9 +44,50 @@
 					<p:commandButton id="btnSave" binding="#{segUsuarioView.btnSave}"
 						disabled="false" value="Guardar Usuario"
 						action="#{segUsuarioView.action_save()}"
-						update="panelSegUsuario, msg, panelBotones, men" />
+						update="panelSegUsuario, msg, panelBotones, men,panelDataTableUsuario " />
 				</div>
 			</p:panel>
+			
+			<p:panel id="panelDataTableUsuario"
+				header="Usuarios">
+				<p:dataTable value="#{segUsuarioView.data}" var="usuario"
+					paginator="true" rows="5">
+
+					<p:column filterBy="#{usuario.usuId}"
+						sortBy="#{usuario.usuId}">
+						<f:facet name="header">
+							<h:outputText value="ID de Usuario" />
+						</f:facet>
+						<h:outputText value="#{usuario.usuId}" />
+					</p:column>
+
+					<p:column filterBy="usuario.activo"
+						sortBy="usuario.activo">
+						<f:facet name="header">
+							<h:outputText value="Estado" />
+						</f:facet>
+						<h:outputText value="#{usuario.activo}" />
+					</p:column>
+
+					<p:column filterBy="#{usuario.usuLogin}"
+						sortBy="#{usuario.usuLogin}">
+						<f:facet name="header">
+							<h:outputText value="Usuario" />
+						</f:facet>
+						<h:outputText value="#{usuario.usuLogin}" />
+					</p:column>
+
+					<p:column filterBy="#{usuario.usuPassword}"
+						sortBy="#{usuario.usuPassword}">
+						<f:facet name="header">
+							<h:outputText value="ID de Rol" />
+						</f:facet>
+						<h:outputText value="#{usuario.usuPassword}" />
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+			
+			
 		</h:form>
 
 	</ui:define>

@@ -35,6 +35,7 @@ public class GluoDetalleProyectoXRubro implements java.io.Serializable {
     @NotNull
     @NotEmpty
     @Size(max = 255)
+    
     private String descripcion;
     @NotNull
     private Date fechaCreacion;
@@ -43,6 +44,7 @@ public class GluoDetalleProyectoXRubro implements java.io.Serializable {
     private Integer usuCreador;
     private Integer usuModificador;
     @NotNull
+    
     private Double valor;
 
     public GluoDetalleProyectoXRubro() {
